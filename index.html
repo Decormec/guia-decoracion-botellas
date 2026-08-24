@@ -127,8 +127,20 @@ h1,h2,h3{
   position:relative;
   overflow:hidden;
 }
+.hero-halo{
+  position:absolute;
+  top:-6%;
+  right:-8%;
+  width:52%;
+  min-width:420px;
+  opacity:0.16;
+  pointer-events:none;
+  z-index:0;
+}
 .hero-wrap{
   display:flex; flex-direction:column; align-items:center; text-align:center;
+  position:relative;
+  z-index:1;
 }
 .hero-script{
   font-family:var(--font);
@@ -159,13 +171,10 @@ h1,h2,h3{
   z-index:1;
 }
 .hero-logo{
-  display:flex; align-items:center; gap:10px;
-  color:#fff;
-  font-family:var(--font);
-  font-weight:800;
-  font-size:18px;
+  display:flex; align-items:center;
+  position:relative; z-index:1;
 }
-.hero-logo svg{ width:28px; height:auto; }
+.hero-logo img{ width:150px; height:auto; }
 
 /* ---------- SECTION SCAFFOLDING ---------- */
 section{ padding:96px 0; }
@@ -478,16 +487,13 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
 </nav>
 
 <header class="hero">
+  <img class="hero-halo" src="assets/halo.svg" alt="" aria-hidden="true">
   <div class="wrap hero-wrap">
     <h1 class="hero-script">Guía de<br>decoración</h1>
     <span class="hero-badge">Envases</span>
 
     <div class="hero-logo">
-      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M4 6 L16 16 L4 26" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M13 6 L25 16 L13 26" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/>
-      </svg>
-      Decormec
+      <img src="assets/decormec-logo.svg" alt="Decormec">
     </div>
   </div>
 </header>
