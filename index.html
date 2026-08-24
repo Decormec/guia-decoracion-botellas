@@ -12,8 +12,7 @@
 :root{
   --navy:#0F1B45;
   --navy-2:#16224F;
-  --blue:#2E5CFF;
-  --blue-dark:#1E40C7;
+  --blue:#1E40C7;
   --blue-soft:#EAEFFF;
   --bg:#F5F7FC;
   --surface:#FFFFFF;
@@ -214,25 +213,40 @@ section{ padding:96px 0; }
 .material-panel img{ width:100%; height:auto; display:block; }
 
 .subhead{
-  font-size:clamp(24px,3vw,32px);
-  margin-bottom:14px;
+  font-family:var(--font);
+  font-weight:600;
+  font-size:clamp(20px,2.4vw,24px);
+  letter-spacing:-0.01em;
+  color:var(--navy);
+  margin-bottom:6px;
 }
 .subhead + .section-intro{ margin-top:0; margin-bottom:28px; }
 
 .obtain-grid{
-  display:grid; grid-template-columns:1fr 1fr; gap:24px;
-  margin-bottom:80px;
+  display:grid; grid-template-columns:1fr 1fr; gap:20px;
+  margin-bottom:56px;
 }
 @media (max-width:720px){ .obtain-grid{grid-template-columns:1fr;} }
-.obtain-card{ text-align:center; }
-.obtain-card h3{ font-size:19px; margin-bottom:16px; }
-.obtain-card p{
-  background:var(--blue-soft);
-  color:var(--navy);
-  border-radius:16px;
-  padding:22px 24px;
-  font-size:14px; font-weight:500; line-height:1.65;
+
+.prep-note{
+  margin:0 0 64px;
+  padding:18px 22px;
+  border-radius:14px;
+  border:1px solid var(--line);
+  background:var(--bg);
 }
+.prep-note-title{
+  font-size:12.5px; font-weight:700; color:var(--text-soft);
+  margin-bottom:12px;
+}
+.prep-note-items{
+  display:grid; grid-template-columns:1fr 1fr; gap:14px;
+}
+@media (max-width:640px){ .prep-note-items{grid-template-columns:1fr;} }
+.prep-note-item{ display:flex; gap:10px; align-items:flex-start; }
+.prep-note-item svg{ width:16px; height:16px; margin-top:2px; stroke:var(--taupe); flex-shrink:0; }
+.prep-note-item b{ display:block; font-size:12.5px; font-weight:700; color:var(--text-soft); }
+.prep-note-item span{ font-size:12px; font-weight:500; color:var(--text-soft); }
 
 .factor-grid{
   display:grid;
@@ -485,40 +499,45 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
       <img src="assets/envases-materiales.jpg" alt="Envases de vidrio, aluminio, cerámica y plástico que trabajamos">
     </div>
 
-    <h3 class="subhead">¿No viene listo para decorar?</h3>
-    <p class="section-intro">Si el envase lo necesita, ofrecemos procesos previos para dejarlo en condiciones de recibir la decoración.</p>
-    <div class="obtain-grid" style="margin-top:32px;">
+    <h3 class="subhead">¿Cómo obtener tu envase?</h3>
+    <div class="obtain-grid">
       <div class="factor-card">
         <div class="factor-head">
           <div class="factor-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c-1 4-5 5-5 10a5 5 0 0 0 10 0c0-1.5-.7-2.5-1.5-3.5.2 2-.8 3-1.8 3-1.2 0-1.7-1-1.2-2.2C13.2 7 12.5 4 12 2Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="6"/><line x1="20" y1="20" x2="14.5" y2="14.5"/></svg>
           </div>
-          <h3>Quemado de etiquetas</h3>
+          <h3>Buscamos tu envase ideal</h3>
         </div>
-        <span class="idx">¿El envase llega con etiquetas o restos de adhesivo?</span>
-        <p>Eliminamos etiquetas y restos de adhesivo del vidrio para dejar la superficie limpia y lista para decorar.</p>
+        <p>Te ayudamos a encontrar el envase ideal, trabajando junto a los principales fabricantes y proveedores de Argentina y del exterior.</p>
       </div>
       <div class="factor-card">
         <div class="factor-head">
           <div class="factor-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2s7 8 7 13a7 7 0 0 1-14 0c0-5 7-13 7-13Z"/><line x1="4" y1="20" x2="20" y2="4"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="12" height="12" rx="1.5"/><path d="M9 7V5a2 2 0 0 1 2-2h1"/><path d="M17 13h4M21 13l-2.5-2.5M21 13l-2.5 2.5"/></svg>
           </div>
-          <h3>Remoción de capa antiadherente</h3>
+          <h3>Trae tu envase</h3>
         </div>
-        <span class="idx">¿El envase ya trae una capa antipintura?</span>
-        <p>Si el envase trae una capa antipintura de fábrica, la retiramos para que la tinta pueda adherirse correctamente.</p>
+        <p>Si ya tenés tu propio envase, lo analizamos y te asesoramos sobre las posibilidades de decoración.</p>
       </div>
     </div>
 
-    <h3 class="subhead">¿Cómo obtener tu envase?</h3>
-    <div class="obtain-grid">
-      <div class="obtain-card">
-        <h3>Buscamos tu envase ideal</h3>
-        <p>Te ayudamos a encontrar el envase ideal, trabajando junto a los principales fabricantes y proveedores de Argentina y del exterior.</p>
-      </div>
-      <div class="obtain-card">
-        <h3>Trae tu envase</h3>
-        <p>Si ya tenés tu propio envase, lo analizamos y te asesoramos sobre las posibilidades de decoración.</p>
+    <div class="prep-note">
+      <p class="prep-note-title">¿No viene listo para decorar? Si lo necesita, ofrecemos procesos previos:</p>
+      <div class="prep-note-items">
+        <div class="prep-note-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c-1 4-5 5-5 10a5 5 0 0 0 10 0c0-1.5-.7-2.5-1.5-3.5.2 2-.8 3-1.8 3-1.2 0-1.7-1-1.2-2.2C13.2 7 12.5 4 12 2Z"/></svg>
+          <div>
+            <b>Quemado de etiquetas</b>
+            <span>Eliminamos etiquetas y restos de adhesivo del vidrio.</span>
+          </div>
+        </div>
+        <div class="prep-note-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2s7 8 7 13a7 7 0 0 1-14 0c0-5 7-13 7-13Z"/><line x1="4" y1="20" x2="20" y2="4"/></svg>
+          <div>
+            <b>Remoción de capa antiadherente</b>
+            <span>Si trae una capa antipintura de fábrica, la retiramos.</span>
+          </div>
+        </div>
       </div>
     </div>
 
