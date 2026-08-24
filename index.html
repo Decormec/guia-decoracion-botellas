@@ -327,7 +327,21 @@ section{ padding:96px 0; }
   display:flex; flex-direction:column; align-items:center;
   gap:20px;
 }
-.bottle-stage svg{ width:150px; height:auto; }
+.bottle-photo{
+  position:relative;
+  width:150px; height:375px;
+}
+.bottle-photo img{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:contain; object-position:center bottom;
+  filter:drop-shadow(0 18px 22px rgba(15,27,69,0.14));
+}
+.intro-invite{ display:flex; flex-direction:column; justify-content:center; }
+.field-label{
+  font-family:var(--font); font-size:12px; font-weight:700; color:var(--taupe);
+  text-transform:uppercase; letter-spacing:0.04em; margin-bottom:10px;
+}
 
 /* ficha tecnica — signature element, modernizada */
 .spec-tag{
@@ -419,9 +433,12 @@ section{ padding:96px 0; }
   width:52px; height:52px; border-radius:50%;
   border:1px solid var(--line);
   box-shadow:0 4px 10px rgba(15,27,69,0.08);
-  transition:transform .15s;
+  transition:transform .15s, box-shadow .15s;
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--font); font-weight:800; font-size:15px; color:#fff;
 }
 .swatch:hover .swatch-chip{ transform:scale(1.08); }
+.swatch.active .swatch-chip{ box-shadow:0 0 0 3px var(--blue), 0 4px 10px rgba(15,27,69,0.08); }
 .swatch-label{
   font-family:var(--font); font-size:10.5px; font-weight:600; text-align:center; color:var(--text-soft);
 }
@@ -639,19 +656,28 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
     </div>
 
     <div class="tecnicas-tabs">
-      <button class="tecnicas-tab active" data-tab="serigrafia">Serigrafía</button>
+      <button class="tecnicas-tab" data-tab="serigrafia">Serigrafía</button>
       <button class="tecnicas-tab" data-tab="coating">Coating</button>
       <button class="tecnicas-tab" data-tab="stamping">Hot &amp; Cold Stamping</button>
       <button class="tecnicas-tab" data-tab="vacio">Alto vacío</button>
     </div>
 
-    <!-- SERIGRAFIA -->
-    <div class="technique active" data-technique="serigrafia">
+    <!-- INVITACION / BASE -->
+    <div class="technique active" data-technique="intro">
       <div class="bottle-stage">
-        <svg viewBox="0 0 200 500" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path class="bottle-outline" d="M78,36 C78,20 88,10 100,10 C112,10 122,20 122,36 L122,78 C150,98 168,132 168,168 L168,462 C168,480 154,494 136,494 L64,494 C46,494 32,480 32,462 L32,168 C32,132 50,98 78,78 Z" stroke="#16224F" stroke-width="2.5"/>
-          <rect class="fill-band" x="32" y="230" width="136" height="100" fill="none"/>
-        </svg>
+        <div class="bottle-photo"><img src="assets/bottles/base.webp" alt="Botella de vidrio sin decorar" width="150" height="375" loading="eager"></div>
+      </div>
+      <div class="technique-body intro-invite">
+        <div class="kicker">Punto de partida</div>
+        <h3>Así arranca cada envase</h3>
+        <p class="lead">Elegí una técnica del menú para ver cómo se transforma esta misma botella, con sus variantes, acabados y con qué se puede combinar.</p>
+      </div>
+    </div>
+
+    <!-- SERIGRAFIA -->
+    <div class="technique" data-technique="serigrafia">
+      <div class="bottle-stage">
+        <div class="bottle-photo"><img src="assets/bottles/serigrafia-1.webp" alt="Botella decorada con serigrafía" width="150" height="375" loading="lazy" data-serigrafia-img></div>
         <div class="spec-tag">
           <div class="spec-tag-row"><span class="k">Técnica</span><span class="v">Serigrafía</span></div>
           <div class="spec-tag-row"><span class="k">Variante</span><span class="v" data-field="variant">Vitrificable</span></div>
@@ -664,6 +690,15 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
         <h3>Serigrafía</h3>
         <p class="lead">Impresión directa sobre el envase mediante tinta, para reproducir textos, logotipos e imágenes con precisión, en uno o varios colores.</p>
         <p class="how">Se aplican distintas pinturas según el resultado buscado. El tipo de tinta define cuántos colores admite el diseño, qué resistencia tiene y qué tan cerca del cierre puede llegar la impresión.</p>
+
+        <div class="field-label">Cantidad de colores</div>
+        <div class="swatches">
+          <div class="swatch active"><div class="swatch-chip" data-colorcount="1" style="background:linear-gradient(135deg,#1E40C7,#5B84FF)">1</div><div class="swatch-label">1 color</div></div>
+          <div class="swatch"><div class="swatch-chip" data-colorcount="2" style="background:linear-gradient(135deg,#1E40C7,#5B84FF)">2</div><div class="swatch-label">2 colores</div></div>
+          <div class="swatch"><div class="swatch-chip" data-colorcount="3" style="background:linear-gradient(135deg,#1E40C7,#5B84FF)">3</div><div class="swatch-label">3 colores</div></div>
+          <div class="swatch"><div class="swatch-chip" data-colorcount="4" style="background:linear-gradient(135deg,#1E40C7,#5B84FF)">4</div><div class="swatch-label">4 colores</div></div>
+          <div class="swatch"><div class="swatch-chip" data-colorcount="5" style="background:linear-gradient(135deg,#1E40C7,#5B84FF)">5</div><div class="swatch-label">5 colores</div></div>
+        </div>
 
         <div class="variant-row">
           <button class="variant-btn active" data-variant="vitrificable">Vitrificable</button>
@@ -695,9 +730,7 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
     <!-- COATING -->
     <div class="technique" data-technique="coating">
       <div class="bottle-stage">
-        <svg viewBox="0 0 200 500" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path class="bottle-outline" d="M78,36 C78,20 88,10 100,10 C112,10 122,20 122,36 L122,78 C150,98 168,132 168,168 L168,462 C168,480 154,494 136,494 L64,494 C46,494 32,480 32,462 L32,168 C32,132 50,98 78,78 Z" stroke="#16224F" stroke-width="2.5" fill="rgba(46,92,255,0.32)" data-coating-fill/>
-        </svg>
+        <div class="bottle-photo"><img src="assets/bottles/coating-traslucido.webp" alt="Botella con coating" width="150" height="375" loading="lazy" data-coating-img></div>
         <div class="spec-tag">
           <div class="spec-tag-row"><span class="k">Técnica</span><span class="v">Coating</span></div>
           <div class="spec-tag-row"><span class="k">Acabado</span><span class="v" data-field="coating-acabado">Translúcido</span></div>
@@ -712,18 +745,16 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
         <p class="how">Es la técnica más versátil en materiales: funciona igual sobre vidrio, plástico, aluminio o cerámica. Se puede pintar la botella entera o evitar el pico, para que no haya contacto con el líquido al consumir.</p>
 
         <div class="swatches">
-          <div class="swatch"><div class="swatch-chip" data-coating-swatch="translucido" data-fill="rgba(46,92,255,0.32)" style="background:rgba(46,92,255,0.32)"></div><div class="swatch-label">Translúcido</div></div>
-          <div class="swatch"><div class="swatch-chip" data-coating-swatch="solido" data-fill="#2E5CFF" style="background:#2E5CFF"></div><div class="swatch-label">Sólido</div></div>
-          <div class="swatch"><div class="swatch-chip" data-coating-swatch="mate" data-fill="#4A4E48" style="background:#4A4E48"></div><div class="swatch-label">Mate</div></div>
-          <div class="swatch"><div class="swatch-chip" data-coating-swatch="brillante" data-fill="#4C8770" style="background:linear-gradient(135deg,#1E40C7,#5B84FF)"></div><div class="swatch-label">Brillante</div></div>
-          <div class="swatch"><div class="swatch-chip" data-coating-swatch="esmerilado" data-fill="rgba(200,200,195,0.6)" style="background:rgba(200,200,195,0.6)"></div><div class="swatch-label">Esmerilado</div></div>
-          <div class="swatch"><div class="swatch-chip" data-coating-swatch="degrade" data-fill="#B8862E" style="background:linear-gradient(180deg,#2E5CFF,#B8862E)"></div><div class="swatch-label">Degradé</div></div>
+          <div class="swatch active"><div class="swatch-chip" data-coating-swatch="traslucido" data-img="assets/bottles/coating-traslucido.webp" style="background:rgba(46,92,255,0.32)"></div><div class="swatch-label">Translúcido</div></div>
+          <div class="swatch"><div class="swatch-chip" data-coating-swatch="mate" data-img="assets/bottles/coating-mate.webp" style="background:#4A4E48"></div><div class="swatch-label">Mate</div></div>
+          <div class="swatch"><div class="swatch-chip" data-coating-swatch="brillante" data-img="assets/bottles/coating-brillante.webp" style="background:linear-gradient(135deg,#1E40C7,#5B84FF)"></div><div class="swatch-label">Brillante</div></div>
+          <div class="swatch"><div class="swatch-chip" data-coating-swatch="esmerilado" data-img="assets/bottles/coating-esmerilado.webp" style="background:rgba(200,200,195,0.6)"></div><div class="swatch-label">Esmerilado</div></div>
         </div>
 
         <div class="considerations">
           <div class="consideration"><b>Translúcido</b>Conserva la profundidad del vidrio.</div>
+          <div class="consideration"><b>Mate</b>Acabado opaco, sin brillo ni reflejos.</div>
           <div class="consideration"><b>Esmerilado</b>Efecto frost, vidrio satinado.</div>
-          <div class="consideration"><b>Degradé</b>Transición entre dos tonalidades.</div>
           <div class="consideration"><b>Antirayado</b>Un barniz protector aumenta la resistencia al rayado en envases de uso frecuente.</div>
         </div>
 
@@ -734,20 +765,10 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
     <!-- HOT & COLD STAMPING -->
     <div class="technique" data-technique="stamping">
       <div class="bottle-stage">
-        <svg viewBox="0 0 200 500" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path class="bottle-outline" d="M78,36 C78,20 88,10 100,10 C112,10 122,20 122,36 L122,78 C150,98 168,132 168,168 L168,462 C168,480 154,494 136,494 L64,494 C46,494 32,480 32,462 L32,168 C32,132 50,98 78,78 Z" stroke="#16224F" stroke-width="2.5"/>
-          <ellipse cx="100" cy="300" rx="46" ry="60" fill="url(#goldGrad)"/>
-          <defs>
-            <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="#E7C468"/>
-              <stop offset="50%" stop-color="#B8862E"/>
-              <stop offset="100%" stop-color="#8A631F"/>
-            </linearGradient>
-          </defs>
-        </svg>
+        <div class="bottle-photo"><img src="assets/bottles/stamping-dorado.webp" alt="Botella con hot &amp; cold stamping" width="150" height="375" loading="lazy" data-stamping-img></div>
         <div class="spec-tag">
           <div class="spec-tag-row"><span class="k">Técnica</span><span class="v">Hot / Cold Stamping</span></div>
-          <div class="spec-tag-row"><span class="k">Acabado</span><span class="v">Metalizado / foil</span></div>
+          <div class="spec-tag-row"><span class="k">Acabado</span><span class="v" data-field="stamping-acabado">Dorado</span></div>
           <div class="spec-tag-row"><span class="k">Base</span><span class="v">Vidrio o coating</span></div>
           <div class="spec-tag-row"><span class="k">Detalle</span><span class="v">Alta precisión</span></div>
         </div>
@@ -757,6 +778,12 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
         <h3>Hot &amp; Cold Stamping</h3>
         <p class="lead">Transferencia de una película decorativa mediante calor y/o presión, ideal para acabados metálicos y detalles finos.</p>
         <p class="how">Puede aplicarse directamente sobre el vidrio o sobre una superficie tratada previamente con coating, según el desarrollo y la geometría del envase. Permite trabajar en oro, plata y otros acabados metalizados, con tipografías y composiciones de alta precisión.</p>
+
+        <div class="swatches">
+          <div class="swatch active"><div class="swatch-chip" data-stamping-swatch="dorado" data-img="assets/bottles/stamping-dorado.webp" style="background:linear-gradient(135deg,#E7C468,#8A631F)"></div><div class="swatch-label">Dorado</div></div>
+          <div class="swatch"><div class="swatch-chip" data-stamping-swatch="plateado" data-img="assets/bottles/stamping-plateado.webp" style="background:linear-gradient(135deg,#F1F2F2,#9CA0A4)"></div><div class="swatch-label">Plateado</div></div>
+          <div class="swatch"><div class="swatch-chip" data-stamping-swatch="tornasol" data-img="assets/bottles/stamping-tornasol.webp" style="background:linear-gradient(135deg,#F3B6D8,#9FE3D0,#F6E27A)"></div><div class="swatch-label">Tornasol</div></div>
+        </div>
 
         <div class="considerations">
           <div class="consideration"><b>Diseño</b>Admite detalles finos y composiciones complejas.</div>
@@ -772,20 +799,10 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
     <!-- ALTO VACIO -->
     <div class="technique" data-technique="vacio">
       <div class="bottle-stage">
-        <svg viewBox="0 0 200 500" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path class="bottle-outline" d="M78,36 C78,20 88,10 100,10 C112,10 122,20 122,36 L122,78 C150,98 168,132 168,168 L168,462 C168,480 154,494 136,494 L64,494 C46,494 32,480 32,462 L32,168 C32,132 50,98 78,78 Z" stroke="#16224F" stroke-width="2.5" fill="url(#mirrorGrad)" data-vacio-fill/>
-          <defs>
-            <linearGradient id="mirrorGrad" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stop-color="#EDEFEF"/>
-              <stop offset="35%" stop-color="#9CA0A4"/>
-              <stop offset="55%" stop-color="#D8DADB"/>
-              <stop offset="100%" stop-color="#7C7F82"/>
-            </linearGradient>
-          </defs>
-        </svg>
+        <div class="bottle-photo"><img src="assets/bottles/vacio-plateado.webp" alt="Botella con alto vacío" width="150" height="375" loading="lazy" data-vacio-img></div>
         <div class="spec-tag">
           <div class="spec-tag-row"><span class="k">Técnica</span><span class="v">Alto vacío</span></div>
-          <div class="spec-tag-row"><span class="k">Acabado</span><span class="v" data-field="vacio-acabado">Espejo</span></div>
+          <div class="spec-tag-row"><span class="k">Acabado</span><span class="v" data-field="vacio-acabado">Plateado</span></div>
           <div class="spec-tag-row"><span class="k">Cobertura</span><span class="v">Total</span></div>
           <div class="spec-tag-row"><span class="k">Extra</span><span class="v">Admite serigrafía</span></div>
         </div>
@@ -797,10 +814,9 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
         <p class="how">Cubre la totalidad de la botella, o se puede evitar la boca para que no haya contacto con el líquido. Es un proceso más exigente que el coating, con menor capacidad de unidades, pensado para desarrollos premium. Permite lograr distintas tonalidades dentro del efecto metalizado, y se le puede aplicar serigrafía encima.</p>
 
         <div class="swatches">
-          <div class="swatch"><div class="swatch-chip" data-vacio-swatch="espejo" style="background:linear-gradient(135deg,#EDEFEF,#9CA0A4,#D8DADB)"></div><div class="swatch-label">Espejo</div></div>
-          <div class="swatch"><div class="swatch-chip" data-vacio-swatch="oro" style="background:linear-gradient(135deg,#E7C468,#8A631F)"></div><div class="swatch-label">Oro</div></div>
-          <div class="swatch"><div class="swatch-chip" data-vacio-swatch="plata" style="background:linear-gradient(135deg,#F1F2F2,#9CA0A4)"></div><div class="swatch-label">Plata</div></div>
-          <div class="swatch"><div class="swatch-chip" data-vacio-swatch="color" style="background:linear-gradient(135deg,#5B84FF,#16224F)"></div><div class="swatch-label">Metalizado color</div></div>
+          <div class="swatch active"><div class="swatch-chip" data-vacio-swatch="plateado" data-img="assets/bottles/vacio-plateado.webp" style="background:linear-gradient(135deg,#F1F2F2,#9CA0A4)"></div><div class="swatch-label">Plateado</div></div>
+          <div class="swatch"><div class="swatch-chip" data-vacio-swatch="dorado" data-img="assets/bottles/vacio-dorado.webp" style="background:linear-gradient(135deg,#E7C468,#8A631F)"></div><div class="swatch-label">Dorado</div></div>
+          <div class="swatch"><div class="swatch-chip" data-vacio-swatch="color" data-img="assets/bottles/vacio-color.webp" style="background:linear-gradient(135deg,#E8A796,#B9694F)"></div><div class="swatch-label">Metalizado color</div></div>
         </div>
 
         <div class="considerations">
@@ -889,22 +905,49 @@ if(serigrafiaBlock){
       fieldCierre.textContent = serigrafiaData[key].cierre;
     });
   });
+
+  const colorImg = serigrafiaBlock.querySelector("[data-serigrafia-img]");
+  const colorSwatches = serigrafiaBlock.querySelectorAll("[data-colorcount]");
+  colorSwatches.forEach(chip=>{
+    chip.addEventListener("click", ()=>{
+      colorSwatches.forEach(c=>c.closest(".swatch").classList.remove("active"));
+      chip.closest(".swatch").classList.add("active");
+      colorImg.src = `assets/bottles/serigrafia-${chip.dataset.colorcount}.webp`;
+    });
+  });
 }
 
 // --- Coating: swatches ---
 const coatingBlock = document.querySelector('[data-technique="coating"]');
 if(coatingBlock){
   const swatches = coatingBlock.querySelectorAll("[data-coating-swatch]");
-  const fillTarget = coatingBlock.querySelector("[data-coating-fill]");
+  const img = coatingBlock.querySelector("[data-coating-img]");
   const fieldAcabado = coatingBlock.querySelector('[data-field="coating-acabado"]');
-  const labels = {
-    translucido:"Translúcido", solido:"Sólido", mate:"Mate",
-    brillante:"Brillante", esmerilado:"Esmerilado", degrade:"Degradé"
-  };
+  const labels = { traslucido:"Translúcido", mate:"Mate", brillante:"Brillante", esmerilado:"Esmerilado" };
   swatches.forEach(sw=>{
     sw.addEventListener("click", ()=>{
       const key = sw.dataset.coatingSwatch;
-      fillTarget.setAttribute("fill", sw.dataset.fill);
+      swatches.forEach(s=>s.closest(".swatch").classList.remove("active"));
+      sw.closest(".swatch").classList.add("active");
+      img.src = sw.dataset.img;
+      fieldAcabado.textContent = labels[key];
+    });
+  });
+}
+
+// --- Hot & Cold Stamping: swatches ---
+const stampingBlock = document.querySelector('[data-technique="stamping"]');
+if(stampingBlock){
+  const swatches = stampingBlock.querySelectorAll("[data-stamping-swatch]");
+  const img = stampingBlock.querySelector("[data-stamping-img]");
+  const fieldAcabado = stampingBlock.querySelector('[data-field="stamping-acabado"]');
+  const labels = { dorado:"Dorado", plateado:"Plateado", tornasol:"Tornasol" };
+  swatches.forEach(sw=>{
+    sw.addEventListener("click", ()=>{
+      const key = sw.dataset.stampingSwatch;
+      swatches.forEach(s=>s.closest(".swatch").classList.remove("active"));
+      sw.closest(".swatch").classList.add("active");
+      img.src = sw.dataset.img;
       fieldAcabado.textContent = labels[key];
     });
   });
@@ -914,11 +957,16 @@ if(coatingBlock){
 const vacioBlock = document.querySelector('[data-technique="vacio"]');
 if(vacioBlock){
   const swatches = vacioBlock.querySelectorAll("[data-vacio-swatch]");
+  const img = vacioBlock.querySelector("[data-vacio-img]");
   const fieldAcabado = vacioBlock.querySelector('[data-field="vacio-acabado"]');
-  const labels = { espejo:"Espejo", oro:"Oro", plata:"Plata", color:"Metalizado color" };
+  const labels = { plateado:"Plateado", dorado:"Dorado", color:"Metalizado color" };
   swatches.forEach(sw=>{
     sw.addEventListener("click", ()=>{
-      fieldAcabado.textContent = labels[sw.dataset.vacioSwatch];
+      const key = sw.dataset.vacioSwatch;
+      swatches.forEach(s=>s.closest(".swatch").classList.remove("active"));
+      sw.closest(".swatch").classList.add("active");
+      img.src = sw.dataset.img;
+      fieldAcabado.textContent = labels[key];
     });
   });
 }
