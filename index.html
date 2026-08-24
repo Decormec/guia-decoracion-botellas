@@ -6,7 +6,7 @@
 <title>Guía de decoración de botellas — Decormec</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,500&display=swap" rel="stylesheet">
 <style>
 
 :root{
@@ -118,7 +118,10 @@ h1,h2,h3{
 
 /* ---------- HERO ---------- */
 .hero{
-  padding:160px 0 72px;
+  min-height:calc(100vh - 28px);
+  padding:150px 0 72px;
+  display:flex;
+  align-items:center;
   background:
     radial-gradient(circle at 18% 20%, rgba(46,92,255,0.35), transparent 55%),
     linear-gradient(135deg, var(--navy) 0%, var(--navy-2) 55%, #223570 100%);
@@ -127,17 +130,27 @@ h1,h2,h3{
   position:relative;
   overflow:hidden;
 }
+.hero > .wrap{ width:100%; }
 .hero-halo{
   position:absolute;
   top:50%;
   right:32px;
   transform:translateY(-50%);
-  width:54%;
-  min-width:400px;
-  max-width:720px;
-  opacity:0.5;
-  mix-blend-mode:overlay;
-  filter:blur(1.5px);
+  width:74%;
+  min-width:520px;
+  max-width:1000px;
+  aspect-ratio:1443/1686.65625;
+  -webkit-mask-image:url(assets/halo.svg);
+  mask-image:url(assets/halo.svg);
+  -webkit-mask-size:contain;
+  mask-size:contain;
+  -webkit-mask-repeat:no-repeat;
+  mask-repeat:no-repeat;
+  -webkit-mask-position:center;
+  mask-position:center;
+  background:rgba(255,255,255,0.1);
+  backdrop-filter:url(#glassWarp) blur(7px) saturate(1.3);
+  -webkit-backdrop-filter:blur(7px) saturate(1.3);
   pointer-events:none;
   z-index:0;
 }
@@ -152,27 +165,27 @@ h1,h2,h3{
 .hero-script{
   font-family:var(--font);
   font-style:italic;
-  font-weight:500;
-  letter-spacing:-0.01em;
-  font-size:clamp(46px, 8vw, 88px);
-  line-height:1.06;
+  font-weight:300;
+  letter-spacing:-0.07em;
+  font-size:clamp(64px, 12vw, 148px);
+  line-height:1.02;
   color:#fff;
-  margin-bottom:14px;
+  margin-bottom:18px;
 }
 .hero-badge{
   display:inline-block;
-  margin:-38px auto 100px;
-  padding:14px 40px;
-  border-radius:32px;
-  background:rgba(255,255,255,0.16);
-  backdrop-filter:blur(10px) saturate(160%);
-  -webkit-backdrop-filter:blur(10px) saturate(160%);
-  border:1px solid rgba(255,255,255,0.3);
+  margin:-70px auto 110px;
+  padding:20px 54px;
+  border-radius:36px;
+  background:rgba(255,255,255,0.22);
+  backdrop-filter:url(#glassWarp) blur(7px) saturate(1.3) brightness(1.2);
+  -webkit-backdrop-filter:blur(10px) saturate(160%) brightness(1.2);
+  border:1px solid rgba(255,255,255,0.4);
   box-shadow:0 12px 30px rgba(8,14,40,0.25);
   color:#fff;
   font-family:var(--font);
   font-weight:300;
-  font-size:22px;
+  font-size:31px;
   letter-spacing:0.02em;
   position:relative;
   z-index:1;
@@ -181,7 +194,7 @@ h1,h2,h3{
   display:flex; align-items:center;
   position:relative; z-index:1;
 }
-.hero-logo img{ width:150px; height:auto; }
+.hero-logo img{ width:215px; height:auto; }
 
 /* ---------- SECTION SCAFFOLDING ---------- */
 section{ padding:96px 0; }
@@ -482,6 +495,13 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
 </head>
 <body>
 
+<svg width="0" height="0" style="position:absolute">
+  <filter id="glassWarp" x="-20%" y="-20%" width="140%" height="140%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.012 0.018" numOctaves="2" seed="7" result="noise"/>
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="34" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</svg>
+
 <nav class="nav">
   <div class="nav-inner">
     <div class="nav-brand"><span>Decormec</span> · Guía de decoración</div>
@@ -494,7 +514,7 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
 </nav>
 
 <header class="hero">
-  <img class="hero-halo" src="assets/halo.svg" alt="" aria-hidden="true">
+  <div class="hero-halo" aria-hidden="true"></div>
   <div class="wrap hero-wrap">
     <h1 class="hero-script">Guía de<br>decoración</h1>
     <span class="hero-badge">Envases</span>
