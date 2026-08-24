@@ -22,6 +22,7 @@
   --line:#E6E9F4;
   --gold:#B8862E;
   --silver:#9CA0A4;
+  --taupe:#8C8579;
 
   --font: 'Montserrat', sans-serif;
 }
@@ -29,7 +30,7 @@
 *{box-sizing:border-box; margin:0; padding:0;}
 html{scroll-behavior:smooth;}
 body{
-  background:var(--bg);
+  background:#FFFFFF;
   color:var(--text);
   font-family:var(--font);
   line-height:1.6;
@@ -63,25 +64,8 @@ h1,h2,h3{
   display:flex; align-items:center; justify-content:center;
   gap:8px;
   padding:18px 32px;
-  margin-top:0;
   max-width:1160px; width:100%;
-  border-radius:0;
-  background:transparent;
-  border:1px solid transparent;
-  box-shadow:none;
   pointer-events:auto;
-  transition:background .25s ease, border-color .25s ease, box-shadow .25s ease, margin-top .25s ease, border-radius .25s ease, padding .25s ease;
-}
-.nav.scrolled .nav-inner{
-  margin-top:14px;
-  width:auto;
-  padding:10px 14px;
-  border-radius:20px;
-  background:rgba(15,27,69,0.45);
-  backdrop-filter: blur(18px) saturate(160%);
-  -webkit-backdrop-filter: blur(18px) saturate(160%);
-  border:1px solid rgba(255,255,255,0.16);
-  box-shadow:0 10px 30px rgba(15,27,69,0.18);
 }
 .nav-brand{
   display:none;
@@ -94,16 +78,24 @@ h1,h2,h3{
 }
 .nav-links a{
   text-decoration:none; color:#E4E9FF;
-  background:rgba(255,255,255,0.08);
-  border:1px solid rgba(255,255,255,0.18);
+  background:rgba(255,255,255,0.1);
+  border:1px solid rgba(255,255,255,0.22);
   padding:9px 20px;
   border-radius:999px;
   text-transform:uppercase;
   letter-spacing:0.06em;
   font-size:12px;
-  transition:background .18s, color .18s, border-color .18s;
+  box-shadow:0 4px 14px rgba(8,14,40,0.12);
+  transition:background .2s, color .2s, border-color .2s;
 }
-.nav-links a:hover{ color:#fff; background:rgba(255,255,255,0.18); }
+.nav-links a:hover{ color:#fff; background:rgba(255,255,255,0.2); }
+.nav.scrolled .nav-links a{
+  color:var(--navy);
+  background:var(--surface);
+  border:1px solid var(--line);
+  box-shadow:0 4px 14px rgba(15,27,69,0.1);
+}
+.nav.scrolled .nav-links a:hover{ color:#fff; background:var(--blue); border-color:var(--blue); }
 @media (max-width:720px){ .nav-links{gap:2px;} .nav-links a{padding:7px 13px; font-size:10.5px;} }
 @media (max-width:560px){ .nav-links{display:none;} }
 
@@ -215,24 +207,11 @@ section{ padding:96px 0; }
 }
 
 .material-panel{
-  background:var(--surface);
-  border:1px solid var(--line);
   border-radius:24px;
-  padding:36px 32px;
-  display:flex; flex-wrap:wrap; gap:12px;
-  justify-content:center;
+  overflow:hidden;
   margin-bottom:72px;
 }
-.material-chip{
-  display:flex; align-items:center; gap:8px;
-  padding:10px 18px 10px 14px;
-  border-radius:999px;
-  background:var(--blue-soft);
-  color:var(--navy);
-  font-size:12.5px; font-weight:700;
-  letter-spacing:0.04em; text-transform:uppercase;
-}
-.material-chip svg{ width:18px; height:18px; flex-shrink:0; }
+.material-panel img{ width:100%; height:auto; display:block; }
 
 .subhead{
   font-size:clamp(24px,3vw,32px);
@@ -271,22 +250,26 @@ section{ padding:96px 0; }
   transition:box-shadow .2s, transform .2s;
 }
 .factor-card:hover{ box-shadow:0 12px 28px rgba(15,27,69,0.09); transform:translateY(-2px); }
+.factor-head{
+  display:flex; align-items:center; gap:12px;
+  margin-bottom:14px;
+}
 .factor-icon{
   width:42px; height:42px;
+  flex-shrink:0;
   border-radius:12px;
   background:var(--blue-soft);
   display:flex; align-items:center; justify-content:center;
-  margin-bottom:18px;
 }
 .factor-icon svg{ width:22px; height:22px; stroke:var(--blue); }
-.factor-card .idx{
-  font-family:var(--font); font-size:11px; font-weight:700; color:var(--blue);
-  letter-spacing:0.06em; text-transform:uppercase;
-  display:block; margin-bottom:6px;
-}
 .factor-card h3{
-  font-size:15.5px; margin:0 0 8px; font-weight:700;
+  font-size:15.5px; margin:0; font-weight:700;
+  color:var(--blue);
   text-transform:uppercase; letter-spacing:0.02em;
+}
+.factor-card .idx{
+  font-family:var(--font); font-size:12.5px; font-weight:600; color:var(--taupe);
+  display:block; margin-bottom:10px;
 }
 .factor-card p{ font-size:13.5px; font-weight:500; color:var(--text-soft); }
 
@@ -429,27 +412,6 @@ section{ padding:96px 0; }
   font-family:var(--font); font-size:10.5px; font-weight:600; text-align:center; color:var(--text-soft);
 }
 
-/* ---------- COMBINATIONS ---------- */
-.combo-wrap{
-  display:grid; grid-template-columns:1fr 1fr; gap:20px;
-}
-@media (max-width:720px){ .combo-wrap{grid-template-columns:1fr;} }
-.combo-col{
-  background:var(--surface); border-radius:20px; padding:36px 32px;
-  border:1px solid var(--line); box-shadow:0 1px 2px rgba(15,27,69,0.04);
-}
-.combo-col h3{ font-size:20px; margin-bottom:16px; }
-.combo-list{ list-style:none; }
-.combo-list li{
-  font-size:14.5px; font-weight:500; color:var(--text-soft);
-  padding:13px 0; border-bottom:1px solid var(--line);
-  display:flex; gap:12px; align-items:flex-start;
-}
-.combo-list li:last-child{border-bottom:none;}
-.combo-list li::before{
-  content:"+"; color:var(--blue); font-weight:800;
-}
-
 /* ---------- DESARROLLO ---------- */
 .steps{
   display:grid; grid-template-columns:repeat(4,1fr); gap:18px;
@@ -520,26 +482,32 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
     </div>
 
     <div class="material-panel">
-      <span class="material-chip">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2h4M10 2v4l-3 4v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-9l-3-4V2"/></svg>
-        Vidrio
-      </span>
-      <span class="material-chip">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="6" ry="2.5"/><path d="M6 5v14a6 2.5 0 0 0 12 0V5"/></svg>
-        Aluminio
-      </span>
-      <span class="material-chip">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l1 4-2 2v9a3 3 0 0 1-3 3H9a3 3 0 0 1-3-3V9l-2-2 1-4Z"/><path d="M15 9h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1"/></svg>
-        Cerámica
-      </span>
-      <span class="material-chip">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2h6M9 2v3c0 .6-.4 1-.8 1.3C7.4 7 7 7.8 7 8.6V20a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V8.6c0-.8-.4-1.6-1.2-2.3C15.4 5.9 15 5.6 15 5V2"/></svg>
-        Plástico
-      </span>
-      <span class="material-chip">
-        <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
-        Y más
-      </span>
+      <img src="assets/envases-materiales.jpg" alt="Envases de vidrio, aluminio, cerámica y plástico que trabajamos">
+    </div>
+
+    <h3 class="subhead">¿No viene listo para decorar?</h3>
+    <p class="section-intro">Si el envase lo necesita, ofrecemos procesos previos para dejarlo en condiciones de recibir la decoración.</p>
+    <div class="obtain-grid" style="margin-top:32px;">
+      <div class="factor-card">
+        <div class="factor-head">
+          <div class="factor-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c-1 4-5 5-5 10a5 5 0 0 0 10 0c0-1.5-.7-2.5-1.5-3.5.2 2-.8 3-1.8 3-1.2 0-1.7-1-1.2-2.2C13.2 7 12.5 4 12 2Z"/></svg>
+          </div>
+          <h3>Quemado de etiquetas</h3>
+        </div>
+        <span class="idx">¿El envase llega con etiquetas o restos de adhesivo?</span>
+        <p>Eliminamos etiquetas y restos de adhesivo del vidrio para dejar la superficie limpia y lista para decorar.</p>
+      </div>
+      <div class="factor-card">
+        <div class="factor-head">
+          <div class="factor-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2s7 8 7 13a7 7 0 0 1-14 0c0-5 7-13 7-13Z"/><line x1="4" y1="20" x2="20" y2="4"/></svg>
+          </div>
+          <h3>Remoción de capa antiadherente</h3>
+        </div>
+        <span class="idx">¿El envase ya trae una capa antipintura?</span>
+        <p>Si el envase trae una capa antipintura de fábrica, la retiramos para que la tinta pueda adherirse correctamente.</p>
+      </div>
     </div>
 
     <h3 class="subhead">¿Cómo obtener tu envase?</h3>
@@ -559,67 +527,83 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
 
     <div class="factor-grid" style="margin-top:32px;">
       <div class="factor-card">
-        <div class="factor-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2h4M10 2v4l-3 4v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-9l-3-4V2"/></svg>
+        <div class="factor-head">
+          <div class="factor-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2h4M10 2v4l-3 4v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-9l-3-4V2"/></svg>
+          </div>
+          <h3>Forma y área</h3>
         </div>
         <span class="idx">¿Qué zonas podemos decorar?</span>
-        <h3>Forma y área</h3>
         <p>Hombros, diámetros, curvas y zonas de impresión determinan qué áreas pueden decorarse y qué posibilidades ofrece cada técnica. Para diseños complejos, una geometría adecuada facilita el proceso.</p>
       </div>
       <div class="factor-card">
-        <div class="factor-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21a9 9 0 1 1 9-9"/><path d="M12 12l4-3"/><circle cx="12" cy="12" r="1"/></svg>
+        <div class="factor-head">
+          <div class="factor-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21a9 9 0 1 1 9-9"/><path d="M12 12l4-3"/><circle cx="12" cy="12" r="1"/></svg>
+          </div>
+          <h3>Productividad</h3>
         </div>
         <span class="idx">¿Cómo influye el envase en la producción?</span>
-        <h3>Productividad</h3>
         <p>La geometría, los diámetros, las tolerancias y otras características del envase pueden influir en la velocidad y estabilidad del proceso. El centrado automático, por ejemplo, puede facilitar el posicionamiento.</p>
       </div>
       <div class="factor-card">
-        <div class="factor-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 9l10 6 10-6-10-6Z"/><path d="M2 15l10 6 10-6"/></svg>
+        <div class="factor-head">
+          <div class="factor-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 9l10 6 10-6-10-6Z"/><path d="M2 15l10 6 10-6"/></svg>
+          </div>
+          <h3>Materialidad</h3>
         </div>
         <span class="idx">¿Qué necesita la superficie para ser decorada?</span>
-        <h3>Materialidad</h3>
         <p>La composición y el tratamiento superficial influyen en la adherencia de la tinta y el resultado de la decoración. Analizamos estas características para determinar la preparación necesaria.</p>
       </div>
       <div class="factor-card">
-        <div class="factor-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l9-5 9 5-9 5-9-5Z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg>
+        <div class="factor-head">
+          <div class="factor-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l9-5 9 5-9 5-9-5Z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg>
+          </div>
+          <h3>Embalaje</h3>
         </div>
         <span class="idx">¿Cómo protegemos la decoración?</span>
-        <h3>Embalaje</h3>
         <p>El tipo de embalaje (palletizado, cajas, separadores) debe proteger la decoración durante las etapas posteriores de llenado, transporte y manipulación.</p>
       </div>
       <div class="factor-card">
-        <div class="factor-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6h11v10H1z"/><path d="M12 10h4l4 4v2h-8z"/><circle cx="5.5" cy="18" r="1.6"/><circle cx="17.5" cy="18" r="1.6"/></svg>
+        <div class="factor-head">
+          <div class="factor-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6h11v10H1z"/><path d="M12 10h4l4 4v2h-8z"/><circle cx="5.5" cy="18" r="1.6"/><circle cx="17.5" cy="18" r="1.6"/></svg>
+          </div>
+          <h3>Logística</h3>
         </div>
         <span class="idx">¿Cómo se transporta y manipula?</span>
-        <h3>Logística</h3>
         <p>La forma, dimensiones y características del envase pueden influir en su transporte, almacenamiento y manipulación. Trabajamos junto a proveedores y transportistas.</p>
       </div>
       <div class="factor-card">
-        <div class="factor-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2s7 8 7 13a7 7 0 0 1-14 0c0-5 7-13 7-13Z"/></svg>
+        <div class="factor-head">
+          <div class="factor-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2s7 8 7 13a7 7 0 0 1-14 0c0-5 7-13 7-13Z"/></svg>
+          </div>
+          <h3>Llenado</h3>
         </div>
         <span class="idx">¿Qué exigencias genera el llenado?</span>
-        <h3>Llenado</h3>
         <p>Si el envase requiere llenado, analizamos cómo se realiza y las condiciones que genera este proceso, ya que puede influir en la resistencia que debe tener la pintura seleccionada.</p>
       </div>
       <div class="factor-card">
-        <div class="factor-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3Z"/><path d="M9 12l2 2 4-4"/></svg>
+        <div class="factor-head">
+          <div class="factor-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3Z"/><path d="M9 12l2 2 4-4"/></svg>
+          </div>
+          <h3>Normas y sustentabilidad</h3>
         </div>
         <span class="idx">¿Qué requisitos debe cumplir?</span>
-        <h3>Normas y sustentabilidad</h3>
         <p>Cada producto y marca puede requerir normas específicas y criterios de sustentabilidad. Evaluamos materiales, tintas y procesos que cumplan con los requisitos técnicos y ambientales.</p>
       </div>
       <div class="factor-card">
-        <div class="factor-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"/></svg>
+        <div class="factor-head">
+          <div class="factor-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"/></svg>
+          </div>
+          <h3>Uso final</h3>
         </div>
         <span class="idx">¿Qué deberá soportar la decoración?</span>
-        <h3>Uso final</h3>
         <p>Consideramos cómo será utilizado el envase por el consumidor final. Manipulación, lavado, contacto y resistencia pueden influir en la elección de materiales y técnicas.</p>
       </div>
     </div>
@@ -682,6 +666,7 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
           <div class="consideration"><b>Área</b>Varía según la botella; un formato muy usado es imprimir solo el cuello.</div>
           <div class="consideration"><b>Efectos</b>Glow, termosensible, relieve o flocking: tintas especiales dentro de UV y epoxi, no técnicas aparte.</div>
           <div class="consideration"><b>Material</b>Vitrificable solo en vidrio. En plástico, únicamente UV o epoxi.</div>
+          <div class="consideration"><b>Antirayado</b>Admite un barniz de protección para reducir el rayado en envases de manipulación frecuente.</div>
         </div>
 
         <div class="pairs-with">Se combina con <span>Coating</span></div>
@@ -720,6 +705,7 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
           <div class="consideration"><b>Translúcido</b>Conserva la profundidad del vidrio.</div>
           <div class="consideration"><b>Esmerilado</b>Efecto frost, vidrio satinado.</div>
           <div class="consideration"><b>Degradé</b>Transición entre dos tonalidades.</div>
+          <div class="consideration"><b>Antirayado</b>Un barniz protector aumenta la resistencia al rayado en envases de uso frecuente.</div>
         </div>
 
         <div class="pairs-with">Se combina con <span>Serigrafía</span><span>Hot / Cold Stamping</span></div>
@@ -757,6 +743,7 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
           <div class="consideration"><b>Diseño</b>Admite detalles finos y composiciones complejas.</div>
           <div class="consideration"><b>Área</b>Depende de la geometría de la botella y del diseño.</div>
           <div class="consideration"><b>Base</b>Sobre coating, el acabado gana profundidad.</div>
+          <div class="consideration"><b>Antirayado</b>El foil admite un barniz de protección para prolongar su brillo y resistencia al roce.</div>
         </div>
 
         <div class="pairs-with">Se combina con <span>Coating</span></div>
@@ -797,39 +784,14 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
           <div class="swatch"><div class="swatch-chip" data-vacio-swatch="color" style="background:linear-gradient(135deg,#5B84FF,#16224F)"></div><div class="swatch-label">Metalizado color</div></div>
         </div>
 
+        <div class="considerations">
+          <div class="consideration"><b>Antirayado</b>Se aplica un barniz protector sobre el metalizado para resistir el roce y la manipulación.</div>
+        </div>
+
         <div class="pairs-with">Se combina con <span>Serigrafía</span></div>
       </div>
     </div>
 
-  </div>
-</section>
-
-<!-- ============ COMBINAR ============ -->
-<section id="combinar">
-  <div class="wrap">
-    <div class="intro-split">
-      <h2 class="headline-italic">Las técnicas también se combinan</h2>
-      <p class="intro-copy">Ninguna técnica está limitada a usarse sola. Así es como suelen encadenarse en un desarrollo real.</p>
-    </div>
-
-    <div class="combo-wrap">
-      <div class="combo-col">
-        <h3>A partir de Coating</h3>
-        <ul class="combo-list">
-          <li>Coating solo, como acabado final.</li>
-          <li>Coating + Serigrafía encima, para sumar texto o diseño.</li>
-          <li>Coating + Hot o Cold Stamping, para un detalle metalizado sobre el color base.</li>
-        </ul>
-      </div>
-      <div class="combo-col">
-        <h3>A partir de Serigrafía</h3>
-        <ul class="combo-list">
-          <li>Serigrafía sola, directo sobre el envase.</li>
-          <li>Serigrafía mixeada, combinando más de un tipo de tinta en el mismo diseño.</li>
-          <li>Serigrafía sobre Alto vacío, para sumar texto o marca sobre el acabado espejo.</li>
-        </ul>
-      </div>
-    </div>
   </div>
 </section>
 
