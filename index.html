@@ -22,6 +22,7 @@
   --line:#E6E9F4;
   --gold:#B8862E;
   --silver:#9CA0A4;
+  --taupe:#8C8579;
 
   --font: 'Montserrat', sans-serif;
 }
@@ -258,22 +259,27 @@ section{ padding:96px 0; }
   transition:box-shadow .2s, transform .2s;
 }
 .factor-card:hover{ box-shadow:0 12px 28px rgba(15,27,69,0.09); transform:translateY(-2px); }
+.factor-head{
+  display:flex; align-items:center; gap:12px;
+  margin-bottom:14px;
+}
 .factor-icon{
   width:42px; height:42px;
+  flex-shrink:0;
   border-radius:12px;
   background:var(--blue-soft);
   display:flex; align-items:center; justify-content:center;
-  margin-bottom:18px;
 }
 .factor-icon svg{ width:22px; height:22px; stroke:var(--blue); }
-.factor-card .idx{
-  font-family:var(--font); font-size:11px; font-weight:700; color:var(--blue);
-  letter-spacing:0.06em; text-transform:uppercase;
-  display:block; margin-bottom:6px;
-}
 .factor-card h3{
-  font-size:15.5px; margin:0 0 8px; font-weight:700;
+  font-size:15.5px; margin:0; font-weight:700;
+  color:var(--blue);
   text-transform:uppercase; letter-spacing:0.02em;
+}
+.factor-card .idx{
+  font-family:var(--font); font-size:11px; font-weight:700; color:var(--taupe);
+  letter-spacing:0.06em; text-transform:uppercase;
+  display:block; margin-bottom:10px;
 }
 .factor-card p{ font-size:13.5px; font-weight:500; color:var(--text-soft); }
 
@@ -527,67 +533,83 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
 
     <div class="factor-grid" style="margin-top:32px;">
       <div class="factor-card">
-        <div class="factor-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2h4M10 2v4l-3 4v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-9l-3-4V2"/></svg>
+        <div class="factor-head">
+          <div class="factor-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2h4M10 2v4l-3 4v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-9l-3-4V2"/></svg>
+          </div>
+          <h3>Forma y área</h3>
         </div>
         <span class="idx">¿Qué zonas podemos decorar?</span>
-        <h3>Forma y área</h3>
         <p>Hombros, diámetros, curvas y zonas de impresión determinan qué áreas pueden decorarse y qué posibilidades ofrece cada técnica. Para diseños complejos, una geometría adecuada facilita el proceso.</p>
       </div>
       <div class="factor-card">
-        <div class="factor-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21a9 9 0 1 1 9-9"/><path d="M12 12l4-3"/><circle cx="12" cy="12" r="1"/></svg>
+        <div class="factor-head">
+          <div class="factor-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21a9 9 0 1 1 9-9"/><path d="M12 12l4-3"/><circle cx="12" cy="12" r="1"/></svg>
+          </div>
+          <h3>Productividad</h3>
         </div>
         <span class="idx">¿Cómo influye el envase en la producción?</span>
-        <h3>Productividad</h3>
         <p>La geometría, los diámetros, las tolerancias y otras características del envase pueden influir en la velocidad y estabilidad del proceso. El centrado automático, por ejemplo, puede facilitar el posicionamiento.</p>
       </div>
       <div class="factor-card">
-        <div class="factor-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 9l10 6 10-6-10-6Z"/><path d="M2 15l10 6 10-6"/></svg>
+        <div class="factor-head">
+          <div class="factor-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 9l10 6 10-6-10-6Z"/><path d="M2 15l10 6 10-6"/></svg>
+          </div>
+          <h3>Materialidad</h3>
         </div>
         <span class="idx">¿Qué necesita la superficie para ser decorada?</span>
-        <h3>Materialidad</h3>
         <p>La composición y el tratamiento superficial influyen en la adherencia de la tinta y el resultado de la decoración. Analizamos estas características para determinar la preparación necesaria.</p>
       </div>
       <div class="factor-card">
-        <div class="factor-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l9-5 9 5-9 5-9-5Z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg>
+        <div class="factor-head">
+          <div class="factor-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l9-5 9 5-9 5-9-5Z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg>
+          </div>
+          <h3>Embalaje</h3>
         </div>
         <span class="idx">¿Cómo protegemos la decoración?</span>
-        <h3>Embalaje</h3>
         <p>El tipo de embalaje (palletizado, cajas, separadores) debe proteger la decoración durante las etapas posteriores de llenado, transporte y manipulación.</p>
       </div>
       <div class="factor-card">
-        <div class="factor-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6h11v10H1z"/><path d="M12 10h4l4 4v2h-8z"/><circle cx="5.5" cy="18" r="1.6"/><circle cx="17.5" cy="18" r="1.6"/></svg>
+        <div class="factor-head">
+          <div class="factor-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6h11v10H1z"/><path d="M12 10h4l4 4v2h-8z"/><circle cx="5.5" cy="18" r="1.6"/><circle cx="17.5" cy="18" r="1.6"/></svg>
+          </div>
+          <h3>Logística</h3>
         </div>
         <span class="idx">¿Cómo se transporta y manipula?</span>
-        <h3>Logística</h3>
         <p>La forma, dimensiones y características del envase pueden influir en su transporte, almacenamiento y manipulación. Trabajamos junto a proveedores y transportistas.</p>
       </div>
       <div class="factor-card">
-        <div class="factor-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2s7 8 7 13a7 7 0 0 1-14 0c0-5 7-13 7-13Z"/></svg>
+        <div class="factor-head">
+          <div class="factor-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2s7 8 7 13a7 7 0 0 1-14 0c0-5 7-13 7-13Z"/></svg>
+          </div>
+          <h3>Llenado</h3>
         </div>
         <span class="idx">¿Qué exigencias genera el llenado?</span>
-        <h3>Llenado</h3>
         <p>Si el envase requiere llenado, analizamos cómo se realiza y las condiciones que genera este proceso, ya que puede influir en la resistencia que debe tener la pintura seleccionada.</p>
       </div>
       <div class="factor-card">
-        <div class="factor-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3Z"/><path d="M9 12l2 2 4-4"/></svg>
+        <div class="factor-head">
+          <div class="factor-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3Z"/><path d="M9 12l2 2 4-4"/></svg>
+          </div>
+          <h3>Normas y sustentabilidad</h3>
         </div>
         <span class="idx">¿Qué requisitos debe cumplir?</span>
-        <h3>Normas y sustentabilidad</h3>
         <p>Cada producto y marca puede requerir normas específicas y criterios de sustentabilidad. Evaluamos materiales, tintas y procesos que cumplan con los requisitos técnicos y ambientales.</p>
       </div>
       <div class="factor-card">
-        <div class="factor-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"/></svg>
+        <div class="factor-head">
+          <div class="factor-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"/></svg>
+          </div>
+          <h3>Uso final</h3>
         </div>
         <span class="idx">¿Qué deberá soportar la decoración?</span>
-        <h3>Uso final</h3>
         <p>Consideramos cómo será utilizado el envase por el consumidor final. Manipulación, lavado, contacto y resistencia pueden influir en la elección de materiales y técnicas.</p>
       </div>
     </div>
