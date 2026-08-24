@@ -214,28 +214,23 @@ section{ padding:96px 0; }
 .material-panel img{ width:100%; height:auto; display:block; }
 
 .subhead{
-  font-size:clamp(24px,3vw,32px);
-  margin-bottom:14px;
+  font-family:var(--font);
+  font-weight:600;
+  font-size:clamp(20px,2.4vw,24px);
+  letter-spacing:-0.01em;
+  color:var(--navy);
+  margin-bottom:6px;
 }
 .subhead + .section-intro{ margin-top:0; margin-bottom:28px; }
 
 .obtain-grid{
-  display:grid; grid-template-columns:1fr 1fr; gap:24px;
-  margin-bottom:80px;
+  display:grid; grid-template-columns:1fr 1fr; gap:20px;
+  margin-bottom:56px;
 }
 @media (max-width:720px){ .obtain-grid{grid-template-columns:1fr;} }
-.obtain-card{ text-align:center; }
-.obtain-card h3{ font-size:19px; margin-bottom:16px; }
-.obtain-card p{
-  background:var(--blue-soft);
-  color:var(--navy);
-  border-radius:16px;
-  padding:22px 24px;
-  font-size:14px; font-weight:500; line-height:1.65;
-}
 
 .prep-note{
-  margin:-48px 0 56px;
+  margin:0 0 64px;
   padding:18px 22px;
   border-radius:14px;
   border:1px solid var(--line);
@@ -507,12 +502,22 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
 
     <h3 class="subhead">¿Cómo obtener tu envase?</h3>
     <div class="obtain-grid">
-      <div class="obtain-card">
-        <h3>Buscamos tu envase ideal</h3>
+      <div class="factor-card">
+        <div class="factor-head">
+          <div class="factor-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="6"/><line x1="20" y1="20" x2="14.5" y2="14.5"/></svg>
+          </div>
+          <h3>Buscamos tu envase ideal</h3>
+        </div>
         <p>Te ayudamos a encontrar el envase ideal, trabajando junto a los principales fabricantes y proveedores de Argentina y del exterior.</p>
       </div>
-      <div class="obtain-card">
-        <h3>Trae tu envase</h3>
+      <div class="factor-card">
+        <div class="factor-head">
+          <div class="factor-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M12 15V3"/><path d="M8 7l4-4 4 4"/></svg>
+          </div>
+          <h3>Trae tu envase</h3>
+        </div>
         <p>Si ya tenés tu propio envase, lo analizamos y te asesoramos sobre las posibilidades de decoración.</p>
       </div>
     </div>
