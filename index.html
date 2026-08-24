@@ -234,6 +234,26 @@ section{ padding:96px 0; }
   font-size:14px; font-weight:500; line-height:1.65;
 }
 
+.prep-note{
+  margin:-48px 0 56px;
+  padding:18px 22px;
+  border-radius:14px;
+  border:1px solid var(--line);
+  background:var(--bg);
+}
+.prep-note-title{
+  font-size:12.5px; font-weight:700; color:var(--text-soft);
+  margin-bottom:12px;
+}
+.prep-note-items{
+  display:grid; grid-template-columns:1fr 1fr; gap:14px;
+}
+@media (max-width:640px){ .prep-note-items{grid-template-columns:1fr;} }
+.prep-note-item{ display:flex; gap:10px; align-items:flex-start; }
+.prep-note-item svg{ width:16px; height:16px; margin-top:2px; stroke:var(--taupe); flex-shrink:0; }
+.prep-note-item b{ display:block; font-size:12.5px; font-weight:700; color:var(--text-soft); }
+.prep-note-item span{ font-size:12px; font-weight:500; color:var(--text-soft); }
+
 .factor-grid{
   display:grid;
   grid-template-columns:repeat(4, 1fr);
@@ -485,31 +505,6 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
       <img src="assets/envases-materiales.jpg" alt="Envases de vidrio, aluminio, cerámica y plástico que trabajamos">
     </div>
 
-    <h3 class="subhead">¿No viene listo para decorar?</h3>
-    <p class="section-intro">Si el envase lo necesita, ofrecemos procesos previos para dejarlo en condiciones de recibir la decoración.</p>
-    <div class="obtain-grid" style="margin-top:32px;">
-      <div class="factor-card">
-        <div class="factor-head">
-          <div class="factor-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c-1 4-5 5-5 10a5 5 0 0 0 10 0c0-1.5-.7-2.5-1.5-3.5.2 2-.8 3-1.8 3-1.2 0-1.7-1-1.2-2.2C13.2 7 12.5 4 12 2Z"/></svg>
-          </div>
-          <h3>Quemado de etiquetas</h3>
-        </div>
-        <span class="idx">¿El envase llega con etiquetas o restos de adhesivo?</span>
-        <p>Eliminamos etiquetas y restos de adhesivo del vidrio para dejar la superficie limpia y lista para decorar.</p>
-      </div>
-      <div class="factor-card">
-        <div class="factor-head">
-          <div class="factor-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2s7 8 7 13a7 7 0 0 1-14 0c0-5 7-13 7-13Z"/><line x1="4" y1="20" x2="20" y2="4"/></svg>
-          </div>
-          <h3>Remoción de capa antiadherente</h3>
-        </div>
-        <span class="idx">¿El envase ya trae una capa antipintura?</span>
-        <p>Si el envase trae una capa antipintura de fábrica, la retiramos para que la tinta pueda adherirse correctamente.</p>
-      </div>
-    </div>
-
     <h3 class="subhead">¿Cómo obtener tu envase?</h3>
     <div class="obtain-grid">
       <div class="obtain-card">
@@ -519,6 +514,26 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
       <div class="obtain-card">
         <h3>Trae tu envase</h3>
         <p>Si ya tenés tu propio envase, lo analizamos y te asesoramos sobre las posibilidades de decoración.</p>
+      </div>
+    </div>
+
+    <div class="prep-note">
+      <p class="prep-note-title">¿No viene listo para decorar? Si lo necesita, ofrecemos procesos previos:</p>
+      <div class="prep-note-items">
+        <div class="prep-note-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c-1 4-5 5-5 10a5 5 0 0 0 10 0c0-1.5-.7-2.5-1.5-3.5.2 2-.8 3-1.8 3-1.2 0-1.7-1-1.2-2.2C13.2 7 12.5 4 12 2Z"/></svg>
+          <div>
+            <b>Quemado de etiquetas</b>
+            <span>Eliminamos etiquetas y restos de adhesivo del vidrio.</span>
+          </div>
+        </div>
+        <div class="prep-note-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2s7 8 7 13a7 7 0 0 1-14 0c0-5 7-13 7-13Z"/><line x1="4" y1="20" x2="20" y2="4"/></svg>
+          <div>
+            <b>Remoción de capa antiadherente</b>
+            <span>Si trae una capa antipintura de fábrica, la retiramos.</span>
+          </div>
+        </div>
       </div>
     </div>
 
