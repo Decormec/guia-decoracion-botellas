@@ -136,12 +136,36 @@ h1,h2,h3{
   pointer-events:none;
   z-index:0;
 }
+.hero-halo::before{
+  content:"";
+  position:absolute; inset:0;
+  -webkit-mask-image:url(assets/halo.svg), url(assets/halo.svg);
+  mask-image:url(assets/halo.svg), url(assets/halo.svg);
+  -webkit-mask-size:100% 100%, calc(100% - 7px) calc(100% - 7px);
+  mask-size:100% 100%, calc(100% - 7px) calc(100% - 7px);
+  -webkit-mask-repeat:no-repeat, no-repeat;
+  mask-repeat:no-repeat, no-repeat;
+  -webkit-mask-position:center, center;
+  mask-position:center, center;
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+  background:linear-gradient(135deg,
+    rgba(255,255,255,0.95) 0%,
+    rgba(255,255,255,0.2) 20%,
+    rgba(255,255,255,0.04) 45%,
+    rgba(255,255,255,0.18) 65%,
+    rgba(255,255,255,0.75) 85%,
+    rgba(255,255,255,0.3) 100%);
+  mix-blend-mode:screen;
+  z-index:1;
+}
 .hero-halo::after{
   content:"";
   position:absolute; inset:0;
   background:radial-gradient(circle at 32% 26%, rgba(255,255,255,0.65), transparent 58%);
   mix-blend-mode:screen;
   animation:haloShine 6s ease-in-out infinite;
+  z-index:2;
 }
 @keyframes haloShine{
   0%,100%{ opacity:0.55; }
