@@ -136,6 +136,20 @@ h1,h2,h3{
   pointer-events:none;
   z-index:0;
 }
+.hero-halo::after{
+  content:"";
+  position:absolute; inset:0;
+  background:radial-gradient(circle at 32% 26%, rgba(255,255,255,0.65), transparent 58%);
+  mix-blend-mode:screen;
+  animation:haloShine 6s ease-in-out infinite;
+}
+@keyframes haloShine{
+  0%,100%{ opacity:0.55; }
+  50%{ opacity:1; }
+}
+@media (prefers-reduced-motion: reduce){
+  .hero-halo::after{ animation:none; opacity:0.8; }
+}
 @media (max-width:720px){
   .hero-halo{ width:230%; max-width:none; min-width:0; right:-45%; }
 }
