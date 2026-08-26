@@ -244,12 +244,76 @@ section{ padding:96px 0; }
   color:var(--text-soft); font-size:15.5px; font-weight:500;
 }
 
-.material-panel{
+/* ---------- ESCENA FLOTANTE (materiales) ---------- */
+.float-scene{
   border-radius:24px;
   overflow:hidden;
   margin-bottom:72px;
+  background:#fff;
 }
-.material-panel img{ width:100%; height:auto; display:block; }
+.float-stage{
+  position:relative;
+  width:100%;
+  aspect-ratio:1415/944;
+}
+.float-obj{
+  position:absolute;
+  left:var(--x); top:var(--y);
+  width:var(--w);
+  height:auto;
+  transform:translate(-50%,-50%);
+  z-index:var(--z);
+  filter:drop-shadow(0 14px 18px rgba(15,27,69,0.12));
+  animation-name:floatObj;
+  animation-duration:var(--dur);
+  animation-delay:var(--delay);
+  animation-timing-function:ease-in-out;
+  animation-iteration-count:infinite;
+  will-change:transform;
+}
+@media (max-width:720px){
+  .float-stage{ aspect-ratio:auto; height:100vh; height:100dvh; }
+  .float-obj{
+    left:var(--xm, var(--x)); top:var(--ym, var(--y)); width:var(--wm, var(--w));
+  }
+}
+@keyframes floatObj{
+  0%,100%{ transform:translate(-50%,-50%) translate3d(0,0,0) rotate(var(--r0)) scale(1); }
+  50%{ transform:translate(-50%,-50%) translate3d(var(--dx),var(--dy),0) rotate(var(--r1)) scale(var(--sc)); }
+}
+.float-word{
+  position:absolute;
+  z-index:var(--z);
+  display:inline-flex; align-items:center; justify-content:center;
+  padding:11px 26px;
+  border-radius:999px;
+  border:1.5px solid var(--blue);
+  background:rgba(30,64,199,0.05);
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
+  color:var(--blue);
+  font-family:var(--font);
+  font-weight:700;
+  font-size:clamp(10px,1.35vw,13.5px);
+  text-transform:uppercase;
+  letter-spacing:0.06em;
+  white-space:nowrap;
+  pointer-events:none;
+}
+@media (prefers-reduced-motion: reduce){
+  .float-obj{ animation:none; }
+}
+@media (max-width:720px){
+  .float-word{ padding:8px 18px; font-size:10px; }
+  .float-word--vidrio{ left:8% !important; top:2% !important; right:auto !important; bottom:auto !important; }
+  .float-word--ceramica{ left:32% !important; top:26.5% !important; right:auto !important; bottom:auto !important; }
+  .float-word--aluminio{ left:11% !important; top:37.5% !important; right:auto !important; bottom:auto !important; }
+  .float-word--plastico{ left:35% !important; top:47% !important; right:auto !important; bottom:auto !important; }
+  .float-word--ymas{ right:6% !important; bottom:1.5% !important; left:auto !important; top:auto !important; }
+}
+@media (max-width:400px){
+  .float-word{ padding:6px 14px; font-size:8.5px; }
+}
 
 .subhead{
   font-family:var(--font);
@@ -615,8 +679,33 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
       <p class="intro-copy">Trabajamos sobre diferentes modelos y materialidades de envases y desarrollamos la solución de decoración según el resultado buscado.</p>
     </div>
 
-    <div class="material-panel">
-      <img src="assets/envases-materiales.jpg" alt="Envases de vidrio, aluminio, cerámica y plástico que trabajamos">
+    <div class="float-scene">
+      <div class="float-stage">
+      <img class="float-obj" src="assets/floating/ceramic_mug_top.webp" width="200" height="171" alt="Taza de cerámica" loading="lazy" style="--x:74.06%; --y:33.1%; --w:14.13%; --z:45; --dx:-7.2px; --dy:10.0px; --r0:-1.8deg; --r1:-5.16deg; --sc:1.042; --dur:6.93s; --delay:-2.93s; --xm:46%; --ym:30.06%; --wm:21.91%;">
+      <img class="float-obj" src="assets/floating/wineglass_topright.webp" width="175" height="314" alt="Copa de vino de vidrio" loading="lazy" style="--x:87.31%; --y:22.99%; --w:12.37%; --z:15; --dx:-7.7px; --dy:-12.0px; --r0:-2.37deg; --r1:-5.8deg; --sc:1.038; --dur:8.6s; --delay:-3.86s; --xm:52%; --ym:14.72%; --wm:19.17%;">
+      <img class="float-obj" src="assets/floating/winebottle_center.webp" width="157" height="511" alt="Botella de vino de vidrio" loading="lazy" style="--x:50.57%; --y:39.35%; --w:11.1%; --z:30; --dx:13.5px; --dy:-14.1px; --r0:-1.7deg; --r1:0.98deg; --sc:1.024; --dur:11.29s; --delay:-3.8s; --xm:62%; --ym:35.17%; --wm:21.08%;">
+      <img class="float-obj" src="assets/floating/demijohn.webp" width="183" height="305" alt="Damajuana de vidrio" loading="lazy" style="--x:10.99%; --y:60.33%; --w:12.93%; --z:25; --dx:-10.0px; --dy:14.8px; --r0:0.52deg; --r1:-2.94deg; --sc:1.033; --dur:11.37s; --delay:-4.3s; --xm:68%; --ym:60.72%; --wm:22.63%;">
+      <img class="float-obj" src="assets/floating/travelmug_mint.webp" width="150" height="246" alt="Vaso térmico" loading="lazy" style="--x:37.31%; --y:77.75%; --w:10.6%; --z:26; --dx:13.6px; --dy:12.6px; --r0:1.02deg; --r1:-2.3deg; --sc:1.039; --dur:11.43s; --delay:-9.77s; --xm:46%; --ym:76.06%; --wm:16.43%;">
+      <img class="float-obj" src="assets/floating/wineglass_topleft.webp" width="225" height="342" alt="Copa de vino de vidrio" loading="lazy" style="--x:13.75%; --y:27.44%; --w:15.9%; --z:20; --dx:-10.0px; --dy:13.1px; --r0:-0.68deg; --r1:2.03deg; --sc:1.037; --dur:10.01s; --delay:-6.84s; --xm:30%; --ym:19.83%; --wm:27.03%;">
+      <img class="float-obj" src="assets/floating/oliveoil_bottle.webp" width="134" height="349" alt="Botella de vidrio tipo aceite" loading="lazy" style="--x:76.96%; --y:62.13%; --w:9.47%; --z:27; --dx:-11.9px; --dy:-12.3px; --r0:-1.28deg; --r1:1.48deg; --sc:1.045; --dur:9.7s; --delay:-5.4s; --xm:20%; --ym:65.83%; --wm:14.68%;">
+      <img class="float-obj" src="assets/floating/steel_bottle.webp" width="116" height="336" alt="Botella térmica de acero" loading="lazy" style="--x:61.48%; --y:55.61%; --w:8.2%; --z:26; --dx:13.7px; --dy:-9.8px; --r0:-2.34deg; --r1:0.46deg; --sc:1.022; --dur:11.07s; --delay:-6.28s; --xm:80%; --ym:45.39%; --wm:12.71%;">
+      <img class="float-obj" src="assets/floating/masonjar.webp" width="177" height="212" alt="Frasco de vidrio tipo conserva" loading="lazy" style="--x:27.95%; --y:29.87%; --w:12.51%; --z:22; --dx:8.7px; --dy:11.2px; --r0:2.07deg; --r1:4.36deg; --sc:1.023; --dur:10.22s; --delay:-5.51s; --xm:72%; --ym:24.94%; --wm:19.39%;">
+      <img class="float-obj" src="assets/floating/ceramic_jug.webp" width="168" height="241" alt="Jarra de cerámica" loading="lazy" style="--x:89.54%; --y:56.09%; --w:11.87%; --z:28; --dx:14.2px; --dy:10.9px; --r0:2.49deg; --r1:-0.53deg; --sc:1.022; --dur:6.74s; --delay:-0.74s; --xm:34%; --ym:55.61%; --wm:20.18%;">
+      <img class="float-obj" src="assets/floating/aluminum_bottle.webp" width="144" height="270" alt="Botella de aluminio" loading="lazy" style="--x:36.54%; --y:48.2%; --w:10.18%; --z:45; --dx:13.3px; --dy:12.8px; --r0:-0.58deg; --r1:2.48deg; --sc:1.044; --dur:10.8s; --delay:-0.12s; --xm:26%; --ym:40.28%; --wm:15.77%;">
+      <img class="float-obj" src="assets/floating/stemless_glass.webp" width="146" height="177" alt="Vaso de vidrio sin pie" loading="lazy" style="--x:23.82%; --y:80.88%; --w:10.32%; --z:24; --dx:-12.5px; --dy:14.1px; --r0:-0.8deg; --r1:2.07deg; --sc:1.031; --dur:11.27s; --delay:-9.87s; --xm:64%; --ym:86.28%; --wm:15.99%;">
+      <img class="float-obj" src="assets/floating/plastic_cup1.webp" width="134" height="187" alt="Vaso de plástico" loading="lazy" style="--x:24.03%; --y:55.99%; --w:9.47%; --z:20; --dx:14.8px; --dy:-12.1px; --r0:-1.97deg; --r1:1.72deg; --sc:1.033; --dur:7.49s; --delay:-2.8s; --xm:50%; --ym:50.5%; --wm:14.68%;">
+      <img class="float-obj" src="assets/floating/tall_glass.webp" width="130" height="208" alt="Vaso de vidrio alto" loading="lazy" style="--x:64.66%; --y:18.43%; --w:9.19%; --z:22; --dx:-11.3px; --dy:-12.8px; --r0:-0.06deg; --r1:-3.92deg; --sc:1.042; --dur:10.66s; --delay:-3.28s; --xm:78%; --ym:9.61%; --wm:14.24%;">
+      <img class="float-obj" src="assets/floating/small_mug.webp" width="158" height="143" alt="Taza de vidrio con asa" loading="lazy" style="--x:88.55%; --y:81.62%; --w:11.17%; --z:24; --dx:-8.9px; --dy:-8.7px; --r0:-0.07deg; --r1:-4.03deg; --sc:1.033; --dur:7.13s; --delay:-4.7s; --xm:40%; --ym:91.39%; --wm:17.31%;">
+      <img class="float-obj" src="assets/floating/perfume2.webp" width="109" height="204" alt="Frasco de perfume" loading="lazy" style="--x:67.74%; --y:77.54%; --w:7.7%; --z:24; --dx:-9.1px; --dy:15.7px; --r0:2.14deg; --r1:-1.28deg; --sc:1.03; --dur:9.86s; --delay:-3.68s; --xm:76%; --ym:70.94%; --wm:11.94%;">
+      <img class="float-obj" src="assets/floating/plastic_cup2.webp" width="121" height="154" alt="Vaso de plástico" loading="lazy" style="--x:57.21%; --y:84.85%; --w:8.55%; --z:45; --dx:8.0px; --dy:-8.5px; --r0:-2.39deg; --r1:-5.57deg; --sc:1.02; --dur:10.04s; --delay:-0.59s; --xm:74%; --ym:96.5%; --wm:13.25%;">
+      <img class="float-obj" src="assets/floating/perfume1.webp" width="116" height="151" alt="Frasco de perfume de vidrio" loading="lazy" style="--x:38.52%; --y:17.21%; --w:8.2%; --z:24; --dx:-14.2px; --dy:8.6px; --r0:-1.31deg; --r1:1.12deg; --sc:1.023; --dur:11.18s; --delay:-6.38s; --xm:22%; --ym:4.5%; --wm:12.71%;">
+      <img class="float-obj" src="assets/floating/pillbottle.webp" width="92" height="148" alt="Frasco de pastillas" loading="lazy" style="--x:48.2%; --y:79.03%; --w:6.5%; --z:22; --dx:8.9px; --dy:14.5px; --r0:-1.55deg; --r1:-4.87deg; --sc:1.029; --dur:8.56s; --delay:-7.39s; --xm:28%; --ym:81.17%; --wm:10.08%;">
+      <span class="float-word float-word--vidrio" style="left:12.83%; top:14.25%; --z:70;">VIDRIO</span>
+      <span class="float-word float-word--ceramica" style="left:74.88%; top:37.66%; --z:40;">CERÁMICA</span>
+      <span class="float-word float-word--aluminio" style="left:27.46%; top:56.41%; --z:40;">ALUMINIO</span>
+      <span class="float-word float-word--plastico" style="left:49.30%; top:83.32%; --z:40;">PLÁSTICO</span>
+      <span class="float-word float-word--ymas" style="right:3.85%; bottom:8.10%; --z:70;">Y MÁS...</span>
+      </div>
     </div>
 
     <h3 class="subhead">¿Cómo obtener tu envase?</h3>
