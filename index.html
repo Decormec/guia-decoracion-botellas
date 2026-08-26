@@ -95,7 +95,8 @@ h1,h2,h3{
   box-shadow:0 4px 14px rgba(15,27,69,0.1);
 }
 .nav.scrolled .nav-links a:hover{ color:#fff; background:var(--blue); border-color:var(--blue); }
-@media (max-width:720px){ .nav-links{gap:2px;} .nav-links a{padding:7px 13px; font-size:10.5px;} }
+.nav-links a.nav-minor{ font-size:9.5px; padding:7px 16px; }
+@media (max-width:720px){ .nav-links{gap:2px;} .nav-links a{padding:7px 13px; font-size:10.5px;} .nav-links a.nav-minor{ padding:7px 11px; font-size:9px; } }
 @media (max-width:560px){ .nav-links{display:none;} }
 
 /* ---------- HERO ---------- */
@@ -473,6 +474,54 @@ section{ padding:96px 0; }
 .step h3{ color:#fff; font-size:19px; margin:14px 0 8px; }
 .step p{ font-size:13.5px; font-weight:500; color:#C6CEEE; }
 
+.desarrollo-cta{ display:flex; justify-content:center; margin-top:44px; }
+.cta-btn{
+  font-family:var(--font); font-size:14px; font-weight:700;
+  color:#fff; background:var(--blue);
+  padding:16px 38px; border-radius:999px;
+  text-decoration:none; letter-spacing:0.02em;
+  box-shadow:0 10px 24px rgba(30,64,199,0.25);
+  transition:background .15s, transform .15s;
+  display:inline-block;
+}
+.cta-btn:hover{ background:var(--navy); transform:translateY(-2px); }
+
+/* ---------- PROYECTOS ---------- */
+.proyectos-grid{
+  display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  gap:24px;
+}
+.proyecto-card{
+  position:relative;
+  border-radius:20px;
+  overflow:hidden;
+  aspect-ratio:4/5;
+  background:var(--bg);
+}
+.proyecto-card img{
+  width:100%; height:100%; object-fit:cover;
+  display:block;
+  transition:transform .25s;
+}
+.proyecto-card:hover img{ transform:scale(1.05); }
+.proyecto-caption{
+  position:absolute; left:0; right:0; bottom:0;
+  padding:20px 22px;
+  background:linear-gradient(0deg, rgba(15,20,50,0.72), transparent);
+  color:#fff; font-family:var(--font); font-size:13.5px; font-weight:700;
+}
+.proyectos-placeholder{
+  grid-column:1/-1;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center; gap:10px;
+  border:1.5px dashed var(--line);
+  border-radius:20px;
+  padding:64px 32px;
+  color:var(--text-soft);
+}
+.proyectos-placeholder svg{ width:34px; height:34px; color:var(--taupe); }
+.proyectos-placeholder p{ font-size:14px; font-weight:500; max-width:44ch; }
+
 /* ---------- FOOTER ---------- */
 footer{
   padding:56px 0 72px;
@@ -501,6 +550,7 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
       <li><a href="#botella">El envase</a></li>
       <li><a href="#tecnicas">Las técnicas</a></li>
       <li><a href="#desarrollo">El desarrollo</a></li>
+      <li><a href="#proyectos" class="nav-minor">Proyectos</a></li>
     </ul>
   </div>
 </nav>
@@ -880,6 +930,27 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
           <h3>Producción</h3>
           <p>Llevamos el desarrollo a escala industrial.</p>
         </div>
+      </div>
+    </div>
+
+    <div class="desarrollo-cta">
+      <a href="#proyectos" class="cta-btn">Ver proyectos realizados</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROYECTOS ============ -->
+<section id="proyectos">
+  <div class="wrap">
+    <div class="intro-split">
+      <h2 class="headline-italic">Proyectos realizados</h2>
+      <p class="intro-copy">Una selección de desarrollos reales, para ver estas técnicas aplicadas en botellas de nuestros clientes.</p>
+    </div>
+
+    <div class="proyectos-grid">
+      <div class="proyectos-placeholder">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="9" r="1.5"/><path d="M21 15l-5-5-9 9"/></svg>
+        <p>Muy pronto vas a poder ver acá una selección de proyectos reales terminados.</p>
       </div>
     </div>
   </div>
