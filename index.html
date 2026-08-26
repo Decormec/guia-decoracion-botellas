@@ -281,11 +281,28 @@ section{ padding:96px 0; }
   0%,100%{ transform:translate(-50%,-50%) translate3d(0,0,0) rotate(var(--r0)) scale(1); }
   50%{ transform:translate(-50%,-50%) translate3d(var(--dx),var(--dy),0) rotate(var(--r1)) scale(var(--sc)); }
 }
+.float-obj:hover{
+  animation-name:floatObjHover;
+  animation-duration:0.5s;
+  animation-timing-function:ease-out;
+  animation-iteration-count:1;
+  animation-fill-mode:forwards;
+  z-index:99;
+  filter:drop-shadow(0 20px 26px rgba(15,27,69,0.24));
+  cursor:pointer;
+}
+@keyframes floatObjHover{
+  0%{ transform:translate(-50%,-50%) scale(1) rotate(0deg); }
+  30%{ transform:translate(-50%,-50%) scale(1.14) rotate(-5deg); }
+  55%{ transform:translate(-50%,-50%) scale(1.08) rotate(4deg); }
+  80%{ transform:translate(-50%,-50%) scale(1.1) rotate(-2deg); }
+  100%{ transform:translate(-50%,-50%) scale(1.08) rotate(0deg); }
+}
 .float-word{
   position:absolute;
   z-index:var(--z);
   display:inline-flex; align-items:center; justify-content:center;
-  padding:11px 26px;
+  padding:14px 32px;
   border-radius:999px;
   border:1.5px solid var(--blue);
   background:rgba(30,64,199,0.05);
@@ -294,7 +311,7 @@ section{ padding:96px 0; }
   color:var(--blue);
   font-family:var(--font);
   font-weight:700;
-  font-size:clamp(10px,1.35vw,13.5px);
+  font-size:clamp(12px,1.7vw,17px);
   text-transform:uppercase;
   letter-spacing:0.06em;
   white-space:nowrap;
@@ -304,7 +321,7 @@ section{ padding:96px 0; }
   .float-obj{ animation:none; }
 }
 @media (max-width:720px){
-  .float-word{ padding:8px 18px; font-size:10px; }
+  .float-word{ padding:11px 24px; font-size:12.5px; }
   .float-word--vidrio{ left:8% !important; top:2% !important; right:auto !important; bottom:auto !important; }
   .float-word--ceramica{ left:32% !important; top:26.5% !important; right:auto !important; bottom:auto !important; }
   .float-word--aluminio{ left:11% !important; top:37.5% !important; right:auto !important; bottom:auto !important; }
@@ -312,7 +329,7 @@ section{ padding:96px 0; }
   .float-word--ymas{ right:6% !important; bottom:1.5% !important; left:auto !important; top:auto !important; }
 }
 @media (max-width:400px){
-  .float-word{ padding:6px 14px; font-size:8.5px; }
+  .float-word{ padding:9px 20px; font-size:11px; }
 }
 
 .subhead{
@@ -702,7 +719,7 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
       <img class="float-obj" src="assets/floating/pillbottle.webp" width="92" height="148" alt="Frasco de pastillas" loading="lazy" style="--x:48.2%; --y:79.03%; --w:6.5%; --z:22; --dx:8.9px; --dy:14.5px; --r0:-1.55deg; --r1:-4.87deg; --sc:1.029; --dur:8.56s; --delay:-7.39s; --xm:28%; --ym:81.17%; --wm:10.08%;">
       <span class="float-word float-word--vidrio" style="left:12.83%; top:14.25%; --z:70;">VIDRIO</span>
       <span class="float-word float-word--ceramica" style="left:74.88%; top:37.66%; --z:40;">CERÁMICA</span>
-      <span class="float-word float-word--aluminio" style="left:40%; top:56.41%; --z:40;">ALUMINIO</span>
+      <span class="float-word float-word--aluminio" style="left:30%; top:25%; --z:40;">ALUMINIO</span>
       <span class="float-word float-word--plastico" style="left:49.30%; top:69%; --z:40;">PLÁSTICO</span>
       <span class="float-word float-word--ymas" style="right:3.85%; bottom:8.10%; --z:70;">Y MÁS...</span>
       </div>
