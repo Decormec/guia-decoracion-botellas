@@ -376,6 +376,21 @@ section{ padding:96px 0; }
   object-fit:contain; object-position:center bottom;
   filter:drop-shadow(0 18px 22px rgba(15,27,69,0.14));
 }
+.bottle-lens{
+  position:absolute;
+  width:170px; height:170px;
+  border-radius:50%;
+  border:4px solid #fff;
+  background-size:cover;
+  background-position:center;
+  box-shadow:0 14px 32px rgba(15,27,69,0.32), 0 0 0 1px rgba(15,27,69,0.06);
+  pointer-events:none;
+  opacity:0;
+  transform:translate(-50%,-50%) scale(0.85);
+  transition:opacity .18s ease, transform .18s ease;
+  z-index:5;
+}
+.bottle-lens.active{ opacity:1; transform:translate(-50%,-50%) scale(1); }
 .intro-invite{ display:flex; flex-direction:column; justify-content:center; }
 .field-label{
   font-family:var(--font); font-size:12px; font-weight:700; color:var(--taupe);
@@ -765,7 +780,10 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
     <!-- SERIGRAFIA -->
     <div class="technique" data-technique="serigrafia">
       <div class="bottle-stage">
-        <div class="bottle-photo"><img src="assets/bottles/serigrafia-1.webp" alt="Botella decorada con serigrafía" width="150" height="375" loading="lazy" data-serigrafia-img></div>
+        <div class="bottle-photo">
+          <img src="assets/bottles/serigrafia-1.webp" alt="Botella decorada con serigrafía" width="150" height="375" loading="lazy" data-serigrafia-img>
+          <div class="bottle-lens" data-lens style="background-image:url('assets/bottles/zoom-serigrafia-1.webp')"></div>
+        </div>
         <div class="spec-tag">
           <div class="spec-tag-row"><span class="k">Técnica</span><span class="v">Serigrafía</span></div>
           <div class="spec-tag-row"><span class="k">Variante</span><span class="v" data-field="variant">Vitrificable</span></div>
@@ -781,11 +799,11 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
 
         <div class="field-label">Cantidad de colores</div>
         <div class="swatches">
-          <div class="swatch active"><div class="swatch-chip" data-colorcount="1" style="background:linear-gradient(135deg,#1E40C7,#5B84FF)">1</div><div class="swatch-label">1 color</div></div>
-          <div class="swatch"><div class="swatch-chip" data-colorcount="2" style="background:linear-gradient(135deg,#1E40C7,#5B84FF)">2</div><div class="swatch-label">2 colores</div></div>
-          <div class="swatch"><div class="swatch-chip" data-colorcount="3" style="background:linear-gradient(135deg,#1E40C7,#5B84FF)">3</div><div class="swatch-label">3 colores</div></div>
-          <div class="swatch"><div class="swatch-chip" data-colorcount="4" style="background:linear-gradient(135deg,#1E40C7,#5B84FF)">4</div><div class="swatch-label">4 colores</div></div>
-          <div class="swatch"><div class="swatch-chip" data-colorcount="5" style="background:linear-gradient(135deg,#1E40C7,#5B84FF)">5</div><div class="swatch-label">5 colores</div></div>
+          <div class="swatch active"><div class="swatch-chip" data-colorcount="1" data-zoom="assets/bottles/zoom-serigrafia-1.webp" style="background:linear-gradient(135deg,#1E40C7,#5B84FF)">1</div><div class="swatch-label">1 color</div></div>
+          <div class="swatch"><div class="swatch-chip" data-colorcount="2" data-zoom="assets/bottles/zoom-serigrafia-2.webp" style="background:linear-gradient(135deg,#1E40C7,#5B84FF)">2</div><div class="swatch-label">2 colores</div></div>
+          <div class="swatch"><div class="swatch-chip" data-colorcount="3" data-zoom="assets/bottles/zoom-serigrafia-3.webp" style="background:linear-gradient(135deg,#1E40C7,#5B84FF)">3</div><div class="swatch-label">3 colores</div></div>
+          <div class="swatch"><div class="swatch-chip" data-colorcount="4" data-zoom="assets/bottles/zoom-serigrafia-4.webp" style="background:linear-gradient(135deg,#1E40C7,#5B84FF)">4</div><div class="swatch-label">4 colores</div></div>
+          <div class="swatch"><div class="swatch-chip" data-colorcount="5" data-zoom="assets/bottles/zoom-serigrafia-5.webp" style="background:linear-gradient(135deg,#1E40C7,#5B84FF)">5</div><div class="swatch-label">5 colores</div></div>
         </div>
 
         <div class="variant-row">
@@ -818,7 +836,10 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
     <!-- COATING -->
     <div class="technique" data-technique="coating">
       <div class="bottle-stage">
-        <div class="bottle-photo"><img src="assets/bottles/coating-traslucido.webp" alt="Botella con coating" width="150" height="375" loading="lazy" data-coating-img></div>
+        <div class="bottle-photo">
+          <img src="assets/bottles/coating-traslucido.webp" alt="Botella con coating" width="150" height="375" loading="lazy" data-coating-img>
+          <div class="bottle-lens" data-lens style="background-image:url('assets/bottles/zoom-coating-traslucido.webp')"></div>
+        </div>
         <div class="spec-tag">
           <div class="spec-tag-row"><span class="k">Técnica</span><span class="v">Coating</span></div>
           <div class="spec-tag-row"><span class="k">Acabado</span><span class="v" data-field="coating-acabado">Translúcido</span></div>
@@ -833,16 +854,18 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
         <p class="how">Es la técnica más versátil en materiales: funciona igual sobre vidrio, plástico, aluminio o cerámica. Se puede pintar la botella entera o evitar el pico, para que no haya contacto con el líquido al consumir.</p>
 
         <div class="swatches">
-          <div class="swatch active"><div class="swatch-chip" data-coating-swatch="traslucido" data-img="assets/bottles/coating-traslucido.webp" style="background:rgba(46,92,255,0.32)"></div><div class="swatch-label">Translúcido</div></div>
-          <div class="swatch"><div class="swatch-chip" data-coating-swatch="mate" data-img="assets/bottles/coating-mate.webp" style="background:#4A4E48"></div><div class="swatch-label">Mate</div></div>
-          <div class="swatch"><div class="swatch-chip" data-coating-swatch="brillante" data-img="assets/bottles/coating-brillante.webp" style="background:linear-gradient(135deg,#1E40C7,#5B84FF)"></div><div class="swatch-label">Brillante</div></div>
-          <div class="swatch"><div class="swatch-chip" data-coating-swatch="esmerilado" data-img="assets/bottles/coating-esmerilado.webp" style="background:rgba(200,200,195,0.6)"></div><div class="swatch-label">Esmerilado</div></div>
+          <div class="swatch active"><div class="swatch-chip" data-coating-swatch="traslucido" data-img="assets/bottles/coating-traslucido.webp" data-zoom="assets/bottles/zoom-coating-traslucido.webp" style="background:rgba(46,92,255,0.32)"></div><div class="swatch-label">Translúcido</div></div>
+          <div class="swatch"><div class="swatch-chip" data-coating-swatch="mate" data-img="assets/bottles/coating-mate.webp" data-zoom="assets/bottles/zoom-coating-mate.webp" style="background:#4A4E48"></div><div class="swatch-label">Mate</div></div>
+          <div class="swatch"><div class="swatch-chip" data-coating-swatch="brillante" data-img="assets/bottles/coating-brillante.webp" data-zoom="assets/bottles/zoom-coating-brillante.webp" style="background:linear-gradient(135deg,#1E40C7,#5B84FF)"></div><div class="swatch-label">Brillante</div></div>
+          <div class="swatch"><div class="swatch-chip" data-coating-swatch="esmerilado" data-img="assets/bottles/coating-esmerilado.webp" data-zoom="assets/bottles/zoom-coating-esmerilado.webp" style="background:rgba(200,200,195,0.6)"></div><div class="swatch-label">Esmerilado</div></div>
+          <div class="swatch"><div class="swatch-chip" data-coating-swatch="degrade" data-img="assets/bottles/coating-degrade.webp" data-zoom="assets/bottles/zoom-coating-degrade.webp" style="background:linear-gradient(180deg,#2E5CFF,#B8862E)"></div><div class="swatch-label">Degradé</div></div>
         </div>
 
         <div class="considerations">
           <div class="consideration"><b>Translúcido</b>Conserva la profundidad del vidrio.</div>
           <div class="consideration"><b>Mate</b>Acabado opaco, sin brillo ni reflejos.</div>
           <div class="consideration"><b>Esmerilado</b>Efecto frost, vidrio satinado.</div>
+          <div class="consideration"><b>Degradé</b>Transición entre dos tonalidades.</div>
           <div class="consideration"><b>Antirayado</b>Un barniz protector aumenta la resistencia al rayado en envases de uso frecuente.</div>
         </div>
 
@@ -853,7 +876,10 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
     <!-- HOT & COLD STAMPING -->
     <div class="technique" data-technique="stamping">
       <div class="bottle-stage">
-        <div class="bottle-photo"><img src="assets/bottles/stamping-dorado.webp" alt="Botella con hot &amp; cold stamping" width="150" height="375" loading="lazy" data-stamping-img></div>
+        <div class="bottle-photo">
+          <img src="assets/bottles/stamping-dorado.webp" alt="Botella con hot &amp; cold stamping" width="150" height="375" loading="lazy" data-stamping-img>
+          <div class="bottle-lens" data-lens style="background-image:url('assets/bottles/zoom-stamping-dorado.webp')"></div>
+        </div>
         <div class="spec-tag">
           <div class="spec-tag-row"><span class="k">Técnica</span><span class="v">Hot / Cold Stamping</span></div>
           <div class="spec-tag-row"><span class="k">Acabado</span><span class="v" data-field="stamping-acabado">Dorado</span></div>
@@ -868,9 +894,9 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
         <p class="how">Puede aplicarse directamente sobre el vidrio o sobre una superficie tratada previamente con coating, según el desarrollo y la geometría del envase. Permite trabajar en oro, plata y otros acabados metalizados, con tipografías y composiciones de alta precisión.</p>
 
         <div class="swatches">
-          <div class="swatch active"><div class="swatch-chip" data-stamping-swatch="dorado" data-img="assets/bottles/stamping-dorado.webp" style="background:linear-gradient(135deg,#E7C468,#8A631F)"></div><div class="swatch-label">Dorado</div></div>
-          <div class="swatch"><div class="swatch-chip" data-stamping-swatch="plateado" data-img="assets/bottles/stamping-plateado.webp" style="background:linear-gradient(135deg,#F1F2F2,#9CA0A4)"></div><div class="swatch-label">Plateado</div></div>
-          <div class="swatch"><div class="swatch-chip" data-stamping-swatch="tornasol" data-img="assets/bottles/stamping-tornasol.webp" style="background:linear-gradient(135deg,#F3B6D8,#9FE3D0,#F6E27A)"></div><div class="swatch-label">Tornasol</div></div>
+          <div class="swatch active"><div class="swatch-chip" data-stamping-swatch="dorado" data-img="assets/bottles/stamping-dorado.webp" data-zoom="assets/bottles/zoom-stamping-dorado.webp" style="background:linear-gradient(135deg,#E7C468,#8A631F)"></div><div class="swatch-label">Dorado</div></div>
+          <div class="swatch"><div class="swatch-chip" data-stamping-swatch="plateado" data-img="assets/bottles/stamping-plateado.webp" data-zoom="assets/bottles/zoom-stamping-plateado.webp" style="background:linear-gradient(135deg,#F1F2F2,#9CA0A4)"></div><div class="swatch-label">Plateado</div></div>
+          <div class="swatch"><div class="swatch-chip" data-stamping-swatch="tornasol" data-img="assets/bottles/stamping-tornasol.webp" data-zoom="assets/bottles/zoom-stamping-tornasol.webp" style="background:linear-gradient(135deg,#F3B6D8,#9FE3D0,#F6E27A)"></div><div class="swatch-label">Tornasol</div></div>
         </div>
 
         <div class="considerations">
@@ -887,7 +913,10 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
     <!-- ALTO VACIO -->
     <div class="technique" data-technique="vacio">
       <div class="bottle-stage">
-        <div class="bottle-photo"><img src="assets/bottles/vacio-plateado.webp" alt="Botella con alto vacío" width="150" height="375" loading="lazy" data-vacio-img></div>
+        <div class="bottle-photo">
+          <img src="assets/bottles/vacio-plateado.webp" alt="Botella con alto vacío" width="150" height="375" loading="lazy" data-vacio-img>
+          <div class="bottle-lens" data-lens style="background-image:url('assets/bottles/zoom-vacio-plateado.webp')"></div>
+        </div>
         <div class="spec-tag">
           <div class="spec-tag-row"><span class="k">Técnica</span><span class="v">Alto vacío</span></div>
           <div class="spec-tag-row"><span class="k">Acabado</span><span class="v" data-field="vacio-acabado">Plateado</span></div>
@@ -902,9 +931,9 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
         <p class="how">Cubre la totalidad de la botella, o se puede evitar la boca para que no haya contacto con el líquido. Es un proceso más exigente que el coating, con menor capacidad de unidades, pensado para desarrollos premium. Permite lograr distintas tonalidades dentro del efecto metalizado, y se le puede aplicar serigrafía encima.</p>
 
         <div class="swatches">
-          <div class="swatch active"><div class="swatch-chip" data-vacio-swatch="plateado" data-img="assets/bottles/vacio-plateado.webp" style="background:linear-gradient(135deg,#F1F2F2,#9CA0A4)"></div><div class="swatch-label">Plateado</div></div>
-          <div class="swatch"><div class="swatch-chip" data-vacio-swatch="dorado" data-img="assets/bottles/vacio-dorado.webp" style="background:linear-gradient(135deg,#E7C468,#8A631F)"></div><div class="swatch-label">Dorado</div></div>
-          <div class="swatch"><div class="swatch-chip" data-vacio-swatch="color" data-img="assets/bottles/vacio-color.webp" style="background:linear-gradient(135deg,#E8A796,#B9694F)"></div><div class="swatch-label">Metalizado color</div></div>
+          <div class="swatch active"><div class="swatch-chip" data-vacio-swatch="plateado" data-img="assets/bottles/vacio-plateado.webp" data-zoom="assets/bottles/zoom-vacio-plateado.webp" style="background:linear-gradient(135deg,#F1F2F2,#9CA0A4)"></div><div class="swatch-label">Plateado</div></div>
+          <div class="swatch"><div class="swatch-chip" data-vacio-swatch="dorado" data-img="assets/bottles/vacio-dorado.webp" data-zoom="assets/bottles/zoom-vacio-dorado.webp" style="background:linear-gradient(135deg,#E7C468,#8A631F)"></div><div class="swatch-label">Dorado</div></div>
+          <div class="swatch"><div class="swatch-chip" data-vacio-swatch="color" data-img="assets/bottles/vacio-color.webp" data-zoom="assets/bottles/zoom-vacio-color.webp" style="background:linear-gradient(135deg,#E8A796,#B9694F)"></div><div class="swatch-label">Metalizado color</div></div>
         </div>
 
         <div class="considerations">
@@ -988,6 +1017,22 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
 </footer>
 
 <script>
+// --- Lupa de zoom al hacer hover sobre la botella ---
+const canHoverZoom = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+function wireBottleLens(block){
+  if(!block) return;
+  const wrap = block.querySelector(".bottle-photo");
+  const lens = block.querySelector("[data-lens]");
+  if(!wrap || !lens || !canHoverZoom) return;
+  wrap.addEventListener("mouseenter", ()=> lens.classList.add("active"));
+  wrap.addEventListener("mouseleave", ()=> lens.classList.remove("active"));
+  wrap.addEventListener("mousemove", (e)=>{
+    const rect = wrap.getBoundingClientRect();
+    lens.style.left = (e.clientX - rect.left) + "px";
+    lens.style.top = (e.clientY - rect.top) + "px";
+  });
+}
+
 // --- Serigrafía: variantes ---
 const serigrafiaData = {
   vitrificable: { colores: "1 a 5", cierre: "360°, sin corte", label: "Vitrificable" },
@@ -1016,14 +1061,17 @@ if(serigrafiaBlock){
   });
 
   const colorImg = serigrafiaBlock.querySelector("[data-serigrafia-img]");
+  const colorLens = serigrafiaBlock.querySelector("[data-lens]");
   const colorSwatches = serigrafiaBlock.querySelectorAll("[data-colorcount]");
   colorSwatches.forEach(chip=>{
     chip.addEventListener("click", ()=>{
       colorSwatches.forEach(c=>c.closest(".swatch").classList.remove("active"));
       chip.closest(".swatch").classList.add("active");
       colorImg.src = `assets/bottles/serigrafia-${chip.dataset.colorcount}.webp`;
+      if(colorLens) colorLens.style.backgroundImage = `url('${chip.dataset.zoom}')`;
     });
   });
+  wireBottleLens(serigrafiaBlock);
 }
 
 // --- Coating: swatches ---
@@ -1031,17 +1079,20 @@ const coatingBlock = document.querySelector('[data-technique="coating"]');
 if(coatingBlock){
   const swatches = coatingBlock.querySelectorAll("[data-coating-swatch]");
   const img = coatingBlock.querySelector("[data-coating-img]");
+  const lens = coatingBlock.querySelector("[data-lens]");
   const fieldAcabado = coatingBlock.querySelector('[data-field="coating-acabado"]');
-  const labels = { traslucido:"Translúcido", mate:"Mate", brillante:"Brillante", esmerilado:"Esmerilado" };
+  const labels = { traslucido:"Translúcido", mate:"Mate", brillante:"Brillante", esmerilado:"Esmerilado", degrade:"Degradé" };
   swatches.forEach(sw=>{
     sw.addEventListener("click", ()=>{
       const key = sw.dataset.coatingSwatch;
       swatches.forEach(s=>s.closest(".swatch").classList.remove("active"));
       sw.closest(".swatch").classList.add("active");
       img.src = sw.dataset.img;
+      if(lens) lens.style.backgroundImage = `url('${sw.dataset.zoom}')`;
       fieldAcabado.textContent = labels[key];
     });
   });
+  wireBottleLens(coatingBlock);
 }
 
 // --- Hot & Cold Stamping: swatches ---
@@ -1049,6 +1100,7 @@ const stampingBlock = document.querySelector('[data-technique="stamping"]');
 if(stampingBlock){
   const swatches = stampingBlock.querySelectorAll("[data-stamping-swatch]");
   const img = stampingBlock.querySelector("[data-stamping-img]");
+  const lens = stampingBlock.querySelector("[data-lens]");
   const fieldAcabado = stampingBlock.querySelector('[data-field="stamping-acabado"]');
   const labels = { dorado:"Dorado", plateado:"Plateado", tornasol:"Tornasol" };
   swatches.forEach(sw=>{
@@ -1057,9 +1109,11 @@ if(stampingBlock){
       swatches.forEach(s=>s.closest(".swatch").classList.remove("active"));
       sw.closest(".swatch").classList.add("active");
       img.src = sw.dataset.img;
+      if(lens) lens.style.backgroundImage = `url('${sw.dataset.zoom}')`;
       fieldAcabado.textContent = labels[key];
     });
   });
+  wireBottleLens(stampingBlock);
 }
 
 // --- Alto vacío: swatches ---
@@ -1067,6 +1121,7 @@ const vacioBlock = document.querySelector('[data-technique="vacio"]');
 if(vacioBlock){
   const swatches = vacioBlock.querySelectorAll("[data-vacio-swatch]");
   const img = vacioBlock.querySelector("[data-vacio-img]");
+  const lens = vacioBlock.querySelector("[data-lens]");
   const fieldAcabado = vacioBlock.querySelector('[data-field="vacio-acabado"]');
   const labels = { plateado:"Plateado", dorado:"Dorado", color:"Metalizado color" };
   swatches.forEach(sw=>{
@@ -1075,9 +1130,11 @@ if(vacioBlock){
       swatches.forEach(s=>s.closest(".swatch").classList.remove("active"));
       sw.closest(".swatch").classList.add("active");
       img.src = sw.dataset.img;
+      if(lens) lens.style.backgroundImage = `url('${sw.dataset.zoom}')`;
       fieldAcabado.textContent = labels[key];
     });
   });
+  wireBottleLens(vacioBlock);
 }
 
 // --- Técnicas: menú de tabs ---
