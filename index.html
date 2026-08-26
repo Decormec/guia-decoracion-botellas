@@ -1018,12 +1018,11 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
 
 <script>
 // --- Lupa de zoom al hacer hover sobre la botella ---
-const canHoverZoom = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 function wireBottleLens(block){
   if(!block) return;
   const wrap = block.querySelector(".bottle-photo");
   const lens = block.querySelector("[data-lens]");
-  if(!wrap || !lens || !canHoverZoom) return;
+  if(!wrap || !lens) return;
   wrap.addEventListener("mouseenter", ()=> lens.classList.add("active"));
   wrap.addEventListener("mouseleave", ()=> lens.classList.remove("active"));
   wrap.addEventListener("mousemove", (e)=>{
