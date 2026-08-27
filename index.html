@@ -438,31 +438,34 @@ details[open] > .accordion-summary .accordion-plus::after{ opacity:0; }
 }
 @media (max-width:480px){ .accordion-body{ padding-left:22px; } }
 
-/* ---------- TECNICAS: fondo vidrio esmerilado ---------- */
+/* ---------- TECNICAS: capítulo con transición light -> dark ligada al scroll ---------- */
 #tecnicas{
   position:relative;
-  background:
-    radial-gradient(circle at 80% 10%, rgba(91,132,255,0.35), transparent 55%),
-    linear-gradient(160deg, var(--navy) 0%, var(--navy-2) 60%, #1c2c63 100%);
-  border-radius:40px;
-  margin:0 auto;
-  max-width:1400px;
   overflow:hidden;
+  --tec-bg:#ffffff;
+  --tec-kicker:#1E40C7;
+  --tec-question:#12162B;
+  --tec-subtitle:#1E40C7;
+  --tec-desc:#5B6178;
+  --tec-fx:0;
+  background-color:var(--tec-bg);
+  background-image:radial-gradient(circle at 80% 10%, rgba(91,132,255,calc(var(--tec-fx) * 0.35)), transparent 55%);
+  background-repeat:no-repeat;
 }
 #tecnicas::before{
   content:"";
   position:absolute; inset:0;
   background:url(assets/halo.svg) no-repeat center right;
   background-size:60% auto;
-  opacity:0.05;
+  opacity:calc(var(--tec-fx) * 0.05);
   filter:blur(1px);
   pointer-events:none;
 }
-#tecnicas .section-kicker{ color:#9DB4FF; }
-#tecnicas .section-kicker::before{ background:#9DB4FF; }
-#tecnicas .section-question{ color:#fff; }
-#tecnicas .section-subtitle{ color:#C6D3FF; }
-#tecnicas .section-desc{ color:#AEB9E0; }
+#tecnicas .section-kicker{ color:var(--tec-kicker); }
+#tecnicas .section-kicker::before{ background:var(--tec-kicker); }
+#tecnicas .section-question{ color:var(--tec-question); }
+#tecnicas .section-subtitle{ color:var(--tec-subtitle); }
+#tecnicas .section-desc{ color:var(--tec-desc); }
 
 .tech-frost{
   background:rgba(255,255,255,0.08);
@@ -850,97 +853,31 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
       </div>
     </div>
 
-    <h3 class="subhead" style="margin-top:56px;">¿Qué tenemos en cuenta en cada proyecto?</h3>
-    <p class="section-intro">Cada envase tiene características que pueden influir en la técnica, el proceso y el resultado final. Tocá cada pregunta para ver el detalle.</p>
+    <h3 class="subhead" style="margin-top:56px;">¿Tu envase no viene listo para decorar?</h3>
+    <p class="section-intro">Algunos envases necesitan procesos previos antes de poder decorarse. Tocá cada tarjeta para ver el detalle.</p>
 
     <div class="accordion-grid" style="margin-top:32px;">
       <details class="accordion-item">
         <summary class="accordion-summary">
-          <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2h4M10 2v4l-3 4v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-9l-3-4V2"/></svg></span>
+          <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c-1 4-5 5-5 10a5 5 0 0 0 10 0c0-1.5-.7-2.5-1.5-3.5.2 2-.8 3-1.8 3-1.2 0-1.7-1-1.2-2.2C13.2 7 12.5 4 12 2Z"/></svg></span>
           <span class="accordion-summary-text">
-            <span class="accordion-kicker">Forma y área</span>
-            <span class="accordion-question">¿Qué zonas podemos decorar?</span>
+            <span class="accordion-kicker">Quemado de etiquetas</span>
+            <span class="accordion-question">¿Tiene etiquetas o restos de adhesivo?</span>
           </span>
           <span class="accordion-plus"></span>
         </summary>
-        <div class="accordion-body">Hombros, diámetros, curvas y zonas de impresión determinan qué áreas pueden decorarse y qué posibilidades ofrece cada técnica. Para diseños complejos, una geometría adecuada facilita el proceso.</div>
+        <div class="accordion-body">Eliminamos etiquetas y restos de adhesivo del vidrio.</div>
       </details>
       <details class="accordion-item">
         <summary class="accordion-summary">
-          <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21a9 9 0 1 1 9-9"/><path d="M12 12l4-3"/><circle cx="12" cy="12" r="1"/></svg></span>
+          <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2s7 8 7 13a7 7 0 0 1-14 0c0-5 7-13 7-13Z"/><line x1="4" y1="20" x2="20" y2="4"/></svg></span>
           <span class="accordion-summary-text">
-            <span class="accordion-kicker">Productividad</span>
-            <span class="accordion-question">¿Cómo influye el envase en la producción?</span>
+            <span class="accordion-kicker">Remoción de capa antiadherente</span>
+            <span class="accordion-question">¿Trae una capa antipintura de fábrica?</span>
           </span>
           <span class="accordion-plus"></span>
         </summary>
-        <div class="accordion-body">La geometría, los diámetros, las tolerancias y otras características del envase pueden influir en la velocidad y estabilidad del proceso. El centrado automático, por ejemplo, puede facilitar el posicionamiento.</div>
-      </details>
-      <details class="accordion-item">
-        <summary class="accordion-summary">
-          <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 9l10 6 10-6-10-6Z"/><path d="M2 15l10 6 10-6"/></svg></span>
-          <span class="accordion-summary-text">
-            <span class="accordion-kicker">Materialidad</span>
-            <span class="accordion-question">¿Qué necesita la superficie para ser decorada?</span>
-          </span>
-          <span class="accordion-plus"></span>
-        </summary>
-        <div class="accordion-body">La composición y el tratamiento superficial influyen en la adherencia de la tinta y el resultado de la decoración. Analizamos estas características para determinar la preparación necesaria.</div>
-      </details>
-      <details class="accordion-item">
-        <summary class="accordion-summary">
-          <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l9-5 9 5-9 5-9-5Z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg></span>
-          <span class="accordion-summary-text">
-            <span class="accordion-kicker">Embalaje</span>
-            <span class="accordion-question">¿Cómo protegemos la decoración?</span>
-          </span>
-          <span class="accordion-plus"></span>
-        </summary>
-        <div class="accordion-body">El tipo de embalaje (palletizado, cajas, separadores) debe proteger la decoración durante las etapas posteriores de llenado, transporte y manipulación.</div>
-      </details>
-      <details class="accordion-item">
-        <summary class="accordion-summary">
-          <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6h11v10H1z"/><path d="M12 10h4l4 4v2h-8z"/><circle cx="5.5" cy="18" r="1.6"/><circle cx="17.5" cy="18" r="1.6"/></svg></span>
-          <span class="accordion-summary-text">
-            <span class="accordion-kicker">Logística</span>
-            <span class="accordion-question">¿Cómo se transporta y manipula?</span>
-          </span>
-          <span class="accordion-plus"></span>
-        </summary>
-        <div class="accordion-body">La forma, dimensiones y características del envase pueden influir en su transporte, almacenamiento y manipulación. Trabajamos junto a proveedores y transportistas.</div>
-      </details>
-      <details class="accordion-item">
-        <summary class="accordion-summary">
-          <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2s7 8 7 13a7 7 0 0 1-14 0c0-5 7-13 7-13Z"/></svg></span>
-          <span class="accordion-summary-text">
-            <span class="accordion-kicker">Llenado</span>
-            <span class="accordion-question">¿Qué exigencias genera el llenado?</span>
-          </span>
-          <span class="accordion-plus"></span>
-        </summary>
-        <div class="accordion-body">Si el envase requiere llenado, analizamos cómo se realiza y las condiciones que genera este proceso, ya que puede influir en la resistencia que debe tener la pintura seleccionada.</div>
-      </details>
-      <details class="accordion-item">
-        <summary class="accordion-summary">
-          <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3Z"/><path d="M9 12l2 2 4-4"/></svg></span>
-          <span class="accordion-summary-text">
-            <span class="accordion-kicker">Normas y sustentabilidad</span>
-            <span class="accordion-question">¿Qué requisitos debe cumplir?</span>
-          </span>
-          <span class="accordion-plus"></span>
-        </summary>
-        <div class="accordion-body">Cada producto y marca puede requerir normas específicas y criterios de sustentabilidad. Evaluamos materiales, tintas y procesos que cumplan con los requisitos técnicos y ambientales.</div>
-      </details>
-      <details class="accordion-item">
-        <summary class="accordion-summary">
-          <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"/></svg></span>
-          <span class="accordion-summary-text">
-            <span class="accordion-kicker">Uso final</span>
-            <span class="accordion-question">¿Qué deberá soportar la decoración?</span>
-          </span>
-          <span class="accordion-plus"></span>
-        </summary>
-        <div class="accordion-body">Consideramos cómo será utilizado el envase por el consumidor final. Manipulación, lavado, contacto y resistencia pueden influir en la elección de materiales y técnicas.</div>
+        <div class="accordion-body">Si trae una capa antipintura de fábrica, la retiramos.</div>
       </details>
     </div>
 
@@ -1249,31 +1186,97 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
       <span>Confidencialidad absoluta en todo el proceso</span>
     </div>
 
-    <h3 class="subhead" style="margin-top:64px;">¿Tu envase no viene listo para decorar?</h3>
-    <p class="section-intro">Algunos envases necesitan procesos previos antes de poder decorarse. Tocá cada tarjeta para ver el detalle.</p>
+    <h3 class="subhead" style="margin-top:64px;">¿Qué tenemos en cuenta en cada proyecto?</h3>
+    <p class="section-intro">Cada envase tiene características que pueden influir en la técnica, el proceso y el resultado final. Tocá cada pregunta para ver el detalle.</p>
 
-    <div class="accordion-grid" style="margin-top:32px; grid-template-columns:1fr 1fr;">
+    <div class="accordion-grid" style="margin-top:32px;">
       <details class="accordion-item">
         <summary class="accordion-summary">
-          <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c-1 4-5 5-5 10a5 5 0 0 0 10 0c0-1.5-.7-2.5-1.5-3.5.2 2-.8 3-1.8 3-1.2 0-1.7-1-1.2-2.2C13.2 7 12.5 4 12 2Z"/></svg></span>
+          <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2h4M10 2v4l-3 4v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-9l-3-4V2"/></svg></span>
           <span class="accordion-summary-text">
-            <span class="accordion-kicker">Quemado de etiquetas</span>
-            <span class="accordion-question">¿Tiene etiquetas o restos de adhesivo?</span>
+            <span class="accordion-kicker">Forma y área</span>
+            <span class="accordion-question">¿Qué zonas podemos decorar?</span>
           </span>
           <span class="accordion-plus"></span>
         </summary>
-        <div class="accordion-body">Eliminamos etiquetas y restos de adhesivo del vidrio.</div>
+        <div class="accordion-body">Hombros, diámetros, curvas y zonas de impresión determinan qué áreas pueden decorarse y qué posibilidades ofrece cada técnica. Para diseños complejos, una geometría adecuada facilita el proceso.</div>
       </details>
       <details class="accordion-item">
         <summary class="accordion-summary">
-          <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2s7 8 7 13a7 7 0 0 1-14 0c0-5 7-13 7-13Z"/><line x1="4" y1="20" x2="20" y2="4"/></svg></span>
+          <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21a9 9 0 1 1 9-9"/><path d="M12 12l4-3"/><circle cx="12" cy="12" r="1"/></svg></span>
           <span class="accordion-summary-text">
-            <span class="accordion-kicker">Remoción de capa antiadherente</span>
-            <span class="accordion-question">¿Trae una capa antipintura de fábrica?</span>
+            <span class="accordion-kicker">Productividad</span>
+            <span class="accordion-question">¿Cómo influye el envase en la producción?</span>
           </span>
           <span class="accordion-plus"></span>
         </summary>
-        <div class="accordion-body">Si trae una capa antipintura de fábrica, la retiramos.</div>
+        <div class="accordion-body">La geometría, los diámetros, las tolerancias y otras características del envase pueden influir en la velocidad y estabilidad del proceso. El centrado automático, por ejemplo, puede facilitar el posicionamiento.</div>
+      </details>
+      <details class="accordion-item">
+        <summary class="accordion-summary">
+          <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 9l10 6 10-6-10-6Z"/><path d="M2 15l10 6 10-6"/></svg></span>
+          <span class="accordion-summary-text">
+            <span class="accordion-kicker">Materialidad</span>
+            <span class="accordion-question">¿Qué necesita la superficie para ser decorada?</span>
+          </span>
+          <span class="accordion-plus"></span>
+        </summary>
+        <div class="accordion-body">La composición y el tratamiento superficial influyen en la adherencia de la tinta y el resultado de la decoración. Analizamos estas características para determinar la preparación necesaria.</div>
+      </details>
+      <details class="accordion-item">
+        <summary class="accordion-summary">
+          <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l9-5 9 5-9 5-9-5Z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg></span>
+          <span class="accordion-summary-text">
+            <span class="accordion-kicker">Embalaje</span>
+            <span class="accordion-question">¿Cómo protegemos la decoración?</span>
+          </span>
+          <span class="accordion-plus"></span>
+        </summary>
+        <div class="accordion-body">El tipo de embalaje (palletizado, cajas, separadores) debe proteger la decoración durante las etapas posteriores de llenado, transporte y manipulación.</div>
+      </details>
+      <details class="accordion-item">
+        <summary class="accordion-summary">
+          <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6h11v10H1z"/><path d="M12 10h4l4 4v2h-8z"/><circle cx="5.5" cy="18" r="1.6"/><circle cx="17.5" cy="18" r="1.6"/></svg></span>
+          <span class="accordion-summary-text">
+            <span class="accordion-kicker">Logística</span>
+            <span class="accordion-question">¿Cómo se transporta y manipula?</span>
+          </span>
+          <span class="accordion-plus"></span>
+        </summary>
+        <div class="accordion-body">La forma, dimensiones y características del envase pueden influir en su transporte, almacenamiento y manipulación. Trabajamos junto a proveedores y transportistas.</div>
+      </details>
+      <details class="accordion-item">
+        <summary class="accordion-summary">
+          <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2s7 8 7 13a7 7 0 0 1-14 0c0-5 7-13 7-13Z"/></svg></span>
+          <span class="accordion-summary-text">
+            <span class="accordion-kicker">Llenado</span>
+            <span class="accordion-question">¿Qué exigencias genera el llenado?</span>
+          </span>
+          <span class="accordion-plus"></span>
+        </summary>
+        <div class="accordion-body">Si el envase requiere llenado, analizamos cómo se realiza y las condiciones que genera este proceso, ya que puede influir en la resistencia que debe tener la pintura seleccionada.</div>
+      </details>
+      <details class="accordion-item">
+        <summary class="accordion-summary">
+          <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3Z"/><path d="M9 12l2 2 4-4"/></svg></span>
+          <span class="accordion-summary-text">
+            <span class="accordion-kicker">Normas y sustentabilidad</span>
+            <span class="accordion-question">¿Qué requisitos debe cumplir?</span>
+          </span>
+          <span class="accordion-plus"></span>
+        </summary>
+        <div class="accordion-body">Cada producto y marca puede requerir normas específicas y criterios de sustentabilidad. Evaluamos materiales, tintas y procesos que cumplan con los requisitos técnicos y ambientales.</div>
+      </details>
+      <details class="accordion-item">
+        <summary class="accordion-summary">
+          <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"/></svg></span>
+          <span class="accordion-summary-text">
+            <span class="accordion-kicker">Uso final</span>
+            <span class="accordion-question">¿Qué deberá soportar la decoración?</span>
+          </span>
+          <span class="accordion-plus"></span>
+        </summary>
+        <div class="accordion-body">Consideramos cómo será utilizado el envase por el consumidor final. Manipulación, lavado, contacto y resistencia pueden influir en la elección de materiales y técnicas.</div>
       </details>
     </div>
 
@@ -1485,6 +1488,55 @@ tecnicasTabs.forEach(tab=>{
     setTimeout(initSegControls, 0);
   });
 });
+
+// --- Técnicas: transición de capítulo (light -> dark) ligada al scroll ---
+(function(){
+  const tecEl = document.getElementById("tecnicas");
+  if(!tecEl) return;
+
+  const WHITE = [255,255,255];
+  const BLUE  = [30,64,199];   // var(--blue)
+  const NAVY  = [15,27,69];    // var(--navy)
+
+  const LIGHT = { kicker:[30,64,199], question:[18,22,43], subtitle:[30,64,199], desc:[91,97,120] };
+  const DARK  = { kicker:[157,180,255], question:[255,255,255], subtitle:[198,211,255], desc:[174,185,224] };
+
+  function mix(c1, c2, t){
+    return `rgb(${Math.round(c1[0]+(c2[0]-c1[0])*t)},${Math.round(c1[1]+(c2[1]-c1[1])*t)},${Math.round(c1[2]+(c2[2]-c1[2])*t)})`;
+  }
+  function bgColor(t){
+    return t <= 0.5 ? mix(WHITE, BLUE, t/0.5) : mix(BLUE, NAVY, (t-0.5)/0.5);
+  }
+
+  let ticking = false;
+  function update(){
+    ticking = false;
+    const rect = tecEl.getBoundingClientRect();
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+    // La zona de transición se adapta a la altura real de la sección para
+    // garantizar una meseta completamente oscura en el medio, incluso si
+    // la sección es más baja que la pantalla (ej. panel "intro" sin abrir).
+    const zone = Math.max(Math.min(vh * 0.6, rect.height * 0.35), 80);
+
+    const enter = Math.min(Math.max((vh - rect.top) / zone, 0), 1);
+    const exit = Math.min(Math.max((zone - rect.bottom) / zone, 0), 1);
+    const p = Math.min(Math.max(enter * (1 - exit), 0), 1);
+    const ep = p * p * (3 - 2 * p); // smoothstep, para una curva más elegante
+
+    tecEl.style.setProperty("--tec-bg", bgColor(ep));
+    tecEl.style.setProperty("--tec-kicker", mix(LIGHT.kicker, DARK.kicker, ep));
+    tecEl.style.setProperty("--tec-question", mix(LIGHT.question, DARK.question, ep));
+    tecEl.style.setProperty("--tec-subtitle", mix(LIGHT.subtitle, DARK.subtitle, ep));
+    tecEl.style.setProperty("--tec-desc", mix(LIGHT.desc, DARK.desc, ep));
+    tecEl.style.setProperty("--tec-fx", ep.toFixed(3));
+  }
+  function onScroll(){
+    if(!ticking){ ticking = true; requestAnimationFrame(update); }
+  }
+  window.addEventListener("scroll", onScroll, {passive:true});
+  window.addEventListener("resize", onScroll);
+  update();
+})();
 
 // --- Nav: transparente sobre el hero, sólido al hacer scroll ---
 const navEl = document.querySelector(".nav");
