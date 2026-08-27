@@ -484,6 +484,19 @@ details[open] > .accordion-summary .accordion-plus::after{ opacity:0; }
   filter:blur(1px);
   pointer-events:none;
 }
+/* Difumina el borde superior/inferior de la sección para que el cambio de
+   color con las secciones vecinas (siempre blancas) se sienta integrado,
+   en vez de un corte recto, sin importar qué tan oscuro esté #tecnicas. */
+#tecnicas::after{
+  content:"";
+  position:absolute; inset:0;
+  background:
+    linear-gradient(to bottom, rgba(255,255,255,0.9), transparent 90px),
+    linear-gradient(to top, rgba(255,255,255,0.9), transparent 220px);
+  pointer-events:none;
+  z-index:1;
+}
+#tecnicas > .wrap{ position:relative; z-index:2; }
 #tecnicas .section-kicker{ color:var(--tec-kicker); }
 #tecnicas .section-kicker::before{ background:var(--tec-kicker); }
 #tecnicas .section-question{ color:var(--tec-question); }
