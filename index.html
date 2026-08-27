@@ -717,7 +717,7 @@ details[open] > .accordion-summary .accordion-plus::after{ opacity:0; }
 .combine-block{ margin-top:8px; }
 .combine-label{
   font-size:11.5px; font-weight:700; color:var(--taupe);
-  text-transform:uppercase; letter-spacing:0.05em; margin-bottom:10px; display:block;
+  text-transform:uppercase; letter-spacing:0.05em;
 }
 .combine-row{ display:flex; flex-wrap:wrap; gap:10px; }
 .combine-btn{
@@ -1017,7 +1017,7 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
 
         <div class="field-label-row">
           <div class="field-label">Cantidad de colores</div>
-          <span class="field-hint">Elegí la cantidad para verla representada</span>
+          <span class="field-hint">Elegí una opción</span>
         </div>
         <div class="seg-wrap">
           <div class="seg-control" data-seg="serigrafia">
@@ -1040,34 +1040,31 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
         <details class="spec-toggle">
           <summary>Ver especificaciones técnicas <span class="chev"></span></summary>
           <div class="spec-toggle-body">
-            <div class="considerations">
-              <div class="consideration"><b>Área de impresión</b>Varía según el producto.</div>
-              <div class="consideration"><b>Efectos especiales</b>Esta técnica permite lograr efectos especiales como brillo en la oscuridad, cambio de color termosensible, diseños con relieve, diseños con textura, efectos metalizados.</div>
-              <div class="consideration"><b>Superficies a decorar</b>Vitrificable: vidrio. UV y Epoxi: vidrio, plástico, cerámica, aluminio y metal.</div>
+            <div class="comparison-card">
+              <div class="comparison-head">Comparación de tintas</div>
+              <div class="comparison-scroll">
+                <table class="comparison-table">
+                  <thead>
+                    <tr><th>Característica</th><th>UV</th><th>Epoxi</th><th>Vitrificable</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Resistencia</td><td>Alta</td><td>Muy alta</td><td>Máxima</td></tr>
+                    <tr><td>Cobertura cromática</td><td>Amplia</td><td>Amplia</td><td>Específica</td></tr>
+                    <tr><td>Superficies a decorar</td><td>Todos los materiales</td><td>Todos los materiales</td><td>Vidrio</td></tr>
+                    <tr><td>Apto para lavavajillas</td><td>Disponible</td><td>Disponible</td><td>Disponible</td></tr>
+                    <tr><td>Sin metales pesados</td><td>Disponible</td><td>Disponible</td><td>Disponible</td></tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </details>
 
-        <div class="comparison-card">
-          <div class="comparison-head">Comparación de tintas</div>
-          <div class="comparison-scroll">
-            <table class="comparison-table">
-              <thead>
-                <tr><th>Característica</th><th>UV</th><th>Epoxi</th><th>Vitrificable</th></tr>
-              </thead>
-              <tbody>
-                <tr><td>Resistencia</td><td>Alta</td><td>Muy alta</td><td>Máxima</td></tr>
-                <tr><td>Cobertura cromática</td><td>Amplia</td><td>Amplia</td><td>Específica</td></tr>
-                <tr><td>Superficies a decorar</td><td>Todos los materiales</td><td>Todos los materiales</td><td>Vidrio</td></tr>
-                <tr><td>Apto para lavavajillas</td><td>Disponible</td><td>Disponible</td><td>Disponible</td></tr>
-                <tr><td>Sin metales pesados</td><td>Disponible</td><td>Disponible</td><td>Disponible</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
         <div class="combine-block">
-          <span class="combine-label">Se puede combinar con</span>
+          <div class="field-label-row">
+            <span class="combine-label">Se puede combinar con</span>
+            <span class="field-hint">Elegí una o más opciones</span>
+          </div>
           <div class="combine-row">
             <button class="combine-btn" data-combine="coating" data-combine-name="Coating">Coating</button>
             <button class="combine-btn" data-combine="stamping" data-combine-name="Hot Stamping">Hot Stamping</button>
@@ -1125,7 +1122,10 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
         </details>
 
         <div class="combine-block">
-          <span class="combine-label">Se puede combinar con</span>
+          <div class="field-label-row">
+            <span class="combine-label">Se puede combinar con</span>
+            <span class="field-hint">Elegí una o más opciones</span>
+          </div>
           <div class="combine-row">
             <button class="combine-btn" data-combine="serigrafia" data-combine-name="Serigrafía">Serigrafía</button>
             <button class="combine-btn" data-combine="stamping" data-combine-name="Hot / Cold Stamping">Hot / Cold Stamping</button>
@@ -1178,7 +1178,10 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
         </details>
 
         <div class="combine-block">
-          <span class="combine-label">Se puede combinar con</span>
+          <div class="field-label-row">
+            <span class="combine-label">Se puede combinar con</span>
+            <span class="field-hint">Elegí una o más opciones</span>
+          </div>
           <div class="combine-row">
             <button class="combine-btn" data-combine="coating" data-combine-name="Coating">Coating</button>
           </div>
@@ -1227,7 +1230,10 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
         </details>
 
         <div class="combine-block">
-          <span class="combine-label">Se puede combinar con</span>
+          <div class="field-label-row">
+            <span class="combine-label">Se puede combinar con</span>
+            <span class="field-hint">Elegí una o más opciones</span>
+          </div>
           <div class="combine-row">
             <button class="combine-btn" data-combine="serigrafia" data-combine-name="Serigrafía">Serigrafía</button>
           </div>
