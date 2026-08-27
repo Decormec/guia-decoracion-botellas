@@ -242,8 +242,6 @@ h1,h2,h3{
 
 /* ---------- SECTION SCAFFOLDING ---------- */
 section{ padding:112px 0; }
-/* Fondo opaco para tapar la vidriera fija (.tec-wash) fuera de Técnicas. */
-#botella, #desarrollo, footer{ position:relative; background-color:#fff; }
 
 /* ---------- EDITORIAL SECTION HEADER ---------- */
 .section-head{
@@ -463,52 +461,42 @@ details[open] > .accordion-summary .accordion-plus::after{ opacity:0; }
 }
 @media (max-width:480px){ .accordion-body{ padding-left:22px; } }
 
-/* ---------- TECNICAS: capítulo con transición light -> dark ligada al scroll ---------- */
+/* ---------- TECNICAS: capítulo con degradé fluido blanco -> azul -> navy ---------- */
+/* Un solo degradé estático, del alto de la propia sección (no del viewport):
+   al scrollear se va revelando de a poco, sin corte ni salto ligado a scroll.
+   Un poco más de padding que el resto de las secciones le da aire al degradé
+   antes de llegar al encabezado y después de la caja interactiva. */
 #tecnicas{
   position:relative;
   overflow:hidden;
-  background-color:transparent;
-  --tec-kicker:#1E40C7;
-  --tec-question:#12162B;
-  --tec-subtitle:#1E40C7;
-  --tec-desc:#5B6178;
-  --tec-fx:0;
-  background-image:radial-gradient(circle at 80% 10%, rgba(91,132,255,calc(var(--tec-fx) * 0.35)), transparent 55%);
-  background-repeat:no-repeat;
+  padding:190px 0;
+  background:
+    radial-gradient(circle at 80% 10%, rgba(91,132,255,0.16), transparent 55%),
+    linear-gradient(to bottom,
+      #ffffff 0,
+      #ffffff 60px,
+      var(--blue) 200px,
+      var(--navy) 420px,
+      var(--navy) 78%,
+      var(--blue) 90%,
+      #ffffff 100%
+    );
 }
 #tecnicas::before{
   content:"";
   position:absolute; inset:0;
   background:url(assets/halo.svg) no-repeat center right;
   background-size:60% auto;
-  opacity:calc(var(--tec-fx) * 0.05);
+  opacity:0.05;
   filter:blur(1px);
   pointer-events:none;
 }
 #tecnicas > .wrap{ position:relative; z-index:2; }
-
-/* Vidriera fija a pantalla completa: el degradé blanco->azul->navy ocupa todo
-   el viewport (no solo la sección) y se "despliega" con el scroll, en vez de
-   ser un color plano que cambia con un corte. #tecnicas queda transparente
-   y deja ver esta capa fija en su propia región de pantalla. */
-.tec-wash{
-  position:fixed; inset:0;
-  pointer-events:none;
-  background:linear-gradient(to bottom,
-    #ffffff 0%,
-    #ffffff var(--wash-top-white, 0%),
-    var(--blue) var(--wash-top-blue, 0%),
-    var(--navy) var(--wash-top-navy, 0%),
-    var(--navy) var(--wash-bottom-navy, 100%),
-    var(--blue) var(--wash-bottom-blue, 100%),
-    #ffffff var(--wash-bottom-white, 100%),
-    #ffffff 100%);
-}
-#tecnicas .section-kicker{ color:var(--tec-kicker); }
-#tecnicas .section-kicker::before{ background:var(--tec-kicker); }
-#tecnicas .section-question{ color:var(--tec-question); }
-#tecnicas .section-subtitle{ color:var(--tec-subtitle); }
-#tecnicas .section-desc{ color:var(--tec-desc); }
+#tecnicas .section-kicker{ color:#9DB4FF; }
+#tecnicas .section-kicker::before{ background:#9DB4FF; }
+#tecnicas .section-question{ color:#fff; }
+#tecnicas .section-subtitle{ color:#C6D3FF; }
+#tecnicas .section-desc{ color:#AEB9E0; }
 
 .tech-frost{
   background:rgba(255,255,255,0.08);
@@ -857,8 +845,6 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
 </style>
 </head>
 <body>
-
-<div class="tec-wash" aria-hidden="true"></div>
 
 <svg width="0" height="0" style="position:absolute">
   <filter id="glassWarp" x="-20%" y="-20%" width="140%" height="140%">
@@ -1595,85 +1581,32 @@ tecnicasTabs.forEach(tab=>{
   });
 });
 
-// --- Técnicas: capítulo con degradé de pantalla completa ligado al scroll ---
-(function(){
-  const tecEl = document.getElementById("tecnicas");
-  const washEl = document.querySelector(".tec-wash");
-  if(!tecEl || !washEl) return;
-
-  const LIGHT = { kicker:[30,64,199], question:[18,22,43], subtitle:[30,64,199], desc:[91,97,120] };
-  const DARK  = { kicker:[157,180,255], question:[255,255,255], subtitle:[198,211,255], desc:[174,185,224] };
-
-  function mix(c1, c2, t){
-    return `rgb(${Math.round(c1[0]+(c2[0]-c1[0])*t)},${Math.round(c1[1]+(c2[1]-c1[1])*t)},${Math.round(c1[2]+(c2[2]-c1[2])*t)})`;
+// --- Técnicas usa un degradé CSS estático (ver #tecnicas en el <style>); esta
+// función sólo la usa el nav para saber, dado un punto de la pantalla, qué
+// tan oscuro está #tecnicas ahí (0 = blanco, 1 = navy), replicando a mano
+// los mismos cortes del gradient para que el vidrio del nav siga en sintonía. ---
+function tecnicasDarkness(localY, height){
+  const stops = [
+    [0, 0], [60, 0], [200, 0.5], [420, 1],
+    [height * 0.78, 1], [height * 0.90, 0.5], [height, 0],
+  ];
+  if(localY <= stops[0][0]) return stops[0][1];
+  for(let i = 1; i < stops.length; i++){
+    if(localY <= stops[i][0]){
+      const [x0, y0] = stops[i - 1];
+      const [x1, y1] = stops[i];
+      const t = x1 === x0 ? 0 : (localY - x0) / (x1 - x0);
+      return y0 + (y1 - y0) * t;
+    }
   }
-  function clamp(n, lo, hi){ return Math.min(Math.max(n, lo), hi); }
-  function smoothstep(t){ t = clamp(t, 0, 1); return t * t * (3 - 2 * t); }
-
-  const BAND = 46; // ancho de la franja de degradé, en % del alto de pantalla
-
-  let ticking = false;
-  function update(){
-    ticking = false;
-    const rect = tecEl.getBoundingClientRect();
-    const vh = window.innerHeight || document.documentElement.clientHeight;
-
-    // Posición real (puede ser negativa o mayor a 100) del borde superior e
-    // inferior de #tecnicas, como % de la altura de pantalla. El degradé se
-    // ancla a estas posiciones físicas -no a un progreso abstracto de scroll-
-    // así que cuando el borde ya salió de la pantalla, esa mitad del degradé
-    // queda completamente fuera de rango y el resultado es un color plano
-    // (blanco antes de entrar, navy en la meseta), sin que quede una franja
-    // pegada para siempre.
-    const topPct = (rect.top / vh) * 100;
-    const bottomPct = (rect.bottom / vh) * 100;
-
-    // Blanco justo en el borde (misma costura que la sección vecina), y
-    // recién más adentro de #tecnicas se termina de oscurecer a navy.
-    washEl.style.setProperty("--wash-top-white", (topPct).toFixed(2) + "%");
-    washEl.style.setProperty("--wash-top-blue", (topPct + BAND / 2).toFixed(2) + "%");
-    washEl.style.setProperty("--wash-top-navy", (topPct + BAND).toFixed(2) + "%");
-    washEl.style.setProperty("--wash-bottom-navy", (bottomPct - BAND).toFixed(2) + "%");
-    washEl.style.setProperty("--wash-bottom-blue", (bottomPct - BAND / 2).toFixed(2) + "%");
-    washEl.style.setProperty("--wash-bottom-white", (bottomPct).toFixed(2) + "%");
-
-    // Progreso 0-1 de cuánto de la pantalla está cubierta de navy en este
-    // instante; se usa para el halo/resplandor decorativo (fade lento).
-    const coveredFrom = clamp(topPct, 0, 100);
-    const coveredTo = clamp(bottomPct, 0, 100);
-    const coverage = (coveredTo - coveredFrom) / 100;
-    const ep = smoothstep(coverage);
-
-    // El texto del encabezado vive siempre cerca del borde superior de
-    // #tecnicas, así que su fondo local nunca es blanco puro ni navy puro
-    // (queda a mitad de la franja de degradé). Una mezcla lineal ahí daría
-    // un gris apagado sin contraste; en cambio, pasa rápido al tema oscuro
-    // apenas la sección empieza a entrar, para no quedarse en ese punto medio.
-    const epText = smoothstep(clamp(coverage / 0.12, 0, 1));
-
-    tecEl.style.setProperty("--tec-kicker", mix(LIGHT.kicker, DARK.kicker, epText));
-    tecEl.style.setProperty("--tec-question", mix(LIGHT.question, DARK.question, epText));
-    tecEl.style.setProperty("--tec-subtitle", mix(LIGHT.subtitle, DARK.subtitle, epText));
-    tecEl.style.setProperty("--tec-desc", mix(LIGHT.desc, DARK.desc, epText));
-    tecEl.style.setProperty("--tec-fx", ep.toFixed(3));
-
-    // Expuesto para que el nav sepa si debe usar vidrio blanco (fondo oscuro) o azul (fondo claro).
-    window.__tecFx = ep;
-    window.__tecTop = rect.top;
-    window.__tecBottom = rect.bottom;
-  }
-  function onScroll(){
-    if(!ticking){ ticking = true; requestAnimationFrame(update); }
-  }
-  window.addEventListener("scroll", onScroll, {passive:true});
-  window.addEventListener("resize", onScroll);
-  update();
-})();
+  return stops[stops.length - 1][1];
+}
 
 // --- Nav: vidrio azul sobre fondos claros, vidrio blanco sobre fondos oscuros (mezcla continua, sin salto) ---
 (function(){
   const navEl = document.querySelector(".nav");
   const heroEl = document.querySelector(".hero");
+  const tecEl = document.getElementById("tecnicas");
   if(!navEl || !heroEl) return;
 
   const LIGHT_RGB = [30, 64, 199];   // var(--blue), fondo del vidrio "azul"
@@ -1697,8 +1630,11 @@ tecnicasTabs.forEach(tab=>{
     let mix = 0;
     if(sampleY >= heroRect.top && sampleY <= heroRect.bottom){
       mix = 1;
-    } else if(sampleY >= (window.__tecTop ?? Infinity) && sampleY <= (window.__tecBottom ?? -Infinity)){
-      mix = window.__tecFx || 0;
+    } else if(tecEl){
+      const tecRect = tecEl.getBoundingClientRect();
+      if(sampleY >= tecRect.top && sampleY <= tecRect.bottom){
+        mix = tecnicasDarkness(sampleY - tecRect.top, tecRect.height);
+      }
     }
 
     const bgRgb = mixColor(LIGHT_RGB, DARK_RGB, mix);
