@@ -645,7 +645,7 @@ details[open] > .accordion-summary .accordion-plus::after{ opacity:0; }
   cursor:help; opacity:0.45;
   transition:border-color .2s, color .2s, background .2s, opacity .2s;
 }
-.paint-tag.compatible{ border-color:var(--blue); color:var(--blue); background:var(--blue-soft); opacity:1; }
+.paint-tag.compatible{ border-color:var(--text-soft); color:var(--text); background:transparent; opacity:1; }
 .paint-tag[data-tooltip]:hover::after, .paint-tag[data-tooltip]:focus-visible::after{
   content:attr(data-tooltip);
   position:absolute; left:50%; bottom:calc(100% + 10px); transform:translateX(-50%);
@@ -720,19 +720,9 @@ details[open] > .accordion-summary .accordion-plus::after{ opacity:0; }
   margin:8px 0 26px;
 }
 .comparison-head{
-  display:flex; align-items:center; justify-content:space-between; gap:12px;
   font-family:var(--font); font-size:11.5px; font-weight:700; color:#8992B8;
   text-transform:uppercase; letter-spacing:0.08em; margin-bottom:16px;
 }
-.copy-btn{
-  background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.14);
-  border-radius:8px; width:30px; height:30px; flex-shrink:0;
-  display:flex; align-items:center; justify-content:center;
-  cursor:pointer; color:#C7CCE6; transition:background .15s, color .15s, border-color .15s;
-}
-.copy-btn:hover{ background:rgba(255,255,255,0.14); color:#fff; }
-.copy-btn svg{ width:15px; height:15px; }
-.copy-btn.copied{ color:#7CD9A0; border-color:#7CD9A0; }
 .comparison-scroll{ overflow-x:auto; }
 .comparison-table{ border-collapse:collapse; width:100%; min-width:540px; }
 .comparison-table th, .comparison-table td{
@@ -1026,12 +1016,7 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
         </details>
 
         <div class="comparison-card">
-          <div class="comparison-head">
-            <span>Comparación de tintas</span>
-            <button class="copy-btn" type="button" aria-label="Copiar tabla" data-copy-table>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></svg>
-            </button>
-          </div>
+          <div class="comparison-head">Comparación de tintas</div>
           <div class="comparison-scroll">
             <table class="comparison-table">
               <thead>
@@ -1461,21 +1446,6 @@ if(serigrafiaBlock){
   wireBottleLens(serigrafiaBlock);
   wireCombine(serigrafiaBlock);
 }
-
-// --- Comparación de tintas: copiar tabla al portapapeles ---
-document.querySelectorAll("[data-copy-table]").forEach(btn=>{
-  btn.addEventListener("click", ()=>{
-    const table = btn.closest(".comparison-card").querySelector("table");
-    const text = Array.from(table.querySelectorAll("tr"))
-      .map(tr => Array.from(tr.children).map(cell => cell.textContent.trim()).join("\t"))
-      .join("\n");
-    if(!navigator.clipboard) return;
-    navigator.clipboard.writeText(text).then(()=>{
-      btn.classList.add("copied");
-      setTimeout(()=>btn.classList.remove("copied"), 1500);
-    }).catch(()=>{});
-  });
-});
 
 // --- Coating: swatches ---
 const coatingBlock = document.querySelector('[data-technique="coating"]');
