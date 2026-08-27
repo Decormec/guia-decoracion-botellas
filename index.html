@@ -506,7 +506,9 @@ details[open] > .accordion-summary .accordion-plus::after{ opacity:0; }
   display:none;
   grid-template-columns:300px 1fr;
   gap:56px;
+  min-width:0;
 }
+.technique-body{ min-width:0; }
 .technique.active{ display:grid; }
 @media (max-width:820px){
   .technique{grid-template-columns:1fr; gap:32px;}
@@ -618,18 +620,46 @@ details[open] > .accordion-summary .accordion-plus::after{ opacity:0; }
 }
 .seg-note b{ color:var(--blue); font-weight:700; }
 
-/* tipo de pintura (serigrafía) — aclaración, no botones */
+/* field-label + aclaración gris al lado */
+.field-label-row{
+  display:flex; align-items:center; flex-wrap:wrap; gap:10px;
+  margin-bottom:10px;
+}
+.field-label-row .field-label{ margin-bottom:0; }
+.field-hint{
+  font-family:var(--font); font-size:11px; font-weight:600; color:var(--text-soft);
+  background:var(--bg); border:1px solid var(--line); border-radius:999px;
+  padding:4px 12px; text-transform:none; letter-spacing:normal;
+}
+
+/* tipo de pintura (serigrafía) — aclaración con tooltip, no botones */
 .paint-types{
   display:flex; flex-wrap:wrap; gap:8px; margin-bottom:8px;
 }
 .paint-tag{
+  position:relative;
   font-family:var(--font); font-size:11.5px; font-weight:700;
   padding:6px 14px; border-radius:999px;
   border:1.5px solid var(--line); color:var(--text-soft);
   text-transform:uppercase; letter-spacing:0.03em;
-  transition:border-color .2s, color .2s, background .2s;
+  cursor:help; opacity:0.45;
+  transition:border-color .2s, color .2s, background .2s, opacity .2s;
 }
-.paint-tag.compatible{ border-color:var(--blue); color:var(--blue); background:var(--blue-soft); }
+.paint-tag.compatible{ border-color:var(--blue); color:var(--blue); background:var(--blue-soft); opacity:1; }
+.paint-tag[data-tooltip]:hover::after, .paint-tag[data-tooltip]:focus-visible::after{
+  content:attr(data-tooltip);
+  position:absolute; left:50%; bottom:calc(100% + 10px); transform:translateX(-50%);
+  background:var(--navy); color:#fff;
+  font-size:11.5px; font-weight:600; text-transform:none; letter-spacing:normal;
+  padding:9px 13px; border-radius:9px; white-space:normal; width:max-content; max-width:220px;
+  box-shadow:0 10px 24px rgba(15,27,69,0.28); line-height:1.4; z-index:20;
+  pointer-events:none;
+}
+.paint-tag[data-tooltip]:hover::before, .paint-tag[data-tooltip]:focus-visible::before{
+  content:""; position:absolute; left:50%; bottom:calc(100% + 4px); transform:translateX(-50%);
+  border:6px solid transparent; border-top-color:var(--navy); z-index:20;
+  pointer-events:none;
+}
 
 /* especificaciones técnicas (desplegable) */
 .spec-toggle{
@@ -681,6 +711,39 @@ details[open] > .accordion-summary .accordion-plus::after{ opacity:0; }
 .combine-btn::before{ content:"+"; font-weight:800; color:var(--blue); }
 .combine-btn.active{ background:var(--blue); color:#fff; border-color:var(--blue); }
 .combine-btn.active::before{ color:#fff; }
+
+/* comparación de tintas — tarjeta oscura */
+.comparison-card{
+  background:#0B0E1F;
+  border-radius:18px;
+  padding:22px 24px 6px;
+  margin:8px 0 26px;
+}
+.comparison-head{
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  font-family:var(--font); font-size:11.5px; font-weight:700; color:#8992B8;
+  text-transform:uppercase; letter-spacing:0.08em; margin-bottom:16px;
+}
+.copy-btn{
+  background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.14);
+  border-radius:8px; width:30px; height:30px; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; color:#C7CCE6; transition:background .15s, color .15s, border-color .15s;
+}
+.copy-btn:hover{ background:rgba(255,255,255,0.14); color:#fff; }
+.copy-btn svg{ width:15px; height:15px; }
+.copy-btn.copied{ color:#7CD9A0; border-color:#7CD9A0; }
+.comparison-scroll{ overflow-x:auto; }
+.comparison-table{ border-collapse:collapse; width:100%; min-width:540px; }
+.comparison-table th, .comparison-table td{
+  text-align:left; padding:14px 20px 14px 0;
+  font-family:var(--font); font-size:13.5px; font-weight:500; color:#B7BCDB;
+  border-bottom:1px solid rgba(255,255,255,0.08); white-space:nowrap;
+}
+.comparison-table th{ font-weight:700; color:#fff; font-size:12px; text-transform:uppercase; letter-spacing:0.03em; }
+.comparison-table td:first-child, .comparison-table th:first-child{ font-weight:700; color:#fff; }
+.comparison-table tr:last-child td{ border-bottom:none; }
+@media (max-width:480px){ .comparison-card{ padding:20px 18px 6px; } }
 
 /* ---------- DESARROLLO: timeline conectada ---------- */
 .timeline{
@@ -926,17 +989,13 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
         <div class="bottle-caption" data-combine-caption style="display:none;">Combinado con <b data-combine-name></b></div>
       </div>
       <div class="technique-body">
-        <div class="kicker">Técnica 01</div>
         <h3>Serigrafía</h3>
-        <p class="lead">Impresión directa sobre el envase mediante tinta, para reproducir textos, logotipos e imágenes con precisión, en uno o varios colores.</p>
+        <p class="lead">Técnica de impresión directa sobre el envase que permite lograr gráficos de alta definición, desde textos y logotipos hasta imágenes, en uno o múltiples colores.</p>
 
-        <div class="tech-microinfo">
-          <div class="tech-microchip"><span class="k">Colores</span><span class="v" data-field="colores">1 a 5</span></div>
-          <div class="tech-microchip"><span class="k">Cierre</span><span class="v" data-field="cierre">360°, sin corte</span></div>
-          <div class="tech-microchip"><span class="k">Material</span><span class="v">Vidrio / Plástico</span></div>
+        <div class="field-label-row">
+          <div class="field-label">Cantidad de colores</div>
+          <span class="field-hint">Elegí la cantidad para verla representada</span>
         </div>
-
-        <div class="field-label">Cantidad de colores</div>
         <div class="seg-wrap">
           <div class="seg-control" data-seg="serigrafia">
             <div class="seg-thumb"></div>
@@ -948,34 +1007,54 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
           </div>
         </div>
 
-        <div class="field-label" style="margin-top:20px;">Tipo de pintura compatible</div>
+        <div class="field-label" style="margin-top:20px;">Tipos de pintura</div>
         <div class="paint-types" data-paint-types>
-          <span class="paint-tag" data-paint="vitrificable">Vitrificable</span>
-          <span class="paint-tag" data-paint="uv">UV</span>
-          <span class="paint-tag" data-paint="epoxi">Epoxi</span>
+          <span class="paint-tag" data-paint="uv" tabindex="0" data-tooltip="Seca con lámpara UV. Requiere 1,5 cm de separación respecto del cierre.">UV</span>
+          <span class="paint-tag" data-paint="epoxi" tabindex="0" data-tooltip="Seca al aire. Requiere 1,5 cm de separación respecto del cierre.">Epoxi</span>
+          <span class="paint-tag" data-paint="vitrificable" tabindex="0" data-tooltip="Se funde con el vidrio a 600 °C. Permite diseños 360° sin corte.">Vitrificable</span>
         </div>
-        <p class="seg-note" data-paint-note>Vitrificable admite hasta <b>5 colores</b> y cierre <b>360° sin corte</b>: se funde con el vidrio a 600° y es la de mayor resistencia.</p>
 
         <details class="spec-toggle">
           <summary>Ver especificaciones técnicas <span class="chev"></span></summary>
           <div class="spec-toggle-body">
-            <p class="how">Se aplican distintas pinturas según el resultado buscado. El tipo de tinta define cuántos colores admite el diseño, qué resistencia tiene y qué tan cerca del cierre puede llegar la impresión.</p>
-            <p class="how"><b>Vitrificable —</b> se funde con el vidrio a 600°, por lo que no se sale con nada: es la de mayor resistencia. Admite de 1 a 5 colores según el proyecto y, al no correr riesgo de mancharse, permite diseños 360° con cierre perfecto. Aplica solo sobre vidrio.</p>
-            <p class="how"><b>UV —</b> seca con lámpara ultravioleta y admite cualquier color, hasta 3 de base con posibilidad de más según el desarrollo. Buena resistencia, mejor todavía cuando se imprime sobre coating. Como la tinta necesita secar, el diseño requiere 1,5 cm de separación en el cierre, para que no se corra ni manche el screen.</p>
-            <p class="how"><b>Epoxi —</b> seca al aire, lo que la hace ideal para 1 color o para productos que ya fueron llenados. Igual que en UV, necesita 1,5 cm de separación en el cierre por la misma razón: la tinta húmeda se corre si se toca antes de secar. Resistencia levemente menor que las otras dos.</p>
             <div class="considerations">
-              <div class="consideration"><b>Área</b>Varía según la botella; un formato muy usado es imprimir solo el cuello.</div>
-              <div class="consideration"><b>Efectos</b>Glow, termosensible, relieve o flocking: tintas especiales dentro de UV y epoxi, no técnicas aparte.</div>
-              <div class="consideration"><b>Material</b>Vitrificable solo en vidrio. En plástico, únicamente UV o epoxi.</div>
-              <div class="consideration"><b>Antirayado</b>Admite un barniz de protección para reducir el rayado en envases de manipulación frecuente.</div>
+              <div class="consideration"><b>Área de impresión</b>Varía según el producto.</div>
+              <div class="consideration"><b>Efectos especiales</b>Esta técnica permite lograr efectos especiales como brillo en la oscuridad, cambio de color termosensible, diseños con relieve, diseños con textura, efectos metalizados.</div>
+              <div class="consideration"><b>Superficies a decorar</b>Vitrificable: vidrio. UV y Epoxi: vidrio, plástico, cerámica, aluminio y metal.</div>
             </div>
           </div>
         </details>
+
+        <div class="comparison-card">
+          <div class="comparison-head">
+            <span>Comparación de tintas</span>
+            <button class="copy-btn" type="button" aria-label="Copiar tabla" data-copy-table>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></svg>
+            </button>
+          </div>
+          <div class="comparison-scroll">
+            <table class="comparison-table">
+              <thead>
+                <tr><th>Característica</th><th>UV</th><th>Epoxi</th><th>Vitrificable</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Resistencia</td><td>Alta</td><td>Muy alta</td><td>Máxima</td></tr>
+                <tr><td>Cobertura cromática</td><td>Amplia</td><td>Amplia</td><td>Específica</td></tr>
+                <tr><td>Superficies a decorar</td><td>Vidrio · Plástico · Cerámica · Aluminio · Metal</td><td>Vidrio · Plástico · Cerámica · Aluminio · Metal</td><td>Vidrio</td></tr>
+                <tr><td>Apto para lavavajillas</td><td>Disponible</td><td>Disponible</td><td>Disponible</td></tr>
+                <tr><td>Sin metales pesados</td><td>Disponible</td><td>Disponible</td><td>Disponible</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
 
         <div class="combine-block">
           <span class="combine-label">Se puede combinar con</span>
           <div class="combine-row">
             <button class="combine-btn" data-combine="coating" data-combine-name="Coating">Coating</button>
+            <button class="combine-btn" data-combine="stamping" data-combine-name="Hot Stamping">Hot Stamping</button>
+            <button class="combine-btn" data-combine="stamping" data-combine-name="Cold Stamping">Cold Stamping</button>
+            <button class="combine-btn" data-combine="vacio" data-combine-name="Alto Vacío">Alto vacío</button>
           </div>
         </div>
       </div>
@@ -991,7 +1070,6 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
         <div class="bottle-caption" data-combine-caption style="display:none;">Combinado con <b data-combine-name></b></div>
       </div>
       <div class="technique-body">
-        <div class="kicker">Técnica 02</div>
         <h3>Coating</h3>
         <p class="lead">Aplicación de revestimiento con soplete sobre toda la superficie del envase, con un espectro de color amplio y varios tipos de acabado.</p>
 
@@ -1048,7 +1126,6 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
         <div class="bottle-caption" data-combine-caption style="display:none;">Combinado con <b data-combine-name></b></div>
       </div>
       <div class="technique-body">
-        <div class="kicker">Técnica 03</div>
         <h3>Hot &amp; Cold Stamping</h3>
         <p class="lead">Transferencia de una película decorativa mediante calor y/o presión, ideal para acabados metálicos y detalles finos.</p>
 
@@ -1101,7 +1178,6 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
         <div class="bottle-caption" data-combine-caption style="display:none;">Combinado con <b data-combine-name></b></div>
       </div>
       <div class="technique-body">
-        <div class="kicker">Técnica 04</div>
         <h3>Alto vacío</h3>
         <p class="lead">Metalización de toda la superficie del envase mediante deposición al vacío. El acabado de mayor impacto visual de las cuatro técnicas.</p>
 
@@ -1360,29 +1436,14 @@ if(serigrafiaBlock){
   const colorImg = serigrafiaBlock.querySelector("[data-serigrafia-img]");
   const colorLens = serigrafiaBlock.querySelector("[data-lens]");
   const colorSwatches = serigrafiaBlock.querySelectorAll("[data-colorcount]");
-  const fieldColores = serigrafiaBlock.querySelector('[data-field="colores"]');
-  const fieldCierre = serigrafiaBlock.querySelector('[data-field="cierre"]');
   const paintTags = serigrafiaBlock.querySelectorAll("[data-paint]");
-  const paintNote = serigrafiaBlock.querySelector("[data-paint-note]");
   const seg = serigrafiaBlock.querySelector('[data-seg="serigrafia"]');
-
-  const paintNotes = {
-    vitrificable: 'Vitrificable admite hasta <b>5 colores</b> y cierre <b>360° sin corte</b>: se funde con el vidrio a 600° y es la de mayor resistencia.',
-    uv: 'A partir de esta cantidad, sumá <b>UV</b>: seca con lámpara y admite <b>hasta 3 colores</b> de base, con <b>1,5 cm de separación</b> en el cierre.',
-    epoxi: 'Con 1 color también podés usar <b>Epoxi</b>: seca al aire, ideal para envases ya llenados, con <b>1,5 cm de separación</b> en el cierre.',
-  };
 
   function updatePaintCompat(n){
     const compatible = { vitrificable: true, uv: n <= 3, epoxi: n === 1 };
     paintTags.forEach(tag=>{
       tag.classList.toggle("compatible", compatible[tag.dataset.paint]);
     });
-    if(fieldCierre) fieldCierre.textContent = "360°, sin corte";
-    if(paintNote){
-      if(n === 1) paintNote.innerHTML = paintNotes.epoxi;
-      else if(n <= 3) paintNote.innerHTML = paintNotes.uv;
-      else paintNote.innerHTML = paintNotes.vitrificable;
-    }
   }
 
   colorSwatches.forEach(chip=>{
@@ -1393,7 +1454,6 @@ if(serigrafiaBlock){
       const n = parseInt(chip.dataset.colorcount, 10);
       colorImg.src = `assets/bottles/serigrafia-${n}.webp`;
       if(colorLens) colorLens.style.backgroundImage = `url('${chip.dataset.zoom}')`;
-      if(fieldColores) fieldColores.textContent = n === 1 ? "1" : `1 a ${n}`;
       updatePaintCompat(n);
     });
   });
@@ -1401,6 +1461,21 @@ if(serigrafiaBlock){
   wireBottleLens(serigrafiaBlock);
   wireCombine(serigrafiaBlock);
 }
+
+// --- Comparación de tintas: copiar tabla al portapapeles ---
+document.querySelectorAll("[data-copy-table]").forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    const table = btn.closest(".comparison-card").querySelector("table");
+    const text = Array.from(table.querySelectorAll("tr"))
+      .map(tr => Array.from(tr.children).map(cell => cell.textContent.trim()).join("\t"))
+      .join("\n");
+    if(!navigator.clipboard) return;
+    navigator.clipboard.writeText(text).then(()=>{
+      btn.classList.add("copied");
+      setTimeout(()=>btn.classList.remove("copied"), 1500);
+    }).catch(()=>{});
+  });
+});
 
 // --- Coating: swatches ---
 const coatingBlock = document.querySelector('[data-technique="coating"]');
