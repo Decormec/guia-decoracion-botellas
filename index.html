@@ -52,52 +52,73 @@ h1,h2,h3{
   color:var(--text);
 }
 
-/* ---------- NAV ---------- */
+/* ---------- NAV: barra continua de vidrio esmerilado ---------- */
 .nav{
   position:fixed; top:0; left:0; right:0; z-index:50;
   display:flex; justify-content:center;
-  padding:0;
+  padding:16px 24px 0;
   pointer-events:none;
 }
 .nav-inner{
-  display:flex; align-items:center; justify-content:center;
-  gap:8px;
-  padding:18px 32px;
+  display:flex; align-items:center; justify-content:space-between;
+  gap:28px;
+  padding:13px 24px;
   max-width:1160px; width:100%;
+  border-radius:22px;
   pointer-events:auto;
+  background:var(--nav-bg, rgba(30,64,199,0.14));
+  border:1px solid var(--nav-border, rgba(30,64,199,0.16));
+  backdrop-filter:url(#glassWarp) blur(16px) saturate(1.3);
+  -webkit-backdrop-filter:blur(16px) saturate(160%);
+  box-shadow:0 10px 30px rgba(15,27,69,0.1);
 }
-.nav-brand{
-  display:none;
+
+.nav-logo{
+  position:relative;
+  display:block;
+  width:120px; flex-shrink:0;
+  line-height:0;
 }
+.nav-logo img{ display:block; width:100%; height:auto; }
+.nav-logo .nav-logo-dark{ opacity:var(--nav-mix, 0); }
+.nav-logo .nav-logo-light{
+  position:absolute; inset:0;
+  opacity:calc(1 - var(--nav-mix, 0));
+}
+
 .nav-links{
-  display:flex; gap:8px; list-style:none;
+  display:flex; gap:30px; list-style:none;
   font-family:var(--font);
-  font-size:13.5px;
-  font-weight:600;
+  font-size:12px;
+  font-weight:700;
 }
 .nav-links a{
-  text-decoration:none; color:#E4E9FF;
-  background:rgba(255,255,255,0.1);
-  border:1px solid rgba(255,255,255,0.22);
-  padding:9px 20px;
-  border-radius:999px;
+  text-decoration:none; color:var(--nav-text, var(--navy));
   text-transform:uppercase;
-  letter-spacing:0.06em;
-  font-size:12px;
-  box-shadow:0 4px 14px rgba(8,14,40,0.12);
-  transition:background .2s, color .2s, border-color .2s;
+  letter-spacing:0.07em;
+  opacity:0.82;
+  transition:opacity .2s ease;
 }
-.nav-links a:hover{ color:#fff; background:rgba(255,255,255,0.2); }
-.nav.scrolled .nav-links a{
-  color:var(--navy);
-  background:var(--surface);
-  border:1px solid var(--line);
-  box-shadow:0 4px 14px rgba(15,27,69,0.1);
+.nav-links a:hover{ opacity:1; }
+.nav-links a.active{ opacity:1; font-weight:800; }
+
+.nav-cta{
+  display:flex; align-items:center; gap:7px;
+  text-decoration:none; color:var(--nav-text, var(--navy));
+  font-family:var(--font); font-size:12px; font-weight:700;
+  text-transform:uppercase; letter-spacing:0.05em; white-space:nowrap;
+  flex-shrink:0;
 }
-.nav.scrolled .nav-links a:hover{ color:#fff; background:var(--blue); border-color:var(--blue); }
-.nav-links a.nav-minor{ font-size:9.5px; padding:7px 16px; }
-@media (max-width:720px){ .nav-links{gap:2px;} .nav-links a{padding:7px 13px; font-size:10.5px;} .nav-links a.nav-minor{ padding:7px 11px; font-size:9px; } }
-@media (max-width:560px){ .nav-links{display:none;} }
+.nav-cta .arrow{ display:inline-block; transition:transform .2s ease; }
+.nav-cta:hover .arrow{ transform:translateX(3px); }
+
+@media (max-width:860px){ .nav-links{ display:none; } }
+@media (max-width:560px){
+  .nav{ padding:12px 14px 0; }
+  .nav-inner{ padding:11px 18px; gap:14px; }
+  .nav-logo{ width:96px; }
+  .nav-cta .nav-cta-text{ display:none; }
+}
 
 /* ---------- HERO ---------- */
 .hero{
@@ -196,7 +217,8 @@ h1,h2,h3{
 .hero-badge{
   display:inline-block;
   margin:-56px auto 110px;
-  padding:12px 34px;
+  padding:12px clamp(20px,4vw,34px);
+  max-width:90vw;
   border-radius:999px;
   background:rgba(255,255,255,0.22);
   backdrop-filter:url(#glassWarp) blur(7px) saturate(1.3) brightness(1.2);
@@ -206,8 +228,9 @@ h1,h2,h3{
   color:#fff;
   font-family:var(--font);
   font-weight:300;
-  font-size:22px;
+  font-size:clamp(15px,3.4vw,22px);
   letter-spacing:0.02em;
+  white-space:nowrap;
   position:relative;
   z-index:1;
 }
@@ -824,13 +847,16 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
 
 <nav class="nav">
   <div class="nav-inner">
-    <div class="nav-brand"><span>Decormec</span> · Guía de decoración</div>
+    <a href="#" class="nav-logo" aria-label="Decormec">
+      <img class="nav-logo-dark" src="assets/decormec-logo.svg" alt="Decormec">
+      <img class="nav-logo-light" src="assets/decormec-logo-navy.svg" alt="" aria-hidden="true">
+    </a>
     <ul class="nav-links">
-      <li><a href="#botella">El envase</a></li>
+      <li><a href="#botella">El producto</a></li>
       <li><a href="#tecnicas">Las técnicas</a></li>
       <li><a href="#desarrollo">El desarrollo</a></li>
-      <li><a href="proyectos.html" class="nav-minor">Proyectos</a></li>
     </ul>
+    <a href="proyectos.html" class="nav-cta"><span class="nav-cta-text">Ver portafolio de trabajos</span> <span class="arrow">→</span></a>
   </div>
 </nav>
 
@@ -838,7 +864,7 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
   <div class="hero-halo" aria-hidden="true"></div>
   <div class="wrap hero-wrap">
     <h1 class="hero-script">Guía de<br>decoración</h1>
-    <span class="hero-badge">Envases</span>
+    <span class="hero-badge">Múltiples productos</span>
 
     <div class="hero-logo">
       <img src="assets/decormec-logo.svg" alt="Decormec">
@@ -851,7 +877,7 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
   <div class="wrap">
 
     <div class="section-head">
-      <div class="section-kicker">01 — El envase</div>
+      <div class="section-kicker">01 — El producto</div>
       <h2 class="section-question">¿Cómo elijo la base de mi producto?</h2>
       <p class="section-subtitle">La base también es parte del diseño final.</p>
       <p class="section-desc">Nos adaptamos al proyecto. Podemos decorar diferentes modelos y materialidades de productos según el resultado buscado.</p>
@@ -1581,6 +1607,11 @@ tecnicasTabs.forEach(tab=>{
     tecEl.style.setProperty("--tec-subtitle", mix(LIGHT.subtitle, DARK.subtitle, ep));
     tecEl.style.setProperty("--tec-desc", mix(LIGHT.desc, DARK.desc, ep));
     tecEl.style.setProperty("--tec-fx", ep.toFixed(3));
+
+    // Expuesto para que el nav sepa si debe usar vidrio blanco (fondo oscuro) o azul (fondo claro).
+    window.__tecFx = ep;
+    window.__tecTop = rect.top;
+    window.__tecBottom = rect.bottom;
   }
   function onScroll(){
     if(!ticking){ ticking = true; requestAnimationFrame(update); }
@@ -1590,15 +1621,76 @@ tecnicasTabs.forEach(tab=>{
   update();
 })();
 
-// --- Nav: transparente sobre el hero, sólido al hacer scroll ---
-const navEl = document.querySelector(".nav");
-const heroEl = document.querySelector(".hero");
-function updateNavStyle(){
-  const threshold = heroEl.offsetHeight - 80;
-  navEl.classList.toggle("scrolled", window.scrollY > threshold);
-}
-window.addEventListener("scroll", updateNavStyle);
-updateNavStyle();
+// --- Nav: vidrio azul sobre fondos claros, vidrio blanco sobre fondos oscuros (mezcla continua, sin salto) ---
+(function(){
+  const navEl = document.querySelector(".nav");
+  const heroEl = document.querySelector(".hero");
+  if(!navEl || !heroEl) return;
+
+  const LIGHT_RGB = [30, 64, 199];   // var(--blue), fondo del vidrio "azul"
+  const DARK_RGB  = [255, 255, 255]; // fondo del vidrio "blanco"
+  const LIGHT_TEXT = [15, 27, 69];   // var(--navy)
+  const DARK_TEXT  = [255, 255, 255];
+
+  function lerp(a, b, t){ return a + (b - a) * t; }
+  function rgba(c, t0, t1, t){
+    return `rgba(${Math.round(c[0])},${Math.round(c[1])},${Math.round(c[2])},${lerp(t0, t1, t).toFixed(3)})`;
+  }
+  function mixColor(c1, c2, t){
+    return [lerp(c1[0], c2[0], t), lerp(c1[1], c2[1], t), lerp(c1[2], c2[2], t)];
+  }
+
+  let ticking = false;
+  function update(){
+    ticking = false;
+    const sampleY = 44; // altura aproximada del centro de la barra
+    const heroRect = heroEl.getBoundingClientRect();
+    let mix = 0;
+    if(sampleY >= heroRect.top && sampleY <= heroRect.bottom){
+      mix = 1;
+    } else if(sampleY >= (window.__tecTop ?? Infinity) && sampleY <= (window.__tecBottom ?? -Infinity)){
+      mix = window.__tecFx || 0;
+    }
+
+    const bgRgb = mixColor(LIGHT_RGB, DARK_RGB, mix);
+    const textRgb = mixColor(LIGHT_TEXT, DARK_TEXT, mix);
+    navEl.style.setProperty("--nav-bg", rgba(bgRgb, 0.14, 0.14, mix));
+    navEl.style.setProperty("--nav-border", rgba(bgRgb, 0.16, 0.24, mix));
+    navEl.style.setProperty("--nav-text", rgba(textRgb, 1, 1, mix));
+    navEl.style.setProperty("--nav-mix", mix.toFixed(3));
+  }
+  function onScroll(){
+    if(!ticking){ ticking = true; requestAnimationFrame(update); }
+  }
+  window.addEventListener("scroll", onScroll, {passive:true});
+  window.addEventListener("resize", onScroll);
+  update();
+})();
+
+// --- Nav: resalta en negrita el link de la sección que se está viendo ---
+(function(){
+  const sections = Array.from(document.querySelectorAll(".nav-links a"))
+    .map(link => ({ link, el: document.getElementById(link.getAttribute("href").slice(1)) }))
+    .filter(s => s.el);
+  if(!sections.length) return;
+
+  let ticking = false;
+  function update(){
+    ticking = false;
+    const refY = 120;
+    let current = null;
+    sections.forEach(s => {
+      if(s.el.getBoundingClientRect().top <= refY) current = s;
+    });
+    sections.forEach(s => s.link.classList.toggle("active", s === current));
+  }
+  function onScroll(){
+    if(!ticking){ ticking = true; requestAnimationFrame(update); }
+  }
+  window.addEventListener("scroll", onScroll, {passive:true});
+  window.addEventListener("resize", onScroll);
+  update();
+})();
 </script>
 
 </body>
