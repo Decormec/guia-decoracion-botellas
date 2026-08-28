@@ -242,6 +242,9 @@ h1,h2,h3{
 
 /* ---------- SECTION SCAFFOLDING ---------- */
 section{ padding:112px 0; }
+/* position:relative para que apilen correctamente por encima de .chapter-glow
+   (que es position:absolute) según su orden en el documento. */
+#botella, #desarrollo{ position:relative; }
 
 /* ---------- EDITORIAL SECTION HEADER ---------- */
 .section-head{
@@ -461,26 +464,26 @@ details[open] > .accordion-summary .accordion-plus::after{ opacity:0; }
 }
 @media (max-width:480px){ .accordion-body{ padding-left:22px; } }
 
-/* ---------- TECNICAS: capítulo con degradé fluido blanco -> azul -> navy ---------- */
-/* Un solo degradé estático, del alto de la propia sección (no del viewport):
-   al scrollear se va revelando de a poco, sin corte ni salto ligado a scroll.
-   Un poco más de padding que el resto de las secciones le da aire al degradé
-   antes de llegar al encabezado y después de la caja interactiva. */
+/* ---------- CHAPTER GLOW: degradé largo y difuso desde El producto hasta El desarrollo ---------- */
+/* Posicionado y medido por JS (arranca en #glow-start, termina al pie de
+   El desarrollo). Es puramente decorativo, va detrás de todo el contenido. */
+.chapter-glow{
+  position:absolute;
+  left:0; width:100%;
+  top:0; height:0;
+  pointer-events:none;
+  z-index:0;
+}
+
+/* ---------- TECNICAS: vive dentro del degradé de capítulo (.chapter-glow) ---------- */
+/* El fondo ya no es propio: lo aporta .chapter-glow, una capa detrás de toda
+   esta zona de la página (ver más abajo), así el difuminado puede empezar
+   bien antes -en El producto- y terminar bien después -en El desarrollo-,
+   con la parte oscura concentrada acá en Técnicas. */
 #tecnicas{
   position:relative;
   overflow:hidden;
   padding:190px 0;
-  background:
-    radial-gradient(circle at 80% 10%, rgba(91,132,255,0.16), transparent 55%),
-    linear-gradient(to bottom,
-      #ffffff 0,
-      #ffffff 60px,
-      var(--blue) 200px,
-      var(--navy) 420px,
-      var(--navy) 78%,
-      var(--blue) 90%,
-      #ffffff 100%
-    );
 }
 #tecnicas::before{
   content:"";
@@ -846,6 +849,8 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
 </head>
 <body>
 
+<div class="chapter-glow" aria-hidden="true"></div>
+
 <svg width="0" height="0" style="position:absolute">
   <filter id="glassWarp" x="-20%" y="-20%" width="140%" height="140%">
     <feTurbulence type="fractalNoise" baseFrequency="0.012 0.018" numOctaves="2" seed="7" result="noise"/>
@@ -920,7 +925,7 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
       </div>
     </div>
 
-    <h3 class="subhead">¿Cómo consigo mi producto base?</h3>
+    <h3 class="subhead" id="glow-start">¿Cómo consigo mi producto base?</h3>
 
     <div class="path-grid">
       <div class="path-card">
@@ -1580,6 +1585,86 @@ tecnicasTabs.forEach(tab=>{
     setTimeout(initSegControls, 0);
   });
 });
+
+// --- Chapter glow: degradé largo y difuso que va desde "¿Cómo consigo mi
+// producto base?" (en El producto) hasta el pie de El desarrollo, con la
+// parte oscura concentrada en Técnicas. Es estático (no ligado a scroll):
+// se mide y arma una única vez -y cuando cambia el alto de la página-, y
+// se revela con el scroll normal del documento, sin ningún salto ni corte. ---
+(function(){
+  const glowEl = document.querySelector(".chapter-glow");
+  const startEl = document.getElementById("glow-start");
+  const tecEl = document.getElementById("tecnicas");
+  const desarrolloEl = document.getElementById("desarrollo");
+  if(!glowEl || !startEl || !tecEl || !desarrolloEl) return;
+
+  const WHITE = [255, 255, 255];
+  const BLUE = [30, 64, 199];
+  const NAVY = [15, 27, 69];
+  const LIGHT_BLUE = lerpColor(WHITE, BLUE, 0.35);
+
+  function lerpColor(c1, c2, t){
+    return [0, 1, 2].map(i => Math.round(c1[i] + (c2[i] - c1[i]) * t));
+  }
+  function toRgb(c){ return `rgb(${c[0]},${c[1]},${c[2]})`; }
+
+  function build(){
+    const scrollY = window.scrollY;
+    const glowTop = startEl.getBoundingClientRect().top + scrollY;
+    const tecTop = tecEl.getBoundingClientRect().top + scrollY;
+    const tecBottom = tecEl.getBoundingClientRect().bottom + scrollY;
+    const glowBottom = desarrolloEl.getBoundingClientRect().bottom + scrollY;
+    const totalHeight = Math.max(glowBottom - glowTop, 1);
+    const tecStart = tecTop - glowTop;
+    const tecEnd = tecBottom - glowTop;
+
+    const stops = [];
+    // El producto: sube muy de a poco, acelerando recién cerca de Técnicas
+    // (curva de aceleración cuadrática) para que no se sienta un cambio brusco.
+    const preSteps = 8;
+    for(let i = 0; i <= preSteps; i++){
+      const t = i / preSteps;
+      stops.push([tecStart * t, lerpColor(WHITE, LIGHT_BLUE, t * t)]);
+    }
+    // Técnicas: acá se concentra el oscurecimiento real.
+    stops.push([tecStart + 150, BLUE]);
+    stops.push([tecStart + 380, NAVY]);
+    stops.push([Math.max(tecEnd - 260, tecStart + 380), NAVY]);
+    stops.push([tecEnd, BLUE]);
+    // El desarrollo: primero una caída corta de azul vivo a un celeste
+    // suave (el mismo tono liviano que en El producto), y desde ahí una
+    // bajada bien lenta hasta blanco a lo largo de todo el resto de la
+    // sección -contenido sin tarjeta propia, así que el tinte tiene que
+    // quedar liviano para no perder contraste con el texto.
+    const softDrop = Math.min(180, (totalHeight - tecEnd) * 0.5);
+    stops.push([tecEnd + softDrop, LIGHT_BLUE]);
+    const postSteps = 8;
+    const postStart = tecEnd + softDrop;
+    const postSpan = totalHeight - postStart;
+    for(let i = 1; i <= postSteps; i++){
+      const t = i / postSteps;
+      stops.push([postStart + postSpan * t, lerpColor(LIGHT_BLUE, WHITE, t * t)]);
+    }
+
+    const gradient = "linear-gradient(to bottom, " +
+      stops.map(([pos, c]) => `${toRgb(c)} ${pos.toFixed(1)}px`).join(", ") +
+      ")";
+
+    glowEl.style.top = glowTop + "px";
+    glowEl.style.height = totalHeight + "px";
+    glowEl.style.background = gradient;
+  }
+
+  let scheduled = false;
+  function schedule(){
+    if(!scheduled){ scheduled = true; requestAnimationFrame(() => { scheduled = false; build(); }); }
+  }
+  window.addEventListener("resize", schedule);
+  if(window.ResizeObserver){
+    new ResizeObserver(schedule).observe(document.body);
+  }
+  build();
+})();
 
 // --- Técnicas usa un degradé CSS estático (ver #tecnicas en el <style>); esta
 // función sólo la usa el nav para saber, dado un punto de la pantalla, qué
