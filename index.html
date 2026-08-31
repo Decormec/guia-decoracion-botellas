@@ -326,8 +326,22 @@ section{ padding:112px 0; }
   animation-delay:var(--delay);
   animation-timing-function:ease-in-out;
   animation-iteration-count:infinite;
+  animation-play-state:paused;
+  opacity:0;
+  transition:opacity 1.1s ease-out;
+  transition-delay:calc(var(--delay, 0s) * -0.09);
   will-change:transform;
 }
+/* Recién arrancan a flotar y se revelan cuando la escena entra en
+   pantalla (ver IntersectionObserver más abajo), en vez de aparecer ya
+   animándose desde la carga -así la llegada se siente más suave y con
+   un poco de cascada entre objetos, reusando --delay para escalonarlos. */
+.float-scene.in-view .float-obj{
+  opacity:1;
+  animation-play-state:running;
+}
+.float-word{ opacity:0; transition:opacity 1s ease-out; transition-delay:0.15s; }
+.float-scene.in-view .float-word{ opacity:1; }
 @media (max-width:720px){
   .float-stage{ aspect-ratio:auto; height:100vh; height:100dvh; }
   .float-obj{
@@ -375,7 +389,8 @@ section{ padding:112px 0; }
   pointer-events:none;
 }
 @media (prefers-reduced-motion: reduce){
-  .float-obj{ animation:none; }
+  .float-obj{ animation:none; opacity:1; transition:none; }
+  .float-word{ opacity:1; transition:none; }
 }
 @media (max-width:720px){
   .float-word{ padding:11px 24px; font-size:12.5px; }
@@ -1452,6 +1467,22 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
 </footer>
 
 <script>
+// --- Escena flotante (El producto): recién arranca a flotar y se revela
+// cuando entra en pantalla, en vez de estar ya animándose desde la carga. ---
+(function(){
+  const scene = document.querySelector(".float-scene");
+  if(!scene || !window.IntersectionObserver){ if(scene) scene.classList.add("in-view"); return; }
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        scene.classList.add("in-view");
+        observer.unobserve(scene);
+      }
+    });
+  }, { threshold: 0.2 });
+  observer.observe(scene);
+})();
+
 // --- Lupa de zoom al hacer hover sobre la botella ---
 function wireBottleLens(block){
   if(!block) return;
