@@ -244,7 +244,7 @@ h1,h2,h3{
 section{ padding:112px 0; }
 /* position:relative para que apilen correctamente por encima de .chapter-glow
    (que es position:absolute) según su orden en el documento. */
-.hero, #botella, #desarrollo, footer{ position:relative; }
+#botella, #desarrollo, footer{ position:relative; }
 
 /* ---------- EDITORIAL SECTION HEADER ----------
    Pastilla arriba (kicker), y debajo dos columnas: la pregunta a la
@@ -261,9 +261,6 @@ section{ padding:112px 0; }
     "question subtitle"
     "question desc";
   align-items:start;
-  padding:30px 0;
-  border-top:1px dashed rgba(18,22,43,0.14);
-  border-bottom:1px dashed rgba(18,22,43,0.14);
   margin-bottom:64px;
 }
 .section-kicker{
@@ -291,10 +288,6 @@ section{ padding:112px 0; }
 .section-desc{
   grid-area:desc;
   font-size:15.5px; font-weight:500; color:var(--text-soft); max-width:52ch; line-height:1.65;
-}
-#tecnicas .section-head, #desarrollo .section-head{
-  border-top-color:rgba(255,255,255,0.16);
-  border-bottom-color:rgba(255,255,255,0.16);
 }
 @media (max-width:640px){ .section-head{ margin-bottom:44px; } }
 @media (max-width:860px){
@@ -511,24 +504,6 @@ details[open] > .accordion-summary .accordion-plus::after{ opacity:0; }
   pointer-events:none;
   z-index:0;
 }
-
-/* ---------- GRID DE LÍNEAS PUNTEADAS DE FONDO ----------
-   Dos guías verticales, alineadas con el borde del contenido (mismo ancho
-   que .wrap), que recorren todo el alto de la página -hero, tramos claros
-   y el navy del degradé de capítulo-. En vez de perseguir con JS qué fondo
-   hay en cada punto, se resuelve con mix-blend-mode: un mismo gris se ve
-   como una línea sutil tanto sobre blanco como sobre navy, sin importar
-   dónde caiga. El alto lo fija el mismo build() del chapter-glow (ver
-   script más abajo), ya que corre en los mismos disparadores (carga,
-   resize, alto de página). */
-.dotted-grid{ position:absolute; top:0; left:0; width:100%; height:0; pointer-events:none; }
-.dg-line{
-  position:absolute; top:0; bottom:0; width:0;
-  border-left:1.5px dashed rgba(140,140,140,0.55);
-  mix-blend-mode:difference;
-}
-.dg-left{ left:max(32px, calc(50% - 548px)); }
-.dg-right{ right:max(32px, calc(50% - 548px)); }
 
 /* ---------- TECNICAS: vive dentro del degradé de capítulo (.chapter-glow) ---------- */
 /* El fondo ya no es propio: lo aporta .chapter-glow, una capa detrás de toda
@@ -921,12 +896,6 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
 <body>
 
 <div class="chapter-glow" aria-hidden="true"></div>
-<div class="dotted-grid" aria-hidden="true">
-  <span class="dg-line dg-left dg-light"></span>
-  <span class="dg-line dg-left dg-dark"></span>
-  <span class="dg-line dg-right dg-light"></span>
-  <span class="dg-line dg-right dg-dark"></span>
-</div>
 
 <svg width="0" height="0" style="position:absolute">
   <filter id="glassWarp" x="-20%" y="-20%" width="140%" height="140%">
@@ -1671,7 +1640,6 @@ tecnicasTabs.forEach(tab=>{
 // documento, sin ningún salto ni corte. ---
 (function(){
   const glowEl = document.querySelector(".chapter-glow");
-  const dottedGridEl = document.querySelector(".dotted-grid");
   const startEl = document.getElementById("glow-start");
   const tecEl = document.getElementById("tecnicas");
   const footerEl = document.querySelector("footer");
@@ -1724,10 +1692,6 @@ tecnicasTabs.forEach(tab=>{
     glowEl.style.top = glowTop + "px";
     glowEl.style.height = totalHeight + "px";
     glowEl.style.background = gradient;
-
-    // Las líneas punteadas de fondo corren por toda la página -incluido el
-    // hero, que queda antes de glowTop-, así que se miden por separado.
-    if(dottedGridEl){ dottedGridEl.style.height = glowBottom + "px"; }
   }
 
   let scheduled = false;
