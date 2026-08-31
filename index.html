@@ -1605,12 +1605,14 @@ tecnicasTabs.forEach(tab=>{
   // timeline es texto plano), así que el tinte ahí tiene que quedar mucho
   // más liviano que en El producto para no romper el contraste con el texto
   // gris/azul que ya usa esa sección (verificado con la fórmula de WCAG).
-  const POST_TINT = lerpColor(WHITE, BLUE, 0.10);
+  const POST_TINT = lerpColor(WHITE, BLUE, 0.16);
 
   function lerpColor(c1, c2, t){
     return [0, 1, 2].map(i => Math.round(c1[i] + (c2[i] - c1[i]) * t));
   }
   function toRgb(c){ return `rgb(${c[0]},${c[1]},${c[2]})`; }
+
+  function smoothstep(t){ return t * t * (3 - 2 * t); }
 
   function build(){
     const scrollY = window.scrollY;
@@ -1622,28 +1624,53 @@ tecnicasTabs.forEach(tab=>{
     const tecStart = tecTop - glowTop;
     const tecEnd = tecBottom - glowTop;
 
+    // Los títulos de Técnicas (texto claro sobre fondo oscuro) y de Desarrollo
+    // (texto oscuro sobre fondo casi blanco) marcan el límite real de cada
+    // transición: hay que llegar a un tono seguro de contraste ANTES de que
+    // aparezcan, pero recién ahí, para que la rampa sea lo más larga y difusa
+    // posible dentro de ese margen -en vez de una distancia fija arbitraria-.
+    const tecKickerEl = tecEl.querySelector(".section-kicker");
+    const desKickerEl = desarrolloEl.querySelector(".section-kicker");
+    const tecKickerY = tecKickerEl
+      ? (tecKickerEl.getBoundingClientRect().top + scrollY) - glowTop
+      : tecStart + 260;
+    const desKickerY = desKickerEl
+      ? (desKickerEl.getBoundingClientRect().top + scrollY) - glowTop
+      : tecEnd + 150;
+
     const stops = [];
     // El producto: sube muy de a poco, acelerando recién cerca de Técnicas
     // (curva de aceleración cuadrática) para que no se sienta un cambio brusco.
-    const preSteps = 8;
+    const preSteps = 10;
     for(let i = 0; i <= preSteps; i++){
       const t = i / preSteps;
       stops.push([tecStart * t, lerpColor(WHITE, LIGHT_BLUE, t * t)]);
     }
-    // Técnicas: acá se concentra el oscurecimiento real.
-    stops.push([tecStart + 150, BLUE]);
-    stops.push([tecStart + 380, NAVY]);
-    stops.push([Math.max(tecEnd - 260, tecStart + 380), NAVY]);
+    // Entrada a Técnicas: rampa larga y suave (smoothstep) hasta un poco antes
+    // del título de la sección, así el oscurecimiento se percibe difuso y no
+    // como un corte, y para cuando aparece el título ya hay contraste de sobra.
+    const entryEnd = Math.max(tecStart + 220, tecKickerY - 40);
+    const entrySteps = 16;
+    for(let i = 1; i <= entrySteps; i++){
+      const t = i / entrySteps;
+      stops.push([tecStart + (entryEnd - tecStart) * t, lerpColor(LIGHT_BLUE, NAVY, smoothstep(t))]);
+    }
+    // Técnicas: se mantiene oscuro hasta cerca del final de la sección.
+    stops.push([Math.max(tecEnd - 260, entryEnd), NAVY]);
     stops.push([tecEnd, BLUE]);
-    // El desarrollo: primero una caída corta de azul vivo a un celeste muy
-    // suave (POST_TINT, más liviano que en El producto), y desde ahí una
-    // bajada bien lenta hasta blanco a lo largo de todo el resto de la
-    // sección -contenido sin tarjeta propia, así que el tinte tiene que
-    // quedar liviano para no perder contraste con el texto.
-    const softDrop = Math.min(90, (totalHeight - tecEnd) * 0.5);
-    stops.push([tecEnd + softDrop, POST_TINT]);
-    const postSteps = 8;
-    const postStart = tecEnd + softDrop;
+    // Salida de Técnicas: rampa suave (ease-out) hasta un poco antes del
+    // título de Desarrollo -tan larga como el margen disponible lo permita-,
+    // y desde ahí una cola larga y lineal (por lo tanto siempre perceptible,
+    // nunca "plana") hasta blanco a lo largo de todo el resto de la sección.
+    const exitEnd = Math.max(tecEnd + 90, desKickerY - 30);
+    const exitSteps = 12;
+    for(let i = 1; i <= exitSteps; i++){
+      const t = i / exitSteps;
+      const eased = 1 - (1 - t) * (1 - t);
+      stops.push([tecEnd + (exitEnd - tecEnd) * t, lerpColor(BLUE, POST_TINT, eased)]);
+    }
+    const postSteps = 16;
+    const postStart = exitEnd;
     const postSpan = totalHeight - postStart;
     for(let i = 1; i <= postSteps; i++){
       const t = i / postSteps;
