@@ -258,7 +258,7 @@ section{ padding:112px 0; }
 }
 .section-kicker::before{ content:""; width:30px; height:1.5px; background:var(--blue); flex-shrink:0; }
 .section-question{
-  font-family:var(--font); font-weight:800; letter-spacing:-0.025em; line-height:1.06;
+  font-family:var(--font); font-weight:400; letter-spacing:-0.025em; line-height:1.06;
   font-size:clamp(34px,5vw,58px);
   color:var(--text); margin-bottom:20px;
 }
@@ -1602,6 +1602,11 @@ tecnicasTabs.forEach(tab=>{
   const BLUE = [30, 64, 199];
   const NAVY = [15, 27, 69];
   const LIGHT_BLUE = lerpColor(WHITE, BLUE, 0.35);
+  // El desarrollo no tiene todo el contenido dentro de tarjetas propias (el
+  // timeline es texto plano), así que el tinte ahí tiene que quedar mucho
+  // más liviano que en El producto para no romper el contraste con el texto
+  // gris/azul que ya usa esa sección (verificado con la fórmula de WCAG).
+  const POST_TINT = lerpColor(WHITE, BLUE, 0.10);
 
   function lerpColor(c1, c2, t){
     return [0, 1, 2].map(i => Math.round(c1[i] + (c2[i] - c1[i]) * t));
@@ -1631,19 +1636,19 @@ tecnicasTabs.forEach(tab=>{
     stops.push([tecStart + 380, NAVY]);
     stops.push([Math.max(tecEnd - 260, tecStart + 380), NAVY]);
     stops.push([tecEnd, BLUE]);
-    // El desarrollo: primero una caída corta de azul vivo a un celeste
-    // suave (el mismo tono liviano que en El producto), y desde ahí una
+    // El desarrollo: primero una caída corta de azul vivo a un celeste muy
+    // suave (POST_TINT, más liviano que en El producto), y desde ahí una
     // bajada bien lenta hasta blanco a lo largo de todo el resto de la
     // sección -contenido sin tarjeta propia, así que el tinte tiene que
     // quedar liviano para no perder contraste con el texto.
-    const softDrop = Math.min(180, (totalHeight - tecEnd) * 0.5);
-    stops.push([tecEnd + softDrop, LIGHT_BLUE]);
+    const softDrop = Math.min(90, (totalHeight - tecEnd) * 0.5);
+    stops.push([tecEnd + softDrop, POST_TINT]);
     const postSteps = 8;
     const postStart = tecEnd + softDrop;
     const postSpan = totalHeight - postStart;
     for(let i = 1; i <= postSteps; i++){
       const t = i / postSteps;
-      stops.push([postStart + postSpan * t, lerpColor(LIGHT_BLUE, WHITE, t * t)]);
+      stops.push([postStart + postSpan * t, lerpColor(POST_TINT, WHITE, t * t)]);
     }
 
     const gradient = "linear-gradient(to bottom, " +
