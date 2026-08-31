@@ -1639,35 +1639,39 @@ tecnicasTabs.forEach(tab=>{
       : tecEnd + 150;
 
     const stops = [];
-    // El producto: sube muy de a poco, acelerando recién cerca de Técnicas
-    // (curva de aceleración cuadrática) para que no se sienta un cambio brusco.
-    const preSteps = 10;
-    for(let i = 0; i <= preSteps; i++){
-      const t = i / preSteps;
-      stops.push([tecStart * t, lerpColor(WHITE, LIGHT_BLUE, t * t)]);
-    }
-    // Entrada a Técnicas: rampa larga y suave (smoothstep) hasta un poco antes
-    // del título de la sección, así el oscurecimiento se percibe difuso y no
-    // como un corte, y para cuando aparece el título ya hay contraste de sobra.
+    // Entrada: una única curva continua de blanco a navy (potencia >1, tipo
+    // ease-in) en vez de tramos separados con ritmos distintos -así se ve
+    // como UN degradé fluido y no como una serie de cortes-. Se mantiene casi
+    // blanca durante buena parte de El producto y acelera recién cerca del
+    // título de Técnicas, que es donde tiene que estar ya bien oscuro.
     const entryEnd = Math.max(tecStart + 220, tecKickerY - 40);
-    const entrySteps = 16;
-    for(let i = 1; i <= entrySteps; i++){
+    const entrySteps = 24;
+    for(let i = 0; i <= entrySteps; i++){
       const t = i / entrySteps;
-      stops.push([tecStart + (entryEnd - tecStart) * t, lerpColor(LIGHT_BLUE, NAVY, smoothstep(t))]);
+      stops.push([entryEnd * t, lerpColor(WHITE, NAVY, Math.pow(t, 2.2))]);
     }
-    // Técnicas: se mantiene oscuro hasta cerca del final de la sección.
-    stops.push([Math.max(tecEnd - 260, entryEnd), NAVY]);
-    stops.push([tecEnd, BLUE]);
-    // Salida de Técnicas: rampa suave (ease-out) hasta un poco antes del
-    // título de Desarrollo -tan larga como el margen disponible lo permita-,
-    // y desde ahí una cola larga y lineal (por lo tanto siempre perceptible,
-    // nunca "plana") hasta blanco a lo largo de todo el resto de la sección.
+    // Técnicas: se mantiene oscuro. El contenido real vive dentro de una
+    // tarjeta blanca propia (.tech-frost/.tech-box), así que el tramo final
+    // -relleno/padding de la sección, sin texto expuesto sobre el fondo- ya
+    // puede empezar a aclarar de forma temprana y gradual sin perder
+    // contraste en ningún título.
+    const fadeOutStart = Math.max(entryEnd, tecEnd - Math.min(500, (tecEnd - tecStart) * 0.3));
+    stops.push([fadeOutStart, NAVY]);
+    const preExitSteps = 10;
+    for(let i = 1; i <= preExitSteps; i++){
+      const t = i / preExitSteps;
+      stops.push([fadeOutStart + (tecEnd - fadeOutStart) * t, lerpColor(NAVY, LIGHT_BLUE, smoothstep(t))]);
+    }
+    // Salida de Técnicas: como ya llega más clara al borde de la sección, acá
+    // resta una caída corta -medida contra el título real de Desarrollo, para
+    // no perder contraste- y después una cola larga y perceptible hasta
+    // blanco a lo largo de todo el resto de la sección.
     const exitEnd = Math.max(tecEnd + 90, desKickerY - 30);
-    const exitSteps = 12;
+    const exitSteps = 10;
     for(let i = 1; i <= exitSteps; i++){
       const t = i / exitSteps;
       const eased = 1 - (1 - t) * (1 - t);
-      stops.push([tecEnd + (exitEnd - tecEnd) * t, lerpColor(BLUE, POST_TINT, eased)]);
+      stops.push([tecEnd + (exitEnd - tecEnd) * t, lerpColor(LIGHT_BLUE, POST_TINT, eased)]);
     }
     const postSteps = 16;
     const postStart = exitEnd;
