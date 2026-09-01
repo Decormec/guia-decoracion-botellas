@@ -565,11 +565,32 @@ details[open] > .accordion-summary .accordion-plus::after{ opacity:0; }
 #tecnicas .section-subtitle{ color:#C6D3FF; }
 #tecnicas .section-desc{ color:#AEB9E0; }
 
+/* ---------- PLACA DE VIDRIO: respaldo para texto sin tarjeta propia ----------
+   El fondo de esta zona lo aporta .chapter-glow y se reparte parejo en toda
+   la página (ver JS más abajo); en el tramo medio pasa por tonos azul-gris
+   intermedios contra los que NINGÚN color de texto fijo -ni muy oscuro ni
+   muy claro- llega al contraste mínimo (lo comprobamos con la fórmula de
+   WCAG: hay un rango donde ninguna de las dos opciones pasa 4.5:1). En vez
+   de perseguir la posición exacta con JS, el texto que no vive en una
+   tarjeta propia (títulos, descripciones, timeline) lleva esta placa de
+   vidrio oscura y difuminada -mismo lenguaje que ya usa el nav y la
+   tarjeta de Técnicas-, así el fondo real detrás suyo deja de importar:
+   siempre hay suficiente oscuridad debajo del texto claro. */
+.glass-panel{
+  position:relative;
+  padding:28px 32px;
+  margin:0 -32px;
+  border-radius:26px;
+  background:rgba(5,10,26,0.85);
+  backdrop-filter:url(#glassWarp) blur(20px) saturate(1.1);
+  -webkit-backdrop-filter:blur(20px) saturate(160%);
+  border:1px solid rgba(255,255,255,0.08);
+}
+@media (max-width:600px){ .glass-panel{ padding:22px 20px; margin:0 -20px; } }
+
 /* ---------- DESARROLLO: el degradé de capítulo termina en navy y ya no
-   vuelve a blanco, así que esta sección vive sobre fondo oscuro -mismos
-   tonos claros que Técnicas- para todo el texto que no tiene tarjeta
-   propia. El acordeón sigue en tarjetas blancas (.accordion-item), igual
-   que la tarjeta de Técnicas, así que no necesita cambios. ---------- */
+   vuelve a blanco. El acordeón sigue en tarjetas blancas (.accordion-item),
+   igual que la tarjeta de Técnicas, así que no necesita cambios. ---------- */
 #desarrollo .section-kicker{ color:#9DB4FF; background:rgba(255,255,255,0.14); }
 #desarrollo .section-question{ color:#fff; }
 #desarrollo .section-subtitle{ color:#C6D3FF; }
@@ -970,7 +991,7 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
 <section id="botella">
   <div class="wrap">
 
-    <div class="section-head">
+    <div class="section-head" id="glow-start">
       <div class="section-kicker">01 — El producto</div>
       <h2 class="section-question">¿Cómo elijo la base de mi producto?</h2>
       <p class="section-subtitle">La base también es parte del diseño final.</p>
@@ -1006,7 +1027,7 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
       </div>
     </div>
 
-    <h3 class="subhead" id="glow-start">¿Cómo consigo mi producto base?</h3>
+    <h3 class="subhead">¿Cómo consigo mi producto base?</h3>
 
     <div class="path-grid">
       <div class="path-card">
@@ -1059,7 +1080,7 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
 <!-- ============ 02 — LAS TECNICAS ============ -->
 <section id="tecnicas">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head glass-panel">
       <div class="section-kicker">02 — Las técnicas</div>
       <h2 class="section-question">¿Qué técnica uso para decorar mi producto?</h2>
       <p class="section-subtitle">Una misma base. Infinitas posibilidades.</p>
@@ -1334,14 +1355,14 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
 <!-- ============ 03 — EL DESARROLLO ============ -->
 <section id="desarrollo">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head glass-panel">
       <div class="section-kicker">03 — El desarrollo</div>
       <h2 class="section-question">¿Cómo llevamos una idea a producción?</h2>
       <p class="section-subtitle">La metodología Decormec para transformar una idea disruptiva en un resultado real.</p>
       <p class="section-desc">Cada proyecto tiene sus propias variables y tiempos. Nuestra metodología nos permite ordenar cada etapa, anticipar desafíos y validar el resultado antes de llegar a producción.</p>
     </div>
 
-    <div class="timeline">
+    <div class="timeline glass-panel" style="margin-top:32px;">
       <div class="timeline-step">
         <span class="timeline-dot">01</span>
         <h3>Idea</h3>
@@ -1371,8 +1392,10 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
       <span>Confidencialidad absoluta en todo el proceso</span>
     </div>
 
-    <h3 class="subhead" style="margin-top:64px;">¿Qué tenemos en cuenta en cada proyecto?</h3>
-    <p class="section-intro">Cada envase tiene características que pueden influir en la técnica, el proceso y el resultado final. Tocá cada pregunta para ver el detalle.</p>
+    <div class="glass-panel" style="margin-top:64px;">
+      <h3 class="subhead">¿Qué tenemos en cuenta en cada proyecto?</h3>
+      <p class="section-intro">Cada envase tiene características que pueden influir en la técnica, el proceso y el resultado final. Tocá cada pregunta para ver el detalle.</p>
+    </div>
 
     <div class="accordion-grid" style="margin-top:32px;">
       <details class="accordion-item">
@@ -1675,12 +1698,16 @@ tecnicasTabs.forEach(tab=>{
 });
 
 // --- Chapter glow: una única transición de blanco a navy que corre desde
-// "¿Cómo consigo mi producto base?" (en El producto) hasta el pie de
-// página, sin tramos planos -sigue oscureciéndose, aunque sea de forma
-// casi imperceptible, hasta el último píxel- para que el color no "marque"
-// dónde arranca cada sección. Es estático (no ligado a scroll): se mide y
-// arma una única vez -y cuando cambia el alto de la página-, y se revela
-// con el scroll normal del documento, sin ningún salto ni corte. ---
+// el título de "El producto" (arriba de todo, primera sección) hasta el
+// pie de página (última sección), repartida en TODO ese recorrido -no
+// concentrada cerca de Técnicas-. El texto de Técnicas/Desarrollo que no
+// vive en una tarjeta propia (títulos, descripciones, timeline) lleva su
+// propia placa de vidrio -ver .glass-panel más abajo en el CSS- para
+// quedar siempre legible sin importar qué tono de fondo le toque en el
+// medio del recorrido; así el fondo puede repartirse parejo sin que haya
+// que perseguir su posición exacta. Es estático (no ligado a scroll): se
+// mide y arma una única vez -y cuando cambia el alto de la página-, y se
+// revela con el scroll normal del documento, sin ningún salto ni corte. ---
 (function(){
   const glowEl = document.querySelector(".chapter-glow");
   const startEl = document.getElementById("glow-start");
@@ -1690,22 +1717,13 @@ tecnicasTabs.forEach(tab=>{
   const WHITE = [255, 255, 255];
   const NAVY = [15, 27, 69];
 
-  // Una única curva logística (sigmoidea) sobre TODO el alto de la página:
-  // a diferencia de empalmar una rampa con un tramo final más plano -que
-  // matemáticamente es continuo en color, pero cambia de velocidad de
-  // golpe en el empalme, y ESO es lo que se percibe como un corte-, una
-  // sigmoidea acelera y frena de forma perfectamente gradual en un único
-  // trazo, sin ningún quiebre de velocidad en ningún punto. T0/K están
-  // calibrados (a mano, contra el contraste real de #botella y Técnicas)
-  // para que la zona de cambio más marcado caiga justo donde hoy termina
-  // el contenido propio de El producto y empieza el texto claro de
-  // Técnicas -sigue siendo una sola fórmula pareja para toda la página,
-  // no un valor por sección-.
-  const T0 = 0.1925;
-  const K = 75;
-  function rawSigmoid(t){ return 1 / (1 + Math.exp(-K * (t - T0))); }
-  const SIG0 = rawSigmoid(0), SIG1 = rawSigmoid(1);
-  function mixAt(t){ return (rawSigmoid(t) - SIG0) / (SIG1 - SIG0); }
+  // Curva de aceleración (potencia > 1): arranca muy de a poco -todavía
+  // queda mucho contenido propio de El producto, con texto oscuro fijo,
+  // por delante- y se sigue acelerando/oscureciendo el resto de la
+  // página, sin ningún tramo plano. Es UNA sola fórmula para todo el
+  // alto de la página, no un valor distinto por sección.
+  const POWER = 2.5;
+  function mixAt(t){ return Math.pow(t, POWER); }
 
   function lerpColor(c1, c2, t){
     return [0, 1, 2].map(i => Math.round(c1[i] + (c2[i] - c1[i]) * t));
@@ -1718,10 +1736,9 @@ tecnicasTabs.forEach(tab=>{
     const glowBottom = footerEl.getBoundingClientRect().bottom + scrollY;
     const totalHeight = Math.max(glowBottom - glowTop, 1);
 
-    // Muchos puntos (uno cada ~18px en promedio) para que la curva -que
-    // acelera fuerte en su tramo medio- se vea perfectamente lisa; un
-    // linear-gradient sólo interpola en línea recta entre stops, así que
-    // pocos puntos ahí se notarían como pequeños quiebres.
+    // Muchos puntos (uno cada ~18px en promedio) para que la curva se vea
+    // perfectamente lisa; un linear-gradient sólo interpola en línea recta
+    // entre stops, así que pocos puntos se notarían como pequeños quiebres.
     const steps = 220;
     const stops = [];
     for(let i = 0; i <= steps; i++){
