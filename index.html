@@ -1684,12 +1684,28 @@ tecnicasTabs.forEach(tab=>{
 (function(){
   const glowEl = document.querySelector(".chapter-glow");
   const startEl = document.getElementById("glow-start");
-  const tecEl = document.getElementById("tecnicas");
   const footerEl = document.querySelector("footer");
-  if(!glowEl || !startEl || !tecEl || !footerEl) return;
+  if(!glowEl || !startEl || !footerEl) return;
 
   const WHITE = [255, 255, 255];
   const NAVY = [15, 27, 69];
+
+  // Una única curva logística (sigmoidea) sobre TODO el alto de la página:
+  // a diferencia de empalmar una rampa con un tramo final más plano -que
+  // matemáticamente es continuo en color, pero cambia de velocidad de
+  // golpe en el empalme, y ESO es lo que se percibe como un corte-, una
+  // sigmoidea acelera y frena de forma perfectamente gradual en un único
+  // trazo, sin ningún quiebre de velocidad en ningún punto. T0/K están
+  // calibrados (a mano, contra el contraste real de #botella y Técnicas)
+  // para que la zona de cambio más marcado caiga justo donde hoy termina
+  // el contenido propio de El producto y empieza el texto claro de
+  // Técnicas -sigue siendo una sola fórmula pareja para toda la página,
+  // no un valor por sección-.
+  const T0 = 0.1925;
+  const K = 75;
+  function rawSigmoid(t){ return 1 / (1 + Math.exp(-K * (t - T0))); }
+  const SIG0 = rawSigmoid(0), SIG1 = rawSigmoid(1);
+  function mixAt(t){ return (rawSigmoid(t) - SIG0) / (SIG1 - SIG0); }
 
   function lerpColor(c1, c2, t){
     return [0, 1, 2].map(i => Math.round(c1[i] + (c2[i] - c1[i]) * t));
@@ -1699,44 +1715,18 @@ tecnicasTabs.forEach(tab=>{
   function build(){
     const scrollY = window.scrollY;
     const glowTop = startEl.getBoundingClientRect().top + scrollY;
-    const tecTop = tecEl.getBoundingClientRect().top + scrollY;
     const glowBottom = footerEl.getBoundingClientRect().bottom + scrollY;
     const totalHeight = Math.max(glowBottom - glowTop, 1);
-    const tecStart = tecTop - glowTop;
 
-    // El título de Técnicas (texto claro sobre fondo oscuro) marca el límite
-    // real de la transición: hay que llegar a navy ANTES de que aparezca,
-    // pero recién ahí, para que la rampa sea lo más larga y difusa posible.
-    const tecKickerEl = tecEl.querySelector(".section-kicker");
-    const tecKickerY = tecKickerEl
-      ? (tecKickerEl.getBoundingClientRect().top + scrollY) - glowTop
-      : tecStart + 260;
-
+    // Muchos puntos (uno cada ~18px en promedio) para que la curva -que
+    // acelera fuerte en su tramo medio- se vea perfectamente lisa; un
+    // linear-gradient sólo interpola en línea recta entre stops, así que
+    // pocos puntos ahí se notarían como pequeños quiebres.
+    const steps = 220;
     const stops = [];
-    // Todo el degradé es UNA sola transición de blanco a navy que nunca se
-    // detiene del todo -sigue cambiando hasta el final de la página-, sin
-    // tramos planos que hagan sentir que el color "marca" el arranque de una
-    // sección. Eso sí: el texto de Técnicas (claro sobre oscuro) necesita el
-    // fondo ya bastante oscuro para cuando aparece su título, así que el
-    // primer tramo llega rápido a un tono seguro (SAFE_MIX) -no a navy
-    // pleno- y de ahí en más se sigue oscureciendo, muy de a poco, hasta
-    // llegar a navy pleno recién en el último píxel de la página.
-    const SAFE_MIX = 0.88;
-    const rampEnd = Math.max(tecStart + 220, tecKickerY - 40);
-    const rampSteps = 24;
-    for(let i = 0; i <= rampSteps; i++){
-      const t = i / rampSteps;
-      // Potencia alta: el contenido propio de El producto (tarjetas, aviso
-      // de preparación) todavía comparte este tramo y necesita quedar casi
-      // blanco -su texto es oscuro-, así que el tinte real recién se nota
-      // sobre el final del tramo, ya pisando el borde de Técnicas.
-      stops.push([rampEnd * t, lerpColor(WHITE, NAVY, SAFE_MIX * Math.pow(t, 4.5))]);
-    }
-    const driftSteps = 20;
-    for(let i = 1; i <= driftSteps; i++){
-      const t = i / driftSteps;
-      const mix = SAFE_MIX + (1 - SAFE_MIX) * t;
-      stops.push([rampEnd + (totalHeight - rampEnd) * t, lerpColor(WHITE, NAVY, mix)]);
+    for(let i = 0; i <= steps; i++){
+      const t = i / steps;
+      stops.push([totalHeight * t, lerpColor(WHITE, NAVY, mixAt(t))]);
     }
 
     const gradient = "linear-gradient(to bottom, " +
