@@ -21,7 +21,7 @@
   --line:#E6E9F4;
   --gold:#B8862E;
   --silver:#9CA0A4;
-  --taupe:#8C8579;
+  --taupe:#706A61; /* oscurecido ~20% respecto al taupe original (#8C8579): como texto chico sobre blanco daba 3.65:1, por debajo de WCAG AA (4.5:1) */
 
   --font: 'Montserrat', sans-serif;
 }
@@ -269,7 +269,7 @@ section{ padding:112px 0; }
   display:inline-flex; align-items:center;
   font-family:var(--font); font-size:11.5px; font-weight:700; color:#fff;
   text-transform:uppercase; letter-spacing:0.1em;
-  background:#706A61; /* var(--taupe) oscurecido ~20%: blanco sobre --taupe da 3.65:1, no pasa WCAG AA (4.5:1) para texto chico */
+  background:var(--taupe);
   padding:7px 16px;
   border-radius:999px;
   margin-bottom:24px;
@@ -404,9 +404,9 @@ section{ padding:112px 0; }
 /* ---------- SUBHEAD (nivel intermedio dentro de una sección) ---------- */
 .subhead{
   font-family:var(--font);
-  font-weight:700;
-  font-size:clamp(13px,1.4vw,14.5px);
-  letter-spacing:0.1em;
+  font-weight:400;
+  font-size:clamp(15px,1.7vw,17px);
+  letter-spacing:0.14em;
   text-transform:uppercase;
   color:var(--navy);
   margin-bottom:8px;
@@ -432,28 +432,20 @@ section{ padding:112px 0; }
   box-shadow:0 1px 2px rgba(15,27,69,0.04);
 }
 .path-kicker{
-  display:flex; align-items:center; gap:10px;
-  font-family:var(--font); font-size:11.5px; font-weight:700; color:var(--taupe);
-  text-transform:uppercase; letter-spacing:0.08em; margin-bottom:16px;
+  display:flex; align-items:center; gap:12px;
+  font-family:var(--font); font-size:13px; font-weight:700; color:var(--taupe);
+  text-transform:uppercase; letter-spacing:0.06em; margin-bottom:18px;
 }
 .path-kicker .path-icon{
-  width:30px; height:30px; border-radius:9px; flex-shrink:0;
+  width:34px; height:34px; border-radius:10px; flex-shrink:0;
   background:var(--blue-soft); display:flex; align-items:center; justify-content:center;
 }
-.path-kicker .path-icon svg{ width:16px; height:16px; stroke:var(--blue); }
+.path-kicker .path-icon svg{ width:18px; height:18px; stroke:var(--blue); }
 .path-card h3{
-  font-size:clamp(19px,2.2vw,23px); margin-bottom:16px; letter-spacing:-0.015em;
+  font-size:clamp(19px,2.2vw,23px); margin-bottom:12px; letter-spacing:-0.015em;
 }
-.path-toggle{
-  font-family:var(--font); font-size:12.5px; font-weight:700; color:var(--blue);
-  text-transform:uppercase; letter-spacing:0.04em; cursor:pointer;
-  list-style:none; display:inline-flex; align-items:center; gap:6px;
-}
-.path-toggle::-webkit-details-marker{ display:none; }
-.path-toggle .chev{ width:9px; height:9px; border-right:1.5px solid var(--blue); border-bottom:1.5px solid var(--blue); transform:rotate(45deg); transition:transform .2s; margin-top:-3px; }
-details[open] > .path-toggle .chev{ transform:rotate(-135deg); margin-top:3px; }
 .path-desc{
-  font-size:13.5px; font-weight:500; color:var(--text-soft); margin-top:14px; max-width:48ch;
+  font-size:13.5px; font-weight:500; color:var(--text-soft); max-width:48ch;
 }
 
 /* ---------- ACCORDION (qué tenemos en cuenta / preparación) ---------- */
@@ -505,6 +497,47 @@ details[open] > .accordion-summary .accordion-plus::after{ opacity:0; }
   font-size:13.5px; font-weight:500; color:var(--text-soft);
 }
 @media (max-width:480px){ .accordion-body{ padding-left:22px; } }
+
+/* ---------- AVISO DE PREPARACIÓN (envase no listo para decorar) ----------
+   Una sola tarjeta, siempre visible (sin desplegable), con un borde rojo
+   difuminado -sutil, no una alerta agresiva- para marcar que es una
+   aclaración importante sin que compita con el resto de la página. */
+.prep-notice{
+  position:relative;
+  background:var(--surface);
+  border-radius:20px;
+  padding:28px 30px;
+  border:1px solid rgba(178,72,63,0.22);
+  box-shadow:0 0 0 1px rgba(178,72,63,0.04), 0 10px 30px rgba(178,72,63,0.08);
+}
+.prep-notice-head{
+  display:flex; align-items:flex-start; gap:14px;
+  margin-bottom:22px;
+}
+.prep-notice-icon{
+  width:34px; height:34px; border-radius:10px; flex-shrink:0;
+  background:rgba(178,72,63,0.08);
+  display:flex; align-items:center; justify-content:center;
+}
+.prep-notice-icon svg{ width:18px; height:18px; stroke:#B2483F; }
+.prep-notice-head h3{ font-size:clamp(17px,2vw,19px); margin-bottom:5px; letter-spacing:-0.01em; }
+.prep-notice-head p{ font-size:14px; font-weight:500; color:var(--text-soft); }
+.prep-notice-items{
+  display:grid; grid-template-columns:1fr 1fr; gap:16px 32px;
+  padding:20px 0; margin-bottom:20px;
+  border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+}
+@media (max-width:720px){ .prep-notice-items{ grid-template-columns:1fr; } }
+.prep-notice-item{ display:flex; gap:12px; align-items:flex-start; }
+.prep-notice-item-icon{
+  width:30px; height:30px; border-radius:9px; flex-shrink:0;
+  background:var(--blue-soft);
+  display:flex; align-items:center; justify-content:center;
+}
+.prep-notice-item-icon svg{ width:16px; height:16px; stroke:var(--blue); }
+.prep-notice-item p{ font-size:13.5px; font-weight:500; color:var(--text-soft); margin:0; }
+.prep-notice-item strong{ color:var(--text); font-weight:700; }
+.prep-notice-foot{ font-size:13px; font-weight:500; color:var(--taupe); margin:0; }
 
 /* ---------- CHAPTER GLOW: degradé largo y difuso desde El producto hasta El desarrollo ---------- */
 /* Posicionado y medido por JS (arranca en #glow-start, termina al pie de
@@ -988,54 +1021,41 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
     <div class="path-grid">
       <div class="path-card">
         <div class="path-kicker">
-          <span class="path-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="12" height="12" rx="1.5"/><path d="M9 7V5a2 2 0 0 1 2-2h1"/><path d="M17 13h4M21 13l-2.5-2.5M21 13l-2.5 2.5"/></svg></span>
-          Trae tu envase
+          <span class="path-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="7" rx="1.2"/><path d="M7 6h10"/><path d="M4.5 15.8c0-1.7 1.8-3 4.2-3h6.6c2.4 0 4.2 1.3 4.2 3"/></svg></span>
+          Trae la base de tu producto
         </div>
         <h3>¿Ya tenés un envase?</h3>
-        <details>
-          <summary class="path-toggle">Ver más <span class="chev"></span></summary>
-          <p class="path-desc">Analizamos sus características y te asesoramos sobre las posibilidades de decoración.</p>
-        </details>
+        <p class="path-desc">Analizamos sus características y te asesoramos sobre las posibilidades de decoración.</p>
       </div>
       <div class="path-card">
         <div class="path-kicker">
           <span class="path-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="6"/><line x1="20" y1="20" x2="14.5" y2="14.5"/></svg></span>
-          Buscamos el envase
+          Buscamos la base de tu producto
         </div>
         <h3>¿Todavía no tenés uno?</h3>
-        <details>
-          <summary class="path-toggle">Ver más <span class="chev"></span></summary>
-          <p class="path-desc">Trabajamos junto a fabricantes y proveedores de Argentina y del exterior para encontrar el modelo adecuado.</p>
-        </details>
+        <p class="path-desc">Trabajamos junto a fabricantes y proveedores de Argentina y del exterior para encontrar el modelo adecuado.</p>
       </div>
     </div>
 
-    <h3 class="subhead" style="margin-top:56px;">¿Tu envase no viene listo para decorar?</h3>
-    <p class="section-intro">Algunos envases necesitan procesos previos antes de poder decorarse. Tocá cada tarjeta para ver el detalle.</p>
-
-    <div class="accordion-grid" style="margin-top:32px;">
-      <details class="accordion-item">
-        <summary class="accordion-summary">
-          <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c-1 4-5 5-5 10a5 5 0 0 0 10 0c0-1.5-.7-2.5-1.5-3.5.2 2-.8 3-1.8 3-1.2 0-1.7-1-1.2-2.2C13.2 7 12.5 4 12 2Z"/></svg></span>
-          <span class="accordion-summary-text">
-            <span class="accordion-kicker">Quemado de etiquetas</span>
-            <span class="accordion-question">¿Tiene etiquetas o restos de adhesivo?</span>
-          </span>
-          <span class="accordion-plus"></span>
-        </summary>
-        <div class="accordion-body">Eliminamos etiquetas y restos de adhesivo del vidrio.</div>
-      </details>
-      <details class="accordion-item">
-        <summary class="accordion-summary">
-          <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2s7 8 7 13a7 7 0 0 1-14 0c0-5 7-13 7-13Z"/><line x1="4" y1="20" x2="20" y2="4"/></svg></span>
-          <span class="accordion-summary-text">
-            <span class="accordion-kicker">Remoción de capa antiadherente</span>
-            <span class="accordion-question">¿Trae una capa antipintura de fábrica?</span>
-          </span>
-          <span class="accordion-plus"></span>
-        </summary>
-        <div class="accordion-body">Si trae una capa antipintura de fábrica, la retiramos.</div>
-      </details>
+    <div class="prep-notice" style="margin-top:56px;">
+      <div class="prep-notice-head">
+        <span class="prep-notice-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="12" y1="7.8" x2="12" y2="13"/><circle cx="12" cy="16.3" r="0.9" fill="#B2483F" stroke="none"/></svg></span>
+        <div>
+          <h3>¿Tu producto no viene listo para decorar?</h3>
+          <p>Algunos materiales necesitan procesos previos antes de poder decorarse.</p>
+        </div>
+      </div>
+      <div class="prep-notice-items">
+        <div class="prep-notice-item">
+          <span class="prep-notice-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c-1 4-5 5-5 10a5 5 0 0 0 10 0c0-1.5-.7-2.5-1.5-3.5.2 2-.8 3-1.8 3-1.2 0-1.7-1-1.2-2.2C13.2 7 12.5 4 12 2Z"/></svg></span>
+          <p><strong>Quemado de etiquetas:</strong> eliminamos etiquetas y restos de adhesivo del producto.</p>
+        </div>
+        <div class="prep-notice-item">
+          <span class="prep-notice-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2s7 8 7 13a7 7 0 0 1-14 0c0-5 7-13 7-13Z"/><line x1="4" y1="20" x2="20" y2="4"/></svg></span>
+          <p><strong>Remoción de capa antiadherente:</strong> si trae una capa antipintura de fábrica, lo retiramos.</p>
+        </div>
+      </div>
+      <p class="prep-notice-foot">Si no sabés si viene listo para decorar, envianos una muestra y la analizamos.</p>
     </div>
 
   </div>
