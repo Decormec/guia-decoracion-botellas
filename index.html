@@ -441,9 +441,6 @@ section{ padding:112px 0; }
   background:var(--blue-soft); display:flex; align-items:center; justify-content:center;
 }
 .path-kicker .path-icon svg{ width:18px; height:18px; stroke:var(--blue); }
-.path-card h3{
-  font-size:clamp(19px,2.2vw,23px); margin-bottom:12px; letter-spacing:-0.015em;
-}
 .path-desc{
   font-size:13.5px; font-weight:500; color:var(--text-soft); max-width:48ch;
 }
@@ -528,13 +525,6 @@ details[open] > .accordion-summary .accordion-plus::after{ opacity:0; }
   border-top:1px solid var(--line); border-bottom:1px solid var(--line);
 }
 @media (max-width:720px){ .prep-notice-items{ grid-template-columns:1fr; } }
-.prep-notice-item{ display:flex; gap:12px; align-items:flex-start; }
-.prep-notice-item-icon{
-  width:30px; height:30px; border-radius:9px; flex-shrink:0;
-  background:var(--blue-soft);
-  display:flex; align-items:center; justify-content:center;
-}
-.prep-notice-item-icon svg{ width:16px; height:16px; stroke:var(--blue); }
 .prep-notice-item p{ font-size:13.5px; font-weight:500; color:var(--text-soft); margin:0; }
 .prep-notice-item strong{ color:var(--text); font-weight:700; }
 .prep-notice-foot{ font-size:13px; font-weight:500; color:var(--taupe); margin:0; }
@@ -1024,7 +1014,6 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
           <span class="path-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="7" rx="1.2"/><path d="M7 6h10"/><path d="M4.5 15.8c0-1.7 1.8-3 4.2-3h6.6c2.4 0 4.2 1.3 4.2 3"/></svg></span>
           Trae la base de tu producto
         </div>
-        <h3>¿Ya tenés un envase?</h3>
         <p class="path-desc">Analizamos sus características y te asesoramos sobre las posibilidades de decoración.</p>
       </div>
       <div class="path-card">
@@ -1032,7 +1021,6 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
           <span class="path-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="6"/><line x1="20" y1="20" x2="14.5" y2="14.5"/></svg></span>
           Buscamos la base de tu producto
         </div>
-        <h3>¿Todavía no tenés uno?</h3>
         <p class="path-desc">Trabajamos junto a fabricantes y proveedores de Argentina y del exterior para encontrar el modelo adecuado.</p>
       </div>
     </div>
@@ -1042,20 +1030,27 @@ footer .meta{ font-family:var(--font); font-size:12.5px; font-weight:500; color:
         <span class="prep-notice-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="12" y1="7.8" x2="12" y2="13"/><circle cx="12" cy="16.3" r="0.9" fill="#B2483F" stroke="none"/></svg></span>
         <div>
           <h3>¿Tu producto no viene listo para decorar?</h3>
-          <p>Algunos materiales necesitan procesos previos antes de poder decorarse.</p>
+          <p>Preparamos la superficie para que la decoración tenga la adherencia y terminación que necesitás.</p>
         </div>
       </div>
       <div class="prep-notice-items">
         <div class="prep-notice-item">
-          <span class="prep-notice-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c-1 4-5 5-5 10a5 5 0 0 0 10 0c0-1.5-.7-2.5-1.5-3.5.2 2-.8 3-1.8 3-1.2 0-1.7-1-1.2-2.2C13.2 7 12.5 4 12 2Z"/></svg></span>
-          <p><strong>Quemado de etiquetas:</strong> eliminamos etiquetas y restos de adhesivo del producto.</p>
+          <p><strong>Limpieza y desengrase:</strong> eliminamos polvo, grasas, siliconas y otros contaminantes que pueden afectar la decoración.</p>
         </div>
         <div class="prep-notice-item">
-          <span class="prep-notice-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2s7 8 7 13a7 7 0 0 1-14 0c0-5 7-13 7-13Z"/><line x1="4" y1="20" x2="20" y2="4"/></svg></span>
-          <p><strong>Remoción de capa antiadherente:</strong> si trae una capa antipintura de fábrica, lo retiramos.</p>
+          <p><strong>Activación de superficie:</strong> realizamos tratamientos como flameado u otros procesos para mejorar la adherencia sobre determinados materiales.</p>
+        </div>
+        <div class="prep-notice-item">
+          <p><strong>Remoción de recubrimientos:</strong> retiramos capas de pintura, barniz o tratamientos previos que puedan interferir con la decoración.</p>
+        </div>
+        <div class="prep-notice-item">
+          <p><strong>Quemado de etiquetas:</strong> eliminamos etiquetas, adhesivos y residuos de envases que necesitan ser reacondicionados.</p>
+        </div>
+        <div class="prep-notice-item">
+          <p><strong>Promotores de adherencia:</strong> cuando el material lo requiere, podemos incorporar tratamientos previos específicos para favorecer la adherencia.</p>
         </div>
       </div>
-      <p class="prep-notice-foot">Si no sabés si viene listo para decorar, envianos una muestra y la analizamos.</p>
+      <p class="prep-notice-foot">Si no sabés si tu producto está listo para decorar, envianos una muestra y analizamos qué preparación necesita antes de comenzar.</p>
     </div>
 
   </div>
@@ -1679,13 +1674,13 @@ tecnicasTabs.forEach(tab=>{
   });
 });
 
-// --- Chapter glow: degradé largo que va desde "¿Cómo consigo mi producto
-// base?" (en El producto) hasta el pie de página, oscureciendo de a poco
-// hasta navy ya entrando a Técnicas y quedándose en ese tono navy de ahí
-// en más -Técnicas, El desarrollo y el footer-, sin volver a blanco. Es
-// estático (no ligado a scroll): se mide y arma una única vez -y cuando
-// cambia el alto de la página-, y se revela con el scroll normal del
-// documento, sin ningún salto ni corte. ---
+// --- Chapter glow: una única transición de blanco a navy que corre desde
+// "¿Cómo consigo mi producto base?" (en El producto) hasta el pie de
+// página, sin tramos planos -sigue oscureciéndose, aunque sea de forma
+// casi imperceptible, hasta el último píxel- para que el color no "marque"
+// dónde arranca cada sección. Es estático (no ligado a scroll): se mide y
+// arma una única vez -y cuando cambia el alto de la página-, y se revela
+// con el scroll normal del documento, sin ningún salto ni corte. ---
 (function(){
   const glowEl = document.querySelector(".chapter-glow");
   const startEl = document.getElementById("glow-start");
@@ -1718,20 +1713,31 @@ tecnicasTabs.forEach(tab=>{
       : tecStart + 260;
 
     const stops = [];
-    // Entrada: una única curva continua de blanco a navy (potencia >1, tipo
-    // ease-in) en vez de tramos separados con ritmos distintos -así se ve
-    // como UN degradé fluido y no como una serie de cortes-. Se mantiene casi
-    // blanca durante buena parte de El producto y acelera recién cerca del
-    // título de Técnicas, que es donde tiene que estar ya bien oscuro.
-    const entryEnd = Math.max(tecStart + 220, tecKickerY - 40);
-    const entrySteps = 24;
-    for(let i = 0; i <= entrySteps; i++){
-      const t = i / entrySteps;
-      stops.push([entryEnd * t, lerpColor(WHITE, NAVY, Math.pow(t, 2.2))]);
+    // Todo el degradé es UNA sola transición de blanco a navy que nunca se
+    // detiene del todo -sigue cambiando hasta el final de la página-, sin
+    // tramos planos que hagan sentir que el color "marca" el arranque de una
+    // sección. Eso sí: el texto de Técnicas (claro sobre oscuro) necesita el
+    // fondo ya bastante oscuro para cuando aparece su título, así que el
+    // primer tramo llega rápido a un tono seguro (SAFE_MIX) -no a navy
+    // pleno- y de ahí en más se sigue oscureciendo, muy de a poco, hasta
+    // llegar a navy pleno recién en el último píxel de la página.
+    const SAFE_MIX = 0.88;
+    const rampEnd = Math.max(tecStart + 220, tecKickerY - 40);
+    const rampSteps = 24;
+    for(let i = 0; i <= rampSteps; i++){
+      const t = i / rampSteps;
+      // Potencia alta: el contenido propio de El producto (tarjetas, aviso
+      // de preparación) todavía comparte este tramo y necesita quedar casi
+      // blanco -su texto es oscuro-, así que el tinte real recién se nota
+      // sobre el final del tramo, ya pisando el borde de Técnicas.
+      stops.push([rampEnd * t, lerpColor(WHITE, NAVY, SAFE_MIX * Math.pow(t, 4.5))]);
     }
-    // De ahí en más -Técnicas, El desarrollo y el footer- se queda en navy,
-    // sin volver a aclarar.
-    stops.push([totalHeight, NAVY]);
+    const driftSteps = 20;
+    for(let i = 1; i <= driftSteps; i++){
+      const t = i / driftSteps;
+      const mix = SAFE_MIX + (1 - SAFE_MIX) * t;
+      stops.push([rampEnd + (totalHeight - rampEnd) * t, lerpColor(WHITE, NAVY, mix)]);
+    }
 
     const gradient = "linear-gradient(to bottom, " +
       stops.map(([pos, c]) => `${toRgb(c)} ${pos.toFixed(1)}px`).join(", ") +
